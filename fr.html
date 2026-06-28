@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KOLOSVIT ASBL &#8212; Cercle de Lumi&#232;re</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background: radial-gradient(circle at top, #4a6fa8 0%, #3a5d96 35%, #2e4f88 70%, #243f78 100%);
+  min-height:100vh;
+  color:#e8edf5;
+  font-family:'Jost',sans-serif;
+  overflow-x:hidden;
+}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  display:flex;align-items:center;
+  padding:10px 18px;
+  background:rgba(30,52,96,0.92);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(242,200,75,0.18);
+  gap:18px;
+}
+.nav-brand{flex:1;min-width:0;}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;font-weight:700;
+  letter-spacing:0.2em;color:#f2c84b;
+  text-transform:uppercase;line-height:1;display:block;
+  text-shadow:0 0 8px rgba(242,200,75,0.35);
+}
+.nav-tm{font-size:0.5rem;vertical-align:super;color:rgba(242,200,75,0.6);}
+.nav-star{font-size:0.55rem;vertical-align:super;color:#f2c84b;cursor:pointer;text-decoration:none;position:relative;}
+.nav-star .tip{visibility:hidden;opacity:0;position:absolute;top:-26px;left:50%;transform:translateX(-50%);background:rgba(20,40,90,0.97);color:#f2c84b;font-size:0.55rem;padding:3px 7px;border-radius:6px;white-space:nowrap;border:1px solid rgba(242,200,75,0.2);transition:opacity 0.25s;pointer-events:none;}
+.nav-star:hover .tip{visibility:visible;opacity:1;}
+.nav-asbl{font-size:0.65rem;letter-spacing:0.2em;color:rgba(242,200,75,0.78);text-transform:uppercase;display:block;margin-top:2px;}
+.nav-rcs{font-size:0.58rem;letter-spacing:0.18em;color:rgba(242,200,75,0.48);text-transform:uppercase;display:block;}
+.lang-dropdown{position:relative;flex-shrink:0;}
+.lang-btn{
+  background:none;border:1px solid rgba(242,200,75,0.35);
+  color:rgba(242,200,75,0.85);font-family:'Jost',sans-serif;
+  font-size:0.68rem;letter-spacing:0.1em;padding:6px 10px;
+  border-radius:10px;cursor:pointer;
+  display:flex;align-items:center;gap:5px;white-space:nowrap;
+  transition:all 0.35s ease;
+}
+.lang-btn:hover,.lang-btn.open{border-color:#f2c84b;color:#f2c84b;background:rgba(242,200,75,0.08);box-shadow:0 0 10px rgba(242,200,75,0.2);}
+.lang-btn::after{content:'▾';font-size:0.6rem;transition:transform 0.3s;}
+.lang-btn.open::after{transform:rotate(180deg);}
+.lang-list{
+  display:none;position:absolute;top:calc(100% + 6px);right:0;
+  background:rgba(22,42,88,0.98);backdrop-filter:blur(20px);
+  border:1px solid rgba(242,200,75,0.18);border-radius:12px;
+  min-width:155px;z-index:500;overflow:hidden;
+}
+.lang-list.open{display:block;}
+.lang-list a{
+  display:block;padding:10px 16px;font-size:0.73rem;
+  letter-spacing:0.09em;text-transform:uppercase;
+  color:rgba(242,200,75,0.82);text-decoration:none;
+  border-bottom:1px solid rgba(242,200,75,0.07);
+  transition:all 0.25s ease;
+}
+.lang-list a:last-child{border-bottom:none;}
+.lang-list a:hover{color:#f2c84b;background:rgba(242,200,75,0.08);padding-left:22px;}
+.hamburger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:6px;flex-shrink:0;}
+.hamburger span{display:block;width:22px;height:2px;background:#f2c84b;border-radius:2px;transition:all 0.3s ease;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-menu{
+  display:none;position:fixed;inset:0;z-index:250;
+  background:rgba(38,72,128,0.97);backdrop-filter:blur(24px);
+  padding:70px 32px 40px;
+}
+.nav-menu.open{display:flex;flex-direction:column;justify-content:center;}
+.menu-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#f2c84b;font-size:1.8rem;cursor:pointer;transition:all 0.25s ease;}
+.menu-close:hover{transform:rotate(90deg);}
+.menu-logo{display:block;text-align:center;margin-bottom:28px;}
+.menu-logo img{width:180px;height:auto;opacity:0.95;filter:drop-shadow(0 0 16px rgba(242,200,75,0.3));}
+.menu-top-links{display:flex;justify-content:center;gap:14px;margin-bottom:26px;flex-wrap:wrap;}
+.menu-top-links a{
+  font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(242,200,75,0.75);text-decoration:none;
+  border:1px solid rgba(242,200,75,0.28);padding:7px 16px;
+  border-radius:10px;transition:all 0.35s ease;
+}
+.menu-top-links a:hover{color:#f2c84b;border-color:#f2c84b;background:rgba(242,200,75,0.08);box-shadow:0 0 12px rgba(242,200,75,0.2);}
+.menu-pages a{
+  display:block;padding:18px 0;
+  font-family:'Cormorant Garamond',serif;font-size:1.3rem;
+  font-weight:400;letter-spacing:0.1em;text-transform:uppercase;
+  color:rgba(242,200,75,0.85);text-decoration:none;
+  border-bottom:1px solid rgba(242,200,75,0.1);
+  transition:all 0.35s ease;
+}
+.menu-pages a:hover{color:#f2c84b;padding-left:12px;text-shadow:0 0 10px rgba(242,200,75,0.4);}
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle var(--d,3s) ease-in-out infinite;opacity:var(--o,.2);}
+@keyframes twinkle{0%,100%{opacity:var(--o,.2);transform:scale(1);}50%{opacity:calc(var(--o,.2)*2.5);transform:scale(1.4);}}
+.page{display:none;}.page.active{display:block;}
+.section-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(242,200,75,0.28),transparent);}
+/* HERO IMAGE — cinematic, no crop */
+.hero-image{width:100%;position:relative;z-index:1;padding:88px 28px 0;}
+.hero-image img{
+  width:100%;height:auto;
+  display:block;
+  border-radius:18px;
+  object-fit:contain;
+  box-shadow:0 0 40px rgba(242,200,75,0.14), 0 8px 48px rgba(0,0,0,0.35);
+  animation:breathe 8s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{box-shadow:0 0 25px rgba(242,200,75,0.13),0 8px 40px rgba(0,0,0,0.3);}50%{box-shadow:0 0 45px rgba(242,200,75,0.22),0 8px 52px rgba(0,0,0,0.35);}}
+.hero-block{position:relative;z-index:1;text-align:center;padding:32px 28px 20px;}
+.hero-cta{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:20px;}
+.btn-gold{
+  background:#f2c84b;color:#0f1828;border:none;
+  padding:14px 34px;font-family:'Jost',sans-serif;
+  font-size:0.82rem;font-weight:600;letter-spacing:0.14em;
+  text-transform:uppercase;cursor:pointer;border-radius:14px;
+  transition:all 0.35s ease;
+  box-shadow:0 0 18px rgba(242,200,75,0.28);
+}
+.btn-gold:hover{background:#ffe88a;transform:translateY(-2px);box-shadow:0 0 28px rgba(242,200,75,0.45);}
+.btn-ghost{
+  background:transparent;color:#f2c84b;
+  border:1px solid rgba(242,200,75,0.38);
+  padding:14px 34px;font-family:'Jost',sans-serif;
+  font-size:0.82rem;font-weight:300;letter-spacing:0.14em;
+  text-transform:uppercase;cursor:pointer;border-radius:14px;
+  transition:all 0.35s ease;
+}
+.btn-ghost:hover{border-color:#f2c84b;background:rgba(242,200,75,0.08);transform:translateY(-2px);box-shadow:0 0 18px rgba(242,200,75,0.22);}
+.hero-survey{margin-bottom:32px;}
+.hero-survey a{font-size:0.9rem;font-weight:300;color:rgba(242,200,75,0.88);text-decoration:underline;text-underline-offset:4px;letter-spacing:0.04em;transition:all 0.3s ease;}
+.hero-survey a:hover{color:#ffe88a;text-shadow:0 0 8px rgba(242,200,75,0.4);}
+.hero-eyebrow{font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:#c8a830;margin-bottom:10px;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,11vw,3.8rem);font-weight:700;line-height:1.0;color:#e8edf5;margin-bottom:32px;}
+.hero-title .hl{color:#f2c84b;text-shadow:0 0 12px rgba(242,200,75,0.3);}
+.ring-section{position:relative;z-index:1;display:flex;justify-content:center;padding:28px 0 32px;}
+.ring-wrap{width:min(320px,80vw);height:min(320px,80vw);position:relative;flex-shrink:0;}
+.ring-glow{position:absolute;inset:-40px;border-radius:50%;background:radial-gradient(circle,rgba(242,200,75,0.1) 0%,transparent 68%);animation:glowPulse 4s ease-in-out infinite;pointer-events:none;}
+@keyframes glowPulse{0%,100%{opacity:.4;transform:scale(1);}50%{opacity:.85;transform:scale(1.08);}}
+#hexCanvas{position:absolute;inset:0;width:100%;height:100%;}
+.contact-wrap{text-align:center;padding:0 28px 56px;position:relative;z-index:1;}
+/* PAGE LOGO */
+.page-logo{display:block;text-align:center;margin-bottom:24px;}
+.page-logo img{width:180px;height:auto;opacity:0.94;filter:drop-shadow(0 0 14px rgba(242,200,75,0.28));}
+.inner-page{max-width:880px;margin:0 auto;padding:80px 28px 72px;}
+.page-back{
+  display:inline-flex;align-items:center;gap:7px;margin-bottom:32px;
+  font-size:0.72rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(242,200,75,0.78);text-decoration:none;cursor:pointer;
+  background:none;border:1px solid rgba(242,200,75,0.28);
+  padding:8px 18px;border-radius:10px;transition:all 0.35s ease;
+}
+.page-back:hover{color:#f2c84b;border-color:#f2c84b;background:rgba(242,200,75,0.07);box-shadow:0 0 12px rgba(242,200,75,0.18);}
+.page-eyebrow{font-size:0.65rem;letter-spacing:0.28em;text-transform:uppercase;color:#c8a830;margin-bottom:10px;}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,6vw,3rem);font-weight:700;color:#e8edf5;margin-bottom:40px;line-height:1.1;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;margin-bottom:40px;}
+.card{
+  background:#2F518E;
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(242,200,75,0.13);
+  padding:28px 24px;border-radius:14px;
+  transition:all 0.35s ease;
+}
+.card:hover{background:rgba(242,200,75,0.06);border-color:rgba(242,200,75,0.28);box-shadow:0 0 18px rgba(242,200,75,0.12);transform:translateY(-2px);}
+.card-tag{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#c8a830;margin-bottom:10px;}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:#f2c84b;margin-bottom:12px;line-height:1.3;}
+.card-body{text-shadow:0 1px 2px rgba(0,0,0,.2);font-size:1.0rem;font-weight:300;color:rgba(232,237,245,0.9);line-height:1.85;margin-bottom:14px;}
+.card-date{font-size:0.7rem;color:rgba(242,200,75,0.42);margin-top:8px;}
+.badge{display:inline-block;font-size:0.58rem;letter-spacing:0.13em;text-transform:uppercase;padding:4px 10px;border-radius:8px;margin-bottom:10px;background:rgba(242,200,75,0.12);color:#f2c84b;border:1px solid rgba(242,200,75,0.25);}
+.hdiv{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(242,200,75,0.2),transparent);margin:36px 0;}
+.sh-label{font-size:0.6rem;letter-spacing:0.26em;text-transform:uppercase;color:#c8a830;margin-bottom:6px;}
+.sh-title{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:400;color:#e8edf5;margin-bottom:20px;}
+.field{margin-top:8px;}
+.field input{
+  width:100%;background:rgba(255,255,255,0.06);
+  border:1px solid rgba(242,200,75,0.2);color:#e8edf5;
+  font-family:'Jost',sans-serif;font-size:0.9rem;
+  padding:10px 14px;border-radius:10px;outline:none;
+  transition:all 0.35s ease;margin-top:5px;
+  backdrop-filter:blur(4px);
+}
+.field input::placeholder{color:rgba(242,200,75,0.28);}
+.field input:focus{border-color:rgba(242,200,75,0.52);box-shadow:0 0 10px rgba(242,200,75,0.12);}
+.about-grid{display:grid;grid-template-columns:1fr;gap:32px;}
+.about-logo{text-align:center;}
+.about-logo img{width:160px;height:auto;border-radius:10px;filter:drop-shadow(0 0 14px rgba(242,200,75,0.22));}
+.about-text p{font-size:1.05rem;font-weight:300;color:rgba(232,237,245,0.9);line-height:1.92;margin-bottom:18px;}
+.about-text strong{color:#e8edf5;font-weight:500;}
+.rcs-note{font-size:0.62rem;letter-spacing:0.1em;color:rgba(242,200,75,0.35);text-transform:uppercase;margin-top:16px;}
+.c-row{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(242,200,75,0.1);}
+.c-row:last-of-type{border-bottom:none;}
+.c-lbl{font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#c8a830;min-width:80px;padding-top:2px;}
+.c-val{font-size:0.9rem;font-weight:300;color:rgba(232,237,245,0.85);}
+.c-val a{color:rgba(232,237,245,0.85);text-decoration:none;transition:all 0.3s ease;}
+.c-val a:hover{color:#f2c84b;text-shadow:0 0 8px rgba(242,200,75,0.3);}
+/* FOOTER — світлий, читабельний */
+footer{
+  text-align:center;
+  padding:32px 28px 36px;
+  border-top:1px solid rgba(242,200,75,0.22);
+  background:rgba(25,45,85,0.92);
+  position:relative;z-index:1;opacity:0.9;
+}
+.footer-copy{
+  font-size:1.0rem;
+  letter-spacing:0.06em;
+  color:#c8d8f0;
+  margin-bottom:10px;
+  font-weight:300;
+}
+.footer-copy a{color:#f2c84b;text-decoration:underline;text-underline-offset:3px;}
+.footer-founded{
+  font-size:0.88rem;
+  letter-spacing:0.08em;
+  font-style:italic;
+  color:#a8c4e8;
+  margin-bottom:14px;
+}
+.footer-etym{
+  font-size:0.82rem;
+  line-height:1.78;
+  font-style:italic;
+  color:#b8cce0;
+  max-width:640px;
+  margin:0 auto;
+  padding-top:14px;
+  border-top:1px solid rgba(242,200,75,0.15);
+}
+.footer-etym strong{color:#f2c84b;font-weight:400;}
+/* EN link on lang pages */
+.en-link{flex-shrink:0;font-size:0.68rem;letter-spacing:0.12em;color:rgba(242,200,75,0.75);text-decoration:none;border:1px solid rgba(242,200,75,0.28);padding:5px 11px;border-radius:10px;white-space:nowrap;transition:all 0.35s ease;}
+.en-link:hover{color:#f2c84b;border-color:#f2c84b;background:rgba(242,200,75,0.07);box-shadow:0 0 10px rgba(242,200,75,0.18);}
+@media(min-width:768px){
+  nav{padding:10px 40px;}
+  .hero-image{padding:100px 40px 0;}
+  .ring-wrap{width:420px;height:420px;}
+  .about-grid{grid-template-columns:160px 1fr 1fr;gap:40px;align-items:start;}
+  .inner-page{padding:96px 48px 72px;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-brand">
+    <span class="nav-logo">Kolosvit<sup class="nav-tm">&#8482;</sup></span>
+    <span class="nav-asbl">ASBL Luxembourg</span>
+    <span class="nav-rcs">RCS F15616</span>
+  </div>
+  <a href="index.html" class="en-link"">EN &#8594;</a>
+  <button class="hamburger" id="burger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-menu" id="navMenu">
+  <button class="menu-close" onclick="closeMenu()">&#10005;</button>
+  <a class="menu-logo" href="javascript:void(0)" onclick="showPage('page-home');closeMenu();"><img src="logo.png" alt="KOLOSVIT"></a>
+  <div class="menu-top-links">
+    <a href="javascript:void(0)" onclick="showPage('page-home');closeMenu();">&#8962; Accueil</a>
+    <a href="javascript:void(0)" onclick="goBack();">&#8592; Retour</a>
+  </div>
+  <div class="menu-pages">
+    <a href="javascript:void(0)" onclick="showPage('page-about');closeMenu();">À propos</a>
+    <a href="javascript:void(0)" onclick="showPage('page-pearls');closeMenu();">Pearls</a>
+    <a href="javascript:void(0)" onclick="showPage('page-caretera');closeMenu();">CareterA</a>
+    <a href="javascript:void(0)" onclick="showPage('page-arch');closeMenu();">ARCH</a>
+    <a href="javascript:void(0)" onclick="showPage('page-platform');closeMenu();">Plateforme</a>
+    <a href="javascript:void(0)" onclick="showPage('page-initiatives');closeMenu();">Initiatives</a>
+    <a href="javascript:void(0)" onclick="showPage('page-join');closeMenu();">Rejoindre</a>
+    <a href="javascript:void(0)" onclick="showPage('page-contacts');closeMenu();">Contact</a>
+  </div>
+</div>
+<div class="stars" id="stars"></div>
+<div id="page-home" class="page active">
+  <div class="hero-image">
+    <img src="circle_people_full.jpg" alt="Circle of Light">
+  </div>
+  <div class="section-divider"></div>
+  <div class="hero-block">
+    <div class="hero-cta">
+      <button class="btn-gold" onclick="showPage('page-join')">Rejoindre</button>
+      <button class="btn-ghost" onclick="showPage('page-initiatives')">Initiatives</button>
+    </div>
+    <div class="hero-survey"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank">Dites-nous vos besoins &#8212; aidez-nous &#224; savoir ce qui compte &#8594;</a></div>
+    <div class="hero-eyebrow">Un cercle de bonnes personnes</div>
+    <h1 class="hero-title">Cercle <span class="hl">de Lumi&#232;re</span></h1>
+  </div>
+  <div class="section-divider"></div>
+  <div class="ring-section"><div class="ring-wrap"><div class="ring-glow"></div><canvas id="hexCanvas"></canvas></div></div>
+    <div style="text-align:center;padding:12px 0 4px;opacity:0.5;animation:kolosBounce 2s infinite;">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f2c84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+  </div>
+  <style>@keyframes kolosBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}</style>
+  <div class="contact-wrap"><button class="btn-ghost" onclick="showPage('page-contacts')">Contact</button></div>
+</div>
+
+<div id="page-initiatives" class="page">
+  <div class="inner-page">
+    <a class="page-logo" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+    <button class="page-back" onclick="showPage('page-home')">&#8592; Retour</button>
+    <div class="page-eyebrow">2026</div>
+    <h2 class="page-title">Initiatives</h2>
+    <div class="card-grid">
+      <div class="card"><div class="card-tag">25.03.2026</div><div class="card-title">Grand Th&#233;&#226;tre &middot; Philharmonie &middot; MUDAM</div><div class="card-body">En partenariat avec la Croix-Rouge Luxembourg, nous avons organis&#233; 8 sorties culturelles &#8212; environ 10 participants par &#233;v&#233;nement &#8212; au Grand Th&#233;&#226;tre, &#224; la Philharmonie Luxembourg et au mus&#233;e d&#8217;art contemporain MUDAM. Ces sorties ont donn&#233; aux r&#233;fugi&#233;s ukrainiens l&#8217;occasion de d&#233;couvrir la vie culturelle luxembourgeoise, de trouver des moments de joie et de beaut&#233;, et de se sentir membres de la communaut&#233; europ&#233;enne.</div><div class="card-date">Mars 2026</div></div>
+      <div class="card"><div class="card-tag">26.04.2026</div><div class="card-title">Concert &middot; Serhii &amp; Hanna</div><div class="card-body">Un chaleureux concert communautaire sur le Boulevard Konrad Adenauer a r&#233;uni des Ukrainiens, des Luxembourgeois et des amis de toute l&#8217;Europe. Les artistes Serhii et Hanna ont rempli la soir&#233;e d&#8217;&#226;me, de musique et d&#8217;unit&#233;. Merci tout particuli&#232;rement &#224; Tami &amp; Sergo d&#8217;avoir rendu cette soir&#233;e possible &#8212; votre g&#233;n&#233;rosit&#233; et votre bienveillance envers notre communaut&#233; sont profond&#233;ment ressenties.</div><div class="card-date">Avril 2026</div></div>
+      <div class="card"><div class="card-tag">03.05.2026</div><div class="card-title">Enqu&#234;te communautaire</div><div class="card-body">Nous avons lanc&#233; notre premi&#232;re enqu&#234;te communautaire pour mieux comprendre les besoins r&#233;els des Ukrainiens et des nouveaux arrivants au Luxembourg. Votre voix d&#233;termine notre direction. Chaque r&#233;ponse compte et nous aide &#224; planifier des initiatives qui servent vraiment la communaut&#233;.<br><br><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank" style="color:#f2c84b;text-decoration:underline;">R&#233;pondre &#224; l&#8217;enqu&#234;te &#8594;</a></div><div class="card-date">Mai 2026</div></div>
+    </div>
+    <div class="hdiv"></div>
+    <div class="sh-label">Mai 2026</div>
+    <div class="sh-title">Demandes de subventions</div>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">La culture aide la solidarit&#233;</div><div class="card-body">En partenariat avec l&#8217;ONG &#171;&#160;Strings of Heart&#160;&#187;, nous avons soumis une candidature commune pour le soutien psychologique et culturel des r&#233;fugi&#233;s ukrainiens au Luxembourg, aux Pays-Bas et en Finlande. Le programme combine l&#8217;art-th&#233;rapie, des &#233;v&#233;nements communautaires et des ateliers de r&#233;silience mentale &#8212; pour r&#233;pondre aux traumatismes, &#224; l&#8217;isolement et au d&#233;fi de reconstruire sa vie dans un nouveau pays.</div></div>
+      <div class="card"><div class="card-title">LSA &#8212; Plateforme ARCH</div><div class="card-body">La plateforme ARCH (A&#233;rospatiale, R&#233;silience et Sant&#233; Cognitive) est notre projet le plus ambitieux&#160;: un environnement de simulation combinant des m&#233;thodologies de formation a&#233;rospatiale avec des outils de conscience de la charge cognitive. Con&#231;u pour les milieux professionnels &#224; haute pression, ARCH a &#233;galement une application directe dans le soutien aux r&#233;fugi&#233;s et la formation &#224; la r&#233;silience mentale.</div></div>
+        <p style="font-size:0.86rem;color:rgba(160,210,255,0.95);font-style:italic;line-height:1.75;margin-top:12px;padding-top:10px;border-top:1px solid rgba(160,200,255,0.18);"><strong style="color:rgba(180,225,255,1);">Mise à jour (juin 2026) :</strong> La proposition n'a pas été sélectionnée. KOLOSVIT ASBL apprécie l'opportunité et continue à développer l'initiative.</p>
+    </div>
+  </div>
+        <p style="font-size:0.86rem;color:rgba(160,210,255,0.95);font-style:italic;line-height:1.75;margin-top:12px;padding-top:10px;border-top:1px solid rgba(160,200,255,0.18);"><strong style="color:rgba(180,225,255,1);">Mise à jour (juin 2026) :</strong> La proposition n'a pas été sélectionnée. KOLOSVIT ASBL apprécie l'opportunité et continue à développer l'initiative.</p>
+</div>
+
+<div id="page-join" class="page">
+  <div class="inner-page">
+    <a class="page-logo" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+    <button class="page-back" onclick="showPage('page-home')">&#8592; Retour</button>
+    <h2 class="page-title">Rejoindre</h2>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">Adh&#233;sion</div><div class="card-body">Ouvert &#224; tous ceux qui partagent nos valeurs&#160;: humanit&#233;, soutien, connaissance et lumi&#232;re. Rejoignez un cercle croissant de personnes qui croient en la culture, la r&#233;silience et la communaut&#233;.</div><div class="field"><input type="text" placeholder="Votre nom"></div><div class="field"><input type="email" placeholder="Email"></div><div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold">Rejoindre &#8594;</button></a></div></div>
+      <div class="card"><div class="card-title">B&#233;n&#233;volat</div><div class="card-body">Aide aux &#233;v&#233;nements, &#224; la communication, &#224; la recherche ou &#224; l&#8217;administration. Chaque heure de votre temps aide &#224; cr&#233;er des moments significatifs pour les personnes qui en ont le plus besoin.</div><div class="field"><input type="text" placeholder="Comment vous souhaitez aider"></div><div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-ghost">Rejoindre &#8594;</button></a></div></div>
+      <div class="card"><div class="card-title">Partenariat</div><div class="card-body">Ouvert aux organisations, universit&#233;s et fondations partageant nos valeurs. Nous accueillons les collaborations qui amplifient l&#8217;impact &#8212; culturel, social, scientifique ou humanitaire.</div><div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-ghost">Rejoindre &#8594;</button></a></div></div>
+      <div class="card"><div class="card-title">Enqu&#234;te</div><div class="card-body">Dites-nous vos besoins &#8212; aidez &#224; fixer les bonnes priorit&#233;s. Vos r&#233;ponses fa&#231;onnent directement les initiatives que nous con&#231;evons.</div><div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold">R&#233;pondre &#8594;</button></a></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="page-about" class="page">
+  <div class="inner-page">
+    <button class="page-back" onclick="showPage('page-home')">&#8592; Retour</button>
+    <h2 class="page-title">&#192; propos de KOLOSVIT</h2>
+    <div class="about-grid">
+      <div class="about-logo"><img src="logo.png" alt="KOLOSVIT ASBL"></div>
+      <div class="about-text">
+        <p><strong>KOLOSVIT ASBL</strong> est une association innovante enregistr&#233;e au Luxembourg, o&#249; les technologies du futur servent les besoins humains r&#233;els. Nous croyons que l&#8217;&#233;ducation num&#233;rique, la r&#233;silience mentale et l&#8217;appartenance culturelle ne sont pas des luxes &#8212; ce sont les fondements d&#8217;une vie digne dans un nouveau pays.</p>
+        <p>Fond&#233;e par des Ukrainiens vivant en Europe, KOLOSVIT construit des ponts entre les communaut&#233;s, les g&#233;n&#233;rations et les disciplines. Nous travaillons &#224; l&#8217;intersection de la culture, de la science et du soin social &#8212; toujours guid&#233;s par l&#8217;humanit&#233; en premier.</p>
+        <p>Au moins <strong>90&#160;% de nos ressources</strong> vont directement &#224; notre mission&#160;: soutenir les personnes d&#233;plac&#233;es, d&#233;velopper des programmes &#233;ducatifs et favoriser des liens culturels significatifs dans toute l&#8217;Europe.</p>
+        <p><em>&#171;&#160;Nous sommes unis par des valeurs communes &#8212; l&#8217;humanit&#233;, la connaissance et la conviction que chaque talent compte. Chaque personne qui arrive en portant une perte arrive aussi en portant des dons. Notre r&#244;le est d&#8217;aider ces dons &#224; s&#8217;&#233;panouir.&#160;&#187;</em></p>
+        <p><strong>&#128421; &#201;ducation num&#233;rique</strong> &#8212; Syst&#232;mes autonomes, litt&#233;ratie IA et comp&#233;tences futures.<br>
+        <strong>&#129504; Neuro-r&#233;silience</strong> &#8212; Le programme ARCH pour la sant&#233; cognitive et la r&#233;cup&#233;ration au stress.<br>
+        <strong>&#129309; Int&#233;gration sociale</strong> &#8212; &#201;v&#233;nements culturels, bien-&#234;tre et appartenance communautaire.<br>
+        <strong>&#127807; Environnement</strong> &#8212; La responsabilit&#233; &#233;cologique comme valeur civique.</p>
+        <div class="rcs-note">Luxembourg ASBL &middot; RCS F15616 &middot; Enregistr&#233;e le 1er avril 2026</div>
+      </div>
+      <div>
+        <div class="c-row"><div class="c-lbl">Email</div><div class="c-val"><a href="mailto:kolosvit@proton.me">kolosvit@proton.me</a></div></div>
+        <div class="c-row"><div class="c-lbl">Telegram</div><div class="c-val"><a href="https://t.me/kolosvit_lux" target="_blank">t.me/kolosvit_lux</a></div></div>
+        <div class="c-row"><div class="c-lbl">Instagram</div><div class="c-val"><a href="https://www.instagram.com/kolosvitasbl/" target="_blank">instagram.com/kolosvitasbl</a></div></div>
+        <div class="c-row"><div class="c-lbl">Facebook</div><div class="c-val"><a href="https://www.facebook.com/kolosvitasbl/" target="_blank">facebook.com/kolosvitasbl</a></div></div>
+        <div class="c-row"><div class="c-lbl">LinkedIn</div><div class="c-val"><a href="https://www.linkedin.com/in/kolosvitasbl/" target="_blank">linkedin.com/in/kolosvitasbl</a></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-contacts" class="page">
+  <div class="inner-page">
+    <a class="page-logo" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+    <button class="page-back" onclick="showPage('page-home')">&#8592; Retour</button>
+    <h2 class="page-title">Contact</h2>
+    <div class="c-row"><div class="c-lbl">Email</div><div class="c-val"><a href="mailto:kolosvit@proton.me">kolosvit@proton.me</a></div></div>
+    <div class="c-row"><div class="c-lbl">Telegram</div><div class="c-val"><a href="https://t.me/kolosvit_lux" target="_blank">t.me/kolosvit_lux</a></div></div>
+    <div class="c-row"><div class="c-lbl">Instagram</div><div class="c-val"><a href="https://www.instagram.com/kolosvitasbl/" target="_blank">instagram.com/kolosvitasbl</a></div></div>
+    <div class="c-row"><div class="c-lbl">Facebook</div><div class="c-val"><a href="https://www.facebook.com/kolosvitasbl/" target="_blank">facebook.com/kolosvitasbl</a></div></div>
+    <div class="c-row"><div class="c-lbl">LinkedIn</div><div class="c-val"><a href="https://www.linkedin.com/in/kolosvitasbl/" target="_blank">linkedin.com/in/kolosvitasbl</a></div></div>
+    <div class="c-row"><div class="c-lbl">Enqu&#234;te</div><div class="c-val"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank">Dites-nous vos besoins &#8594;</a></div></div>
+  </div>
+</div>
+
+
+<script>
+let lastPage='page-home';
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));const t=document.getElementById(id);if(t){lastPage=id;t.classList.add('active');}window.scrollTo(0,0);closeMenu();}
+function goBack(){if(lastPage&&lastPage!=='page-home'){showPage('page-home');}else{window.location.href='index.html';}}
+function toggleMenu(){const m=document.getElementById('navMenu'),b=document.getElementById('burger');if(!m||!b)return;m.classList.toggle('open');b.classList.toggle('open');}
+function closeMenu(){const m=document.getElementById('navMenu'),b=document.getElementById('burger');if(m)m.classList.remove('open');if(b)b.classList.remove('open');}
+document.addEventListener('click',function(e){const m=document.getElementById('navMenu'),bu=document.getElementById('burger');if(m&&m.classList.contains('open')&&!m.contains(e.target)&&bu&&!bu.contains(e.target))closeMenu();});
+const starsEl=document.getElementById('stars');
+for(let i=0;i<60;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';const sz=(Math.random()*2+0.4)+'px';s.style.width=sz;s.style.height=sz;s.style.setProperty('--d',(Math.random()*4+2)+'s');s.style.setProperty('--o',(Math.random()*0.28+0.07).toFixed(2));s.style.animationDelay=Math.random()*6+'s';starsEl.appendChild(s);}
+const canvas=document.getElementById('hexCanvas');const ctx=canvas.getContext('2d');let W,H,cx,cy,t=0,cells=[];const HEX_R=17,RING_MIN=118,RING_MAX=210;
+function resize(){const wrap=canvas.parentElement;W=canvas.width=wrap.offsetWidth;H=canvas.height=wrap.offsetHeight;cx=W/2;cy=H/2;buildCells();}
+function buildCells(){const sc=W/480,rMn=RING_MIN*sc,rMx=RING_MAX*sc,hr=HEX_R*sc,ww=hr*Math.sqrt(3),hh=hr*2;cells=[];const rows=Math.ceil(H/(hh*.75))+3,cols=Math.ceil(W/ww)+3;for(let r=-rows;r<rows;r++)for(let c=-cols;c<cols;c++){const x=c*ww+(r%2)*(ww/2),y=r*hh*.75,d=Math.sqrt(x*x+y*y);if(d>=rMn&&d<=rMx)cells.push({x,y,d});}}
+resize();window.addEventListener('resize',resize);
+function hexPath(x,y,r){ctx.beginPath();for(let i=0;i<6;i++){const a=(Math.PI/3)*i-Math.PI/6;i===0?ctx.moveTo(x+r*Math.cos(a),y+r*Math.sin(a)):ctx.lineTo(x+r*Math.cos(a),y+r*Math.sin(a));}ctx.closePath();}
+function animate(){requestAnimationFrame(animate);t+=0.016;ctx.clearRect(0,0,W,H);const sc=W/480,rMn=RING_MIN*sc,rMx=RING_MAX*sc,hr=HEX_R*sc-1.5;cells.forEach(cell=>{const x=cx+cell.x,y=cy+cell.y,norm=(cell.d-rMn)/(rMx-rMn),ang=Math.atan2(cell.y,cell.x);const wave=Math.sin(t*2.4-norm*Math.PI*3.2+ang*1.6)*.5+.5;const pulse=Math.sin(t*1.5+cell.d*.025)*.5+.5;const e=wave*.6+pulse*.4;const cr=Math.round(210+45*e),cg=Math.round(155+75*e),cb=Math.round(25+110*e),br=0.18+e*.72;hexPath(x,y,hr*.80);ctx.fillStyle=`rgba(${cr},${cg},${cb},${br*.30})`;ctx.fill();ctx.strokeStyle=`rgba(${cr},${cg},${cb},${br*.90})`;ctx.lineWidth=0.9;ctx.stroke();});const g=ctx.createRadialGradient(cx,cy,0,cx,cy,rMn*.85);g.addColorStop(0,'rgba(242,200,75,0.12)');g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);}
+animate();
+</script>
+
+
+
+<div id="page-platform" class="page">
+  <div class="inner-page">
+    <button class="page-back" onclick="goBack()">&#8592; Retour</button>
+    <div class="page-eyebrow">KOLOSVIT ASBL</div>
+    <h2 class="page-title">Plateforme d'interaction</h2>
+    <img src="arch2.png" alt="ARCH" style="display:block;width:min(85vw,680px);margin:0 auto 28px;border-radius:8px;">
+    <p style="font-size:0.92rem;font-weight:300;color:#F2F4F8;line-height:1.9;margin-bottom:24px;">KOLOSVIT ASBL se développe comme une <strong style="color:#f0ede4;">plateforme d'interaction</strong> — un réseau reliant des personnes et organisations qui soutiennent l'Ukraine. Pas un "club ukrainien", mais un réseau de coopération <em>autour</em> de l'Ukraine.</p>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:24px;">
+      <div class="sh-label">Réseau de partenaires</div>
+      <p style="font-size:0.92rem;color:#F2F4F8;line-height:1.85;margin-bottom:10px;">KOLOSVIT ASBL représente un réseau de partenaires avec des mémorandums de coopération signés :</p>
+      <ul style="font-size:0.92rem;color:#F2F4F8;line-height:1.9;padding-left:18px;margin-bottom:12px;"><li><strong style="color:#f0ede4;">48</strong> entreprises ukrainiennes</li><li><strong style="color:#f0ede4;">5</strong> organisations civiles ukrainiennes</li><li><strong style="color:#f0ede4;">1</strong> fondation caritative ukrainienne</li><li><strong style="color:#f0ede4;">3</strong> accords de coopération impliquant une expertise ukrainienne</li></ul>
+      <p style="font-size:0.9rem;color:#F2F4F8;line-height:1.85;margin-bottom:8px;">Les partenaires technologiques incluent <strong style="color:#f2c84b;">LuGus Studios</strong> (Belgique) et <strong style="color:#f2c84b;">Velosidron</strong>. Nous invitons universités et institutions publiques à collaborer.</p>
+      <p style="font-size:0.9rem;color:#F2F4F8;line-height:1.85;margin-bottom:8px;">En <strong style="color:#f0ede4;">mai 2026</strong>, nous avons lancé notre premier projet pilote de formation sur simulateurs de drones — <strong style="color:#f0ede4;">6 stations Liftoff</strong> et <strong style="color:#f0ede4;">1 salle de formation</strong>.</p>
+      <p style="font-size:0.85rem;color:rgba(255,240,200,0.75);line-height:1.75;margin-top:10px;padding-top:10px;border-top:1px solid rgba(242,200,75,0.12);">Sur la base de ces mémorandums, si vous êtes intéressé par des activités de fabrication en Ukraine, nous pouvons vous aider — nos entreprises partenaires bénéficient <strong style="color:#f0ede4;">d'avantages fiscaux pour l'emploi de personnes handicapées</strong>.</p>
+    </div>
+    <div class="card-grid"><div class="card"><div class="card-title">&#128218; Catalogue d'organisations</div><div class="card-body">Organisations et fondations soutenant l'Ukraine.</div></div><div class="card"><div class="card-title">&#128101; Entrepreneurs &amp; Individus</div><div class="card-body">Spécialistes et individus avec leurs formes de soutien.</div></div><div class="card"><div class="card-title">&#127968; Sites partenaires</div><div class="card-body">Espaces disponibles pour événements et projets.</div></div><div class="card"><div class="card-title">&#129504; Catalogue d'experts</div><div class="card-body">Experts prêts à partager leurs connaissances.</div></div><div class="card"><div class="card-title">&#127775; Opportunités</div><div class="card-body">Subventions, locaux, événements et autres opportunités.<br><br><em style="font-size:0.78rem;color:rgba(242,200,75,0.6);">En développement — à compléter avec le temps</em></div></div></div>
+    <div class="hdiv"></div>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.2);padding:22px 24px;border-radius:4px;margin-bottom:24px;">
+      <div class="sh-label">Rejoindre le réseau</div>
+      <p style="font-size:0.92rem;color:#F2F4F8;line-height:1.85;margin-bottom:12px;">Two questions:</p>
+      <p style="font-size:1rem;color:#f2c84b;font-weight:500;margin-bottom:6px;">&#10033; Que recherchez-vous ?</p>
+      <p style="font-size:1rem;color:#f2c84b;font-weight:500;margin-bottom:12px;">&#10033; Que pouvez-vous offrir ?</p>
+      <p style="font-size:0.88rem;color:rgba(255,240,200,0.8);line-height:1.75;">Ceux qui cherchent sans contribuer — même bénévolement — ne rejoignent pas ce réseau.</p>
+    </div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold">Rejoindre le réseau &#8594;</button></a>
+  </div>
+</div>
+
+<div id="page-caretera" class="page">
+  <div class="inner-page">
+    <a class="page-logo" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+    <button class="page-back" onclick="goBack()">← Retour</button>
+    <div class="page-eyebrow">KOLOSVIT ASBL</div>
+    <div style="display:flex;align-items:center;gap:18px;margin-bottom:8px;flex-wrap:wrap;">
+      <img src="caretera_logo.png" alt="CareterA" style="width:72px;height:72px;object-fit:contain;border-radius:8px;">
+      <h2 class="page-title" style="margin:0;">CareterA</h2>
+    </div>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#f2c84b;font-weight:400;letter-spacing:0.06em;margin-bottom:16px;">Santé et Entretien de Votre Bien · We Care. You Relax.</p>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:18px 22px;border-radius:4px;margin-bottom:24px;text-align:center;">
+      <p style="font-size:1rem;font-weight:400;color:#F2F4F8;line-height:1.8;margin:0;">Soins complets et surveillance de votre propriété pendant votre absence.</p>
+    </div>
+    <div style="width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:12px;border-radius:10px;box-shadow:0 0 32px rgba(242,200,75,0.1),0 8px 40px rgba(0,0,0,0.3);">
+      <img src="caretera_banner.png" alt="CareterA" style="display:block;min-width:700px;width:100%;max-width:none;border-radius:10px;">
+    </div>
+    <p style="font-size:0.75rem;color:rgba(255,240,200,0.45);text-align:center;margin-bottom:24px;font-style:italic;">← scroll to see full banner →</p>
+    <div class="hdiv"></div>
+    <div class="sh-label">Nos Services</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">🏠 House Sitting</div>
+        <div class="card-body">Nous résidons sur place et veillons sur votre bien.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🏡 Maisons</div>
+        <div class="card-body">Visites régulières et contrôles.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🚜 Fermes</div>
+        <div class="card-body">Suivi et entretien des biens ruraux.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🏭 Entrepôts</div>
+        <div class="card-body">Sécurité, inspections et rapports d'état.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🏢 Bureaux</div>
+        <div class="card-body">Supervision de vos locaux professionnels.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🏗️ Bâtiments industriels</div>
+        <div class="card-body">Contrôles techniques et entretien préventif.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🔍 Inspections</div>
+        <div class="card-body">Inspections détaillées intérieures et extérieures.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🛡️ Contrôles de sécurité</div>
+        <div class="card-body">Portes, fenêtres, alarmes et plus encore.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🔧 Entretien préventif</div>
+        <div class="card-body">Prévenir les problèmes, protéger la valeur.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">📷 Rapports photo et vidéo</div>
+        <div class="card-body">Rapports clairs avec photos après chaque visite.</div>
+      </div>
+    </div>
+    <div class="hdiv"></div>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.18);padding:20px 24px;border-radius:4px;margin-bottom:24px;">
+      <div class="sh-label">Services futurs</div>
+      <ul style="padding-left:20px;margin:0;">
+        <li style="font-size:0.92rem;color:#F2F4F8;line-height:1.8;">🚁 Inspections par drone</li><li style="font-size:0.92rem;color:#F2F4F8;line-height:1.8;">📡 Surveillance par capteurs</li><li style="font-size:0.92rem;color:#F2F4F8;line-height:1.8;">💻 Historique numérique du bien</li><li style="font-size:0.92rem;color:#F2F4F8;line-height:1.8;">🏠 Jumeau numérique</li>
+      </ul>
+    </div>
+    <div class="hdiv"></div>
+    <div class="sh-label">Pourquoi CareterA</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">✅ Fiable & de confiance</div>
+        <div class="card-body">Service expérimenté, assuré et discret.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">📅 Inspections régulières</div>
+        <div class="card-body">Visites planifiées et rapports détaillés.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">⚠️ Détection précoce</div>
+        <div class="card-body">Nous identifions les problèmes tôt pour éviter des réparations coûteuses.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">📸 Rapports transparents</div>
+        <div class="card-body">Photos, notes et actions — toujours transparents.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🌱 Approche durable</div>
+        <div class="card-body">Nous prenons soin de votre bien et de l'environnement.</div>
+      </div>
+    </div>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:20px 24px;border-radius:4px;margin:24px 0;text-align:center;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#f2c84b;font-style:italic;margin:0;">Nous protégeons la santé, la valeur et la disponibilité de votre bien.</p>
+    </div>
+    <button class="btn-gold" onclick="showPage('page-contacts')">Nous Contacter →</button>
+  </div>
+</div>
+</div>
+
+<div id="page-arch" class="page">
+  <div class="inner-page">
+    <a class="page-logo" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+    <button class="page-back" onclick="goBack()">← Retour</button>
+    <div class="page-eyebrow">KOLOSVIT ASBL</div>
+    <h2 class="page-title">ARCH Alliance</h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#f2c84b;font-weight:400;letter-spacing:0.06em;margin-bottom:6px;">Aerospace Resilience &amp; Cognitive Health</p>
+    <p style="display:inline-block;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;padding:5px 14px;border-radius:8px;background:rgba(242,200,75,0.1);color:#f2c84b;border:1px solid rgba(242,200,75,0.3);margin-bottom:28px;">⚙️ En développement</p>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.95rem;font-weight:300;color:#F2F4F8;line-height:1.9;margin-bottom:10px;">ARCH Resilience Hub est un programme de prévention structuré qui combine surveillance du bien-être assistée par IA, consultations individuelles et activités de résilience en une approche intégrée — adaptée aux défis opérationnels et psychosociaux spécifiques de chaque secteur.</p>
+      <p style="font-size:0.9rem;font-weight:300;color:rgba(255,240,200,0.8);line-height:1.85;font-style:italic;">ARCH ne traite pas. ARCH détecte, informe et recommande. Chaque participant reçoit un plan de rétablissement personnalisé développé avec un consultant.</p>
+    </div>
+    <div class="hdiv"></div>
+    <div class="sh-label">Nos Programmes Pilotes</div>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#f2c84b;margin-bottom:6px;">Programme Pilote · Secteur Financier</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:12px;">ARCH Resilience Hub pour Institutions Financières</p>
+      <p style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;margin-bottom:14px;"><strong style='color:#f0ede4;'>Le Problème :</strong> Les équipes Compliance, AML, Risque et Opérations travaillent sous surcharge cognitive constante — délais réglementaires, responsabilité personnelle et environnements multilingues à haute pression augmentent le risque de burnout et de turnover.</p>
+      <p style="font-size:0.82rem;font-weight:300;color:rgba(255,240,200,0.7);line-height:1.75;font-style:italic;">Budgets pilotes à partir d'environ 10 000 € par mois. Proposition détaillée préparée après une discussion initiale. Co-financement INFPC (~15%) disponible.</p>
+    </div>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#f2c84b;margin-bottom:6px;">Programme Pilote · Logistique & Transport</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:12px;">ARCH Resilience Hub pour Opérateurs de Transport</p>
+      <p style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;margin-bottom:14px;"><strong style='color:#f0ede4;'>Le Problème :</strong> Chauffeurs, dispatchers et coordinateurs font face à la fatigue chronique, au travail en équipes et aux décisions à enjeux élevés. La directive NIS2 classe le transport comme infrastructure critique — la résilience humaine est désormais une obligation de conformité.</p>
+      <p style="font-size:0.82rem;font-weight:300;color:rgba(255,240,200,0.7);line-height:1.75;font-style:italic;">Budgets pilotes à partir d'environ 10 000–12 000 € par mois (version de base) / 15–20 opérateurs.</p>
+    </div>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#f2c84b;margin-bottom:6px;">Programme Pilote · Éducation & Intégration</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:12px;">Formation sur Simulateurs pour Jeunes et Réfugiés</p>
+      <p style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;">Grâce aux simulateurs de vol de drones Liftoff (6 licences, MoU signé), ARCH développe des programmes de formation pratique pour les jeunes et les réfugiés — développant des compétences techniques réelles, la concentration et la résilience par la simulation. Nous déterminons actuellement le lieu et l'équipement pour notre première salle de formation.</p>
+    </div>
+    <div style="background:rgba(242,200,75,0.07);border:1px solid rgba(242,200,75,0.2);padding:20px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#f2c84b;margin-bottom:6px;">Initiative Communautaire</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:10px;">🐾 Programme de Sauvetage — Refuge pour Chiens, Région de Poltava, Ukraine</p>
+      <p style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;">ARCH prépare un programme de sauvetage pour un élevage canin et refuge dans la région de Poltava, Ukraine. Nous prévoyons d'organiser des événements caritatifs et invitons les mécènes et organisations intéressés par la préservation de cet établissement.</p>
+    </div>
+    <div class="hdiv"></div>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#f2c84b;font-weight:600;margin-bottom:12px;">Intéressé à devenir l'une des premières organisations pilotes au Luxembourg ?</p>
+      <p style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;margin-bottom:10px;">Les programmes pilotes sont adaptés à la taille de l'organisation et aux modules sélectionnés. Une proposition détaillée est préparée après une discussion initiale.</p>
+      <p style="font-size:0.88rem;font-weight:300;color:rgba(255,240,200,0.8);line-height:1.8;">Contact direct ? <strong style='color:#f2c84b;'>📧 kolosvit@proton.me</strong></p>
+    </div>
+    <div class="sh-label">Demander une Discussion Pilote</div>
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(242,200,75,0.18);padding:18px 22px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;color:#f2c84b;margin-bottom:10px;">Lors de votre prise de contact, merci d'indiquer :</p>
+      <ul style="padding-left:18px;margin:0;">
+        <li style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;">Votre nom et fonction</li><li style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;">Nom de l'entreprise et secteur</li><li style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;">Votre email professionnel</li><li style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;">Un bref message — ex. : <em style="color:rgba(255,240,200,0.8);">Je souhaite discuter d'un pilote ARCH pour notre organisation.</em></li>
+      </ul>
+    </div>
+    <a href="mailto:kolosvit@proton.me"><button class="btn-gold">Nous Écrire →</button></a>
+  </div>
+</div>
+</div>
+
+<footer>
+  <div class="footer-copy">&#169; 2026 KOLOSVIT ASBL &middot; RCS F15616 | <a href="privacy.html#fr">Politique de confidentialit&#233;</a></div>
+  <div class="footer-founded">Association europ&#233;enne d&#8217;origine ukrainienne</div>
+  <div id="etym" class="footer-etym">* <strong>KOLOSVIT</strong> &#8212; jeu de mots&#160;: <strong>Kolo</strong> (Cercle/Union) + <strong>Svit</strong> (Lumi&#232;re/Monde/Paix) &#8212; un cercle de lumi&#232;re et une communaut&#233; mondiale. <strong>Kolos</strong> (&#201;pi de bl&#233;) + <strong>Vita</strong> (grec&#160;: Vie) &#8212; le grain de la vie, symbole de r&#233;silience et de croissance.</div>
+</footer>
+</body>
+</html>
