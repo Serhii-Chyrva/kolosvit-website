@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KOLOSVIT ASBL &#8212; КОЛОСВІТ</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background: radial-gradient(circle at top, #4a6fa8 0%, #3a5d96 35%, #2e4f88 70%, #243f78 100%);
+  min-height:100vh;
+  color:#e8edf5;
+  font-family:'Jost',sans-serif;
+  overflow-x:hidden;
+}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  display:flex;align-items:center;
+  padding:10px 18px;
+  background:rgba(30,52,96,0.92);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(242,200,75,0.18);
+  gap:18px;
+}
+.nav-brand{flex:1;min-width:0;}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;font-weight:700;
+  letter-spacing:0.2em;color:#f2c84b;
+  text-transform:uppercase;line-height:1;display:block;
+  text-shadow:0 0 8px rgba(242,200,75,0.35);
+}
+.nav-tm{font-size:0.5rem;vertical-align:super;color:rgba(242,200,75,0.6);}
+.nav-star{font-size:0.55rem;vertical-align:super;color:#f2c84b;cursor:pointer;text-decoration:none;position:relative;}
+.nav-star .tip{visibility:hidden;opacity:0;position:absolute;top:-26px;left:50%;transform:translateX(-50%);background:rgba(20,40,90,0.97);color:#f2c84b;font-size:0.55rem;padding:3px 7px;border-radius:6px;white-space:nowrap;border:1px solid rgba(242,200,75,0.2);transition:opacity 0.25s;pointer-events:none;}
+.nav-star:hover .tip{visibility:visible;opacity:1;}
+.nav-asbl{font-size:0.65rem;letter-spacing:0.2em;color:rgba(242,200,75,0.78);text-transform:uppercase;display:block;margin-top:2px;}
+.nav-rcs{font-size:0.58rem;letter-spacing:0.18em;color:rgba(242,200,75,0.48);text-transform:uppercase;display:block;}
+.lang-dropdown{position:relative;flex-shrink:0;}
+.lang-btn{
+  background:none;border:1px solid rgba(242,200,75,0.35);
+  color:rgba(242,200,75,0.85);font-family:'Jost',sans-serif;
+  font-size:0.68rem;letter-spacing:0.1em;padding:6px 10px;
+  border-radius:10px;cursor:pointer;
+  display:flex;align-items:center;gap:5px;white-space:nowrap;
+  transition:all 0.35s ease;
+}
+.lang-btn:hover,.lang-btn.open{border-color:#f2c84b;color:#f2c84b;background:rgba(242,200,75,0.08);box-shadow:0 0 10px rgba(242,200,75,0.2);}
+.lang-btn::after{content:'▾';font-size:0.6rem;transition:transform 0.3s;}
+.lang-btn.open::after{transform:rotate(180deg);}
+.lang-list{
+  display:none;position:absolute;top:calc(100% + 6px);right:0;
+  background:rgba(22,42,88,0.98);backdrop-filter:blur(20px);
+  border:1px solid rgba(242,200,75,0.18);border-radius:12px;
+  min-width:155px;z-index:500;overflow:hidden;
+}
+.lang-list.open{display:block;}
+.lang-list a{
+  display:block;padding:10px 16px;font-size:0.73rem;
+  letter-spacing:0.09em;text-transform:uppercase;
+  color:rgba(242,200,75,0.82);text-decoration:none;
+  border-bottom:1px solid rgba(242,200,75,0.07);
+  transition:all 0.25s ease;
+}
+.lang-list a:last-child{border-bottom:none;}
+.lang-list a:hover{color:#f2c84b;background:rgba(242,200,75,0.08);padding-left:22px;}
+.hamburger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:6px;flex-shrink:0;}
+.hamburger span{display:block;width:22px;height:2px;background:#f2c84b;border-radius:2px;transition:all 0.3s ease;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-menu{
+  display:none;position:fixed;inset:0;z-index:250;
+  background:rgba(38,72,128,0.97);backdrop-filter:blur(24px);
+  padding:70px 32px 40px;
+}
+.nav-menu.open{display:flex;flex-direction:column;justify-content:center;}
+.menu-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#f2c84b;font-size:1.8rem;cursor:pointer;transition:all 0.25s ease;}
+.menu-close:hover{transform:rotate(90deg);}
+.menu-logo{display:block;text-align:center;margin-bottom:28px;}
+.menu-logo img{width:180px;height:auto;opacity:0.95;filter:drop-shadow(0 0 16px rgba(242,200,75,0.3));}
+.menu-top-links{display:flex;justify-content:center;gap:14px;margin-bottom:26px;flex-wrap:wrap;}
+.menu-top-links a{
+  font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(242,200,75,0.75);text-decoration:none;
+  border:1px solid rgba(242,200,75,0.28);padding:7px 16px;
+  border-radius:10px;transition:all 0.35s ease;
+}
+.menu-top-links a:hover{color:#f2c84b;border-color:#f2c84b;background:rgba(242,200,75,0.08);box-shadow:0 0 12px rgba(242,200,75,0.2);}
+.menu-pages a{
+  display:block;padding:18px 0;
+  font-family:'Cormorant Garamond',serif;font-size:1.3rem;
+  font-weight:400;letter-spacing:0.1em;text-transform:uppercase;
+  color:rgba(242,200,75,0.85);text-decoration:none;
+  border-bottom:1px solid rgba(242,200,75,0.1);
+  transition:all 0.35s ease;
+}
+.menu-pages a:hover{color:#f2c84b;padding-left:12px;text-shadow:0 0 10px rgba(242,200,75,0.4);}
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle var(--d,3s) ease-in-out infinite;opacity:var(--o,.2);}
+@keyframes twinkle{0%,100%{opacity:var(--o,.2);transform:scale(1);}50%{opacity:calc(var(--o,.2)*2.5);transform:scale(1.4);}}
+.page{display:none;}.page.active{display:block;}
+.section-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(242,200,75,0.28),transparent);}
+/* HERO IMAGE — cinematic, no crop */
+.hero-image{width:100%;position:relative;z-index:1;padding:88px 28px 0;}
+.hero-image img{
+  width:100%;height:auto;
+  display:block;
+  border-radius:18px;
+  object-fit:contain;
+  box-shadow:0 0 40px rgba(242,200,75,0.14), 0 8px 48px rgba(0,0,0,0.35);
+  animation:breathe 8s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{box-shadow:0 0 25px rgba(242,200,75,0.13),0 8px 40px rgba(0,0,0,0.3);}50%{box-shadow:0 0 45px rgba(242,200,75,0.22),0 8px 52px rgba(0,0,0,0.35);}}
+.hero-block{position:relative;z-index:1;text-align:center;padding:32px 28px 20px;}
+.hero-cta{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:20px;}
+.btn-gold{
+  background:#f2c84b;color:#0f1828;border:none;
+  padding:14px 34px;font-family:'Jost',sans-serif;
+  font-size:0.82rem;font-weight:600;letter-spacing:0.14em;
+  text-transform:uppercase;cursor:pointer;border-radius:14px;
+  transition:all 0.35s ease;
+  box-shadow:0 0 18px rgba(242,200,75,0.28);
+}
+.btn-gold:hover{background:#ffe88a;transform:translateY(-2px);box-shadow:0 0 28px rgba(242,200,75,0.45);}
+.btn-ghost{
+  background:transparent;color:#f2c84b;
+  border:1px solid rgba(242,200,75,0.38);
+  padding:14px 34px;font-family:'Jost',sans-serif;
+  font-size:0.82rem;font-weight:300;letter-spacing:0.14em;
+  text-transform:uppercase;cursor:pointer;border-radius:14px;
+  transition:all 0.35s ease;
+}
+.btn-ghost:hover{border-color:#f2c84b;background:rgba(242,200,75,0.08);transform:translateY(-2px);box-shadow:0 0 18px rgba(242,200,75,0.22);}
+.hero-survey{margin-bottom:32px;}
+.hero-survey a{font-size:0.9rem;font-weight:300;color:rgba(242,200,75,0.88);text-decoration:underline;text-underline-offset:4px;letter-spacing:0.04em;transition:all 0.3s ease;}
+.hero-survey a:hover{color:#ffe88a;text-shadow:0 0 8px rgba(242,200,75,0.4);}
+.hero-eyebrow{font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:#c8a830;margin-bottom:10px;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,11vw,3.8rem);font-weight:700;line-height:1.0;color:#e8edf5;margin-bottom:32px;}
+.hero-title .hl{color:#f2c84b;text-shadow:0 0 12px rgba(242,200,75,0.3);}
+.ring-section{position:relative;z-index:1;display:flex;justify-content:center;padding:28px 0 32px;}
+.ring-wrap{width:min(320px,80vw);height:min(320px,80vw);position:relative;flex-shrink:0;}
+.ring-glow{position:absolute;inset:-40px;border-radius:50%;background:radial-gradient(circle,rgba(242,200,75,0.1) 0%,transparent 68%);animation:glowPulse 4s ease-in-out infinite;pointer-events:none;}
+@keyframes glowPulse{0%,100%{opacity:.4;transform:scale(1);}50%{opacity:.85;transform:scale(1.08);}}
+#hexCanvas{position:absolute;inset:0;width:100%;height:100%;}
+.contact-wrap{text-align:center;padding:0 28px 56px;position:relative;z-index:1;}
+/* PAGE LOGO */
+.page-logo{display:block;text-align:center;margin-bottom:24px;}
+.page-logo img{width:180px;height:auto;opacity:0.94;filter:drop-shadow(0 0 14px rgba(242,200,75,0.28));}
+.inner-page{max-width:880px;margin:0 auto;padding:80px 28px 72px;}
+.page-back{
+  display:inline-flex;align-items:center;gap:7px;margin-bottom:32px;
+  font-size:0.72rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(242,200,75,0.78);text-decoration:none;cursor:pointer;
+  background:none;border:1px solid rgba(242,200,75,0.28);
+  padding:8px 18px;border-radius:10px;transition:all 0.35s ease;
+}
+.page-back:hover{color:#f2c84b;border-color:#f2c84b;background:rgba(242,200,75,0.07);box-shadow:0 0 12px rgba(242,200,75,0.18);}
+.page-eyebrow{font-size:0.65rem;letter-spacing:0.28em;text-transform:uppercase;color:#c8a830;margin-bottom:10px;}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,6vw,3rem);font-weight:700;color:#e8edf5;margin-bottom:40px;line-height:1.1;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;margin-bottom:40px;}
+.card{
+  background:#2F518E;
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(242,200,75,0.13);
+  padding:28px 24px;border-radius:14px;
+  transition:all 0.35s ease;
+}
+.card:hover{background:rgba(242,200,75,0.06);border-color:rgba(242,200,75,0.28);box-shadow:0 0 18px rgba(242,200,75,0.12);transform:translateY(-2px);}
+.card-tag{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#c8a830;margin-bottom:10px;}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:#f2c84b;margin-bottom:12px;line-height:1.3;}
+.card-body{text-shadow:0 1px 2px rgba(0,0,0,.2);font-size:1.0rem;font-weight:300;color:rgba(232,237,245,0.9);line-height:1.85;margin-bottom:14px;}
+.card-date{font-size:0.7rem;color:rgba(242,200,75,0.42);margin-top:8px;}
+.badge{display:inline-block;font-size:0.58rem;letter-spacing:0.13em;text-transform:uppercase;padding:4px 10px;border-radius:8px;margin-bottom:10px;background:rgba(242,200,75,0.12);color:#f2c84b;border:1px solid rgba(242,200,75,0.25);}
+.hdiv{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(242,200,75,0.2),transparent);margin:36px 0;}
+.sh-label{font-size:0.6rem;letter-spacing:0.26em;text-transform:uppercase;color:#c8a830;margin-bottom:6px;}
+.sh-title{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:400;color:#e8edf5;margin-bottom:20px;}
+.field{margin-top:8px;}
+.field input{
+  width:100%;background:rgba(255,255,255,0.06);
+  border:1px solid rgba(242,200,75,0.2);color:#e8edf5;
+  font-family:'Jost',sans-serif;font-size:0.9rem;
+  padding:10px 14px;border-radius:10px;outline:none;
+  transition:all 0.35s ease;margin-top:5px;
+  backdrop-filter:blur(4px);
+}
+.field input::placeholder{color:rgba(242,200,75,0.28);}
+.field input:focus{border-color:rgba(242,200,75,0.52);box-shadow:0 0 10px rgba(242,200,75,0.12);}
+.about-grid{display:grid;grid-template-columns:1fr;gap:32px;}
+.about-logo{text-align:center;}
+.about-logo img{width:160px;height:auto;border-radius:10px;filter:drop-shadow(0 0 14px rgba(242,200,75,0.22));}
+.about-text p{font-size:1.05rem;font-weight:300;color:rgba(232,237,245,0.9);line-height:1.92;margin-bottom:18px;}
+.about-text strong{color:#e8edf5;font-weight:500;}
+.rcs-note{font-size:0.62rem;letter-spacing:0.1em;color:rgba(242,200,75,0.35);text-transform:uppercase;margin-top:16px;}
+.c-row{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(242,200,75,0.1);}
+.c-row:last-of-type{border-bottom:none;}
+.c-lbl{font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#c8a830;min-width:80px;padding-top:2px;}
+.c-val{font-size:0.9rem;font-weight:300;color:rgba(232,237,245,0.85);}
+.c-val a{color:rgba(232,237,245,0.85);text-decoration:none;transition:all 0.3s ease;}
+.c-val a:hover{color:#f2c84b;text-shadow:0 0 8px rgba(242,200,75,0.3);}
+/* FOOTER — світлий, читабельний */
+footer{
+  text-align:center;
+  padding:32px 28px 36px;
+  border-top:1px solid rgba(242,200,75,0.22);
+  background:rgba(25,45,85,0.92);
+  position:relative;z-index:1;opacity:0.9;
+}
+.footer-copy{
+  font-size:1.0rem;
+  letter-spacing:0.06em;
+  color:#c8d8f0;
+  margin-bottom:10px;
+  font-weight:300;
+}
+.footer-copy a{color:#f2c84b;text-decoration:underline;text-underline-offset:3px;}
+.footer-founded{
+  font-size:0.88rem;
+  letter-spacing:0.08em;
+  font-style:italic;
+  color:#a8c4e8;
+  margin-bottom:14px;
+}
+.footer-etym{
+  font-size:0.82rem;
+  line-height:1.78;
+  font-style:italic;
+  color:#b8cce0;
+  max-width:640px;
+  margin:0 auto;
+  padding-top:14px;
+  border-top:1px solid rgba(242,200,75,0.15);
+}
+.footer-etym strong{color:#f2c84b;font-weight:400;}
+/* EN link on lang pages */
+.en-link{flex-shrink:0;font-size:0.68rem;letter-spacing:0.12em;color:rgba(242,200,75,0.75);text-decoration:none;border:1px solid rgba(242,200,75,0.28);padding:5px 11px;border-radius:10px;white-space:nowrap;transition:all 0.35s ease;}
+.en-link:hover{color:#f2c84b;border-color:#f2c84b;background:rgba(242,200,75,0.07);box-shadow:0 0 10px rgba(242,200,75,0.18);}
+@media(min-width:768px){
+  nav{padding:10px 40px;}
+  .hero-image{padding:100px 40px 0;}
+  .ring-wrap{width:420px;height:420px;}
+  .about-grid{grid-template-columns:160px 1fr 1fr;gap:40px;align-items:start;}
+  .inner-page{padding:96px 48px 72px;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-brand">
+    <span class="nav-logo">КОЛОСВІТ<sup class="nav-tm">&#8482;</sup><a class="nav-star" onclick="scrollToEtym();return false;" href="#etym"><span class="tip">Дізнайся значення нижче</span>*</a></span>
+    <span class="nav-asbl">ASBL Luxembourg</span>
+    <span class="nav-rcs">RCS F15616</span>
+  </div>
+  <a href="index.html" style="flex-shrink:0;font-size:0.68rem;letter-spacing:0.12em;color:rgba(242,200,75,0.75);text-decoration:none;border:1px solid rgba(242,200,75,0.3);padding:5px 10px;border-radius:2px;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.color='#f2c84b';this.style.borderColor='#f2c84b';" onmouseout="this.style.color='rgba(242,200,75,0.75)';this.style.borderColor='rgba(242,200,75,0.3)';">EN &#8594;</a>
+  <button class="hamburger" id="burger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-menu" id="navMenu">
+  <button class="menu-close" onclick="closeMenu()">&#10005;</button>
+  <a class="menu-logo" href="javascript:void(0)" onclick="showPage('page-home');closeMenu();"><img src="logo.png" alt="KOLOSVIT"></a>
+  <div class="menu-top-links">
+    <a href="javascript:void(0)" onclick="showPage('page-home');closeMenu();">&#8962; Головна</a>
+    <a href="javascript:void(0)" onclick="goBack();">&#8592; Назад</a>
+  </div>
+    <div class="menu-pages">
+    <a href="javascript:void(0)" onclick="showPage('page-about');closeMenu();">Про нас</a>
+    <a href="javascript:void(0)" onclick="showPage('page-pearls');closeMenu();">Pearls</a>
+    <a href="javascript:void(0)" onclick="showPage('page-caretera');closeMenu();">CareterA</a>
+    <a href="javascript:void(0)" onclick="showPage('page-arch');closeMenu();">ARCH</a>
+    <a href="javascript:void(0)" onclick="showPage('page-platform');closeMenu();">Платформа</a>
+    <a href="javascript:void(0)" onclick="showPage('page-initiatives');closeMenu();">Ініціативи</a>
+    <a href="javascript:void(0)" onclick="showPage('page-join');closeMenu();">Приєднатися</a>
+    <a href="javascript:void(0)" onclick="showPage('page-contacts');closeMenu();">Контакт</a>
+  </div>
+</div>
+<div class="stars" id="stars"></div>
+<div id="page-home" class="page active">
+  <div class="hero-image">
+    <img src="circle_people_full.jpg" alt="Circle of Light">
+  </div>
+  <div class="section-divider"></div>
+  <div class="hero-block">
+    <div class="hero-cta">
+      <button class="btn-gold" onclick="showPage('page-join')">Долучитись</button>
+      <button class="btn-ghost" onclick="showPage('page-initiatives')">Ініціативи</button>
+    </div>
+    <div class="hero-survey">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank">Скажи свої потреби &#8212; допоможи знати, що важливо &#8594;</a>
+    </div>
+    <div class="hero-eyebrow">Коло добрих людей</div>
+    <h1 class="hero-title">Коло <span class="hl">світла</span></h1>
+  </div>
+  <div class="section-divider"></div>
+  <div class="ring-section"><div class="ring-wrap"><div class="ring-glow"></div><canvas id="hexCanvas"></canvas></div></div>
+  <div style="text-align:center;padding:12px 0 4px;opacity:0.5;animation:bounce 2s infinite;">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f2c84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+  </div>
+  <style>@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}</style>
+  <div class="contact-wrap"><button class="btn-ghost" onclick="showPage('page-contacts')">Контакти</button></div>
+</div>
+
+<div id="page-initiatives" class="page">
+  <div class="inner-page">
+    <a class="page-logo" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+    <button class="page-back" onclick="showPage('page-home')">&#8592; Назад</button>
+    <div class="page-eyebrow">2026</div>
+    <h2 class="page-title">Ініціативи</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-tag">25.03.2026</div>
+        <div class="card-title">Grand Th&#233;&#226;tre &middot; Philharmonie &middot; MUDAM</div>
+        <div class="card-body">Разом з Червоним Хрестом Люксембургу ми організували 8 культурних екскурсій &#8212; приблизно 10 учасників на кожний захід &#8212; до Grand Th&#233;&#226;tre, Philharmonie Luxembourg та музею сучасного мистецтва MUDAM. Ці поїздки дали українським біженцям можливість долучитись до культурного життя Люксембургу, знайти моменти радості та краси, і відчути себе частиною європейської спільноти.</div>
+        <div class="card-date">Березень 2026</div>
+      </div>
+      <div class="card">
+        <div class="card-tag">26.04.2026</div>
+        <div class="card-title">Концерт &middot; Сергій &amp; Ганна</div>
+        <div class="card-body">Теплий громадський концерт на бульварі Конрад Аденауер зібрав українців, люксембуржців та друзів з усієї Європи. Виконавці Сергій та Ганна наповнили вечір душею, музикою та єдністю. Особлива подяка Тамі &amp; Серго за те, що цей вечір став можливим &#8212; ваша щедрість і турбота про нашу спільноту справді відчувається.</div>
+        <div class="card-date">Квітень 2026</div>
+      </div>
+      <div class="card">
+        <div class="card-tag">03.05.2026</div>
+        <div class="card-title">Опитування спільноти</div>
+        <div class="card-body">Ми запустили перше опитування спільноти, щоб краще розуміти реальні потреби українців та новоприбулих у Люксембурзі. Ваш голос визначає наш напрямок. Кожна відповідь має значення та допомагає нам планувати ініціативи, які справді служать спільноті.<br><br><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank" style="color:#f2c84b;text-decoration:underline;">Заповнити опитування &#8594;</a></div>
+        <div class="card-date">Травень 2026</div>
+      </div>
+    </div>
+    <div class="hdiv"></div>
+    <div class="sh-label">Травень 2026</div>
+    <div class="sh-title">Грантові заявки</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="badge">На розгляді</div>
+        <div class="card-title">Культура допомагає солідарності</div>
+        <div class="card-body">У партнерстві з НКО &#171;Strings of Heart&#187; ми подали спільну заявку на психологічну та культурну підтримку українських біженців у Люксембурзі, Нідерландах та Фінляндії. Програма поєднує арт-терапію, громадські заходи та майстер-класи з ментальної стійкості &#8212; для подолання травм, ізоляції та виклику відновлення життя в новій країні.</div>
+        <p style="font-size:0.86rem;color:rgba(160,210,255,0.95);font-style:italic;line-height:1.75;margin-top:12px;padding-top:10px;border-top:1px solid rgba(160,200,255,0.18);"><strong style="color:rgba(180,225,255,1);">Оновлення (червень 2026):</strong> Пропозиція не була відібрана в поточному циклі фінансування. KOLOSVIT ASBL вдячний за можливість взяти участь і продовжує розвивати ініціативу через інші партнерства та можливості фінансування.</p>
+      </div>
+      <div class="card">
+        <div class="badge">На розгляді</div>
+        <div class="card-title">LSA &#8212; Платформа ARCH</div>
+        <div class="card-body">Платформа ARCH (Aerospace Resilience &amp; Cognitive Health) &#8212; наш найамбітніший проект: середовище симуляції, яке поєднує аерокосмічні методики навчання з інструментами усвідомлення когнітивного навантаження. Розроблена для висококонкурентних професійних середовищ, ARCH також має пряме застосування у підтримці біженців та тренінгах ментальної стійкості. Перша публічна фаза наразі готується.</div>
+        <p style="font-size:0.86rem;color:rgba(160,210,255,0.95);font-style:italic;line-height:1.75;margin-top:12px;padding-top:10px;border-top:1px solid rgba(160,200,255,0.18);"><strong style="color:rgba(180,225,255,1);">Оновлення (червень 2026):</strong> Пропозиція не була відібрана в поточному циклі фінансування. KOLOSVIT ASBL вдячний за можливість взяти участь і продовжує розвивати ініціативу через інші партнерства та можливості фінансування.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-join" class="page">
+  <div class="inner-page">
+    <a class="page-logo" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+    <button class="page-back" onclick="showPage('page-home')">&#8592; Назад</button>
+    <h2 class="page-title">Долучитись</h2>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">Членство</div><div class="card-body">Відкрито для всіх, хто поділяє наші цінності: людяність, підтримку, знання та світло. Стань частиною зростаючого кола людей, які вірять у культуру, стійкість і спільноту.</div><div class="field"><input type="text" placeholder="Твоє ім'я"></div><div class="field"><input type="email" placeholder="Email"></div><div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold">Долучитись &#8594;</button></a></div></div>
+      <div class="card"><div class="card-title">Волонтерство</div><div class="card-body">Допомога з заходами, комунікацією, дослідженнями або адміністративною роботою. Кожна година твого часу допомагає створювати значущі моменти для людей, які їх потребують.</div><div class="field"><input type="text" placeholder="Як хочеш допомогти"></div><div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-ghost">Долучитись &#8594;</button></a></div></div>
+      <div class="card"><div class="card-title">Партнерство</div><div class="card-body">Відкрито для організацій, університетів і фондів, що поділяють наші цінності. Ми вітаємо співпрацю, яка примножує вплив &#8212; культурний, соціальний, науковий або гуманітарний.</div><div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-ghost">Долучитись &#8594;</button></a></div></div>
+      <div class="card"><div class="card-title">Опитування</div><div class="card-body">Розкажи нам про свої потреби &#8212; допоможи визначити правильні пріоритети. Твої відповіді безпосередньо формують ініціативи, які ми розробляємо.</div><div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold">Заповнити &#8594;</button></a></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="page-about" class="page">
+  <div class="inner-page">
+    <button class="page-back" onclick="showPage('page-home')">&#8592; Назад</button>
+    <h2 class="page-title">Про КОЛОСВІТ</h2>
+    <div class="about-grid">
+      <div class="about-logo"><img src="logo.png" alt="KOLOSVIT ASBL"></div>
+      <div class="about-text">
+        <p><strong>KOLOSVIT ASBL</strong> &#8212; це інноваційна асоціація, зареєстрована в Люксембурзі, де майбутні технології служать реальним людським потребам. Ми віримо, що цифрова освіта, ментальна стійкість і культурна приналежність &#8212; це не розкіш, а основа гідного життя в новій країні.</p>
+        <p>Заснована українцями, які живуть у Європі, KOLOSVIT будує мости між спільнотами, поколіннями та дисциплінами. Ми працюємо на перетині культури, науки та соціальної турботи &#8212; завжди керуючись людяністю перш за все.</p>
+        <p>Щонайменше <strong>90% наших ресурсів</strong> йдуть безпосередньо на місію: підтримку переміщених людей, розвиток освітніх програм і сприяння значущим культурним зв&#8217;язкам у всій Європі.</p>
+        <p><em>&#8220;Нас об&#8217;єднують спільні цінності &#8212; людяність, знання та впевненість у тому, що кожен талант має значення. Кожна людина, яка приходить із втратою, приходить і з дарами. Наша роль &#8212; допомогти цим дарам розцвісти.&#8221;</em></p>
+        <p><strong>&#128421; Цифрова освіта</strong> &#8212; Автономні системи, AI-грамотність та навички майбутнього.<br>
+        <strong>&#129504; Нейро-стійкість</strong> &#8212; Програма ARCH для когнітивного здоров&#8217;я та відновлення після стресу.<br>
+        <strong>&#129309; Соціальна інтеграція</strong> &#8212; Культурні заходи, велнес і відчуття спільноти.<br>
+        <strong>&#127807; Довкілля</strong> &#8212; Екологічна відповідальність як громадянська цінність.</p>
+        <div class="rcs-note">Luxembourg ASBL &middot; RCS F15616 &middot; Зареєстровано 1 квітня 2026</div>
+      </div>
+      <div>
+        <div class="c-row"><div class="c-lbl">Email</div><div class="c-val"><a href="mailto:kolosvit@proton.me">kolosvit@proton.me</a></div></div>
+        <div class="c-row"><div class="c-lbl">Telegram</div><div class="c-val"><a href="https://t.me/ASBLKolosvit" target="_blank">t.me/ASBLKolosvit</a></div></div>
+        <div class="c-row"><div class="c-lbl">Telegram</div><div class="c-val"><a href="https://t.me/kolosvit_lux" target="_blank">t.me/kolosvit_lux</a> <span style="font-size:0.8rem;color:rgba(255,240,200,0.6);">(платформа взаємодії по конкретним календарним напрямкам)</span></div></div>
+        <div class="c-row"><div class="c-lbl">Instagram</div><div class="c-val"><a href="https://www.instagram.com/kolosvitasbl/" target="_blank">instagram.com/kolosvitasbl</a> <span style="font-size:0.8rem;color:rgba(255,240,200,0.6);">(у розробці)</span></div></div>
+        <div class="c-row"><div class="c-lbl">Facebook</div><div class="c-val"><a href="https://www.facebook.com/kolosvitasbl/" target="_blank">facebook.com/kolosvitasbl</a> <span style="font-size:0.8rem;color:rgba(255,240,200,0.6);">(у розробці)</span></div></div>
+        <div class="c-row"><div class="c-lbl">LinkedIn</div><div class="c-val"><a href="https://www.linkedin.com/in/kolosvitasbl/" target="_blank">linkedin.com/in/kolosvitasbl</a> <span style="font-size:0.8rem;color:rgba(255,240,200,0.6);">(у розробці)</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-contacts" class="page">
+  <div class="inner-page">
+    <a class="page-logo" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+    <button class="page-back" onclick="showPage('page-home')">&#8592; Назад</button>
+    <h2 class="page-title">Контакти</h2>
+    <div class="c-row"><div class="c-lbl">Email</div><div class="c-val"><a href="mailto:kolosvit@proton.me">kolosvit@proton.me</a></div></div>
+    <div class="c-row"><div class="c-lbl">Telegram</div><div class="c-val"><a href="https://t.me/ASBLKolosvit" target="_blank">t.me/ASBLKolosvit</a></div></div>
+    <div class="c-row"><div class="c-lbl">Опитування</div><div class="c-val"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank">Скажи нам свої потреби &#8594;</a></div></div>
+  </div>
+</div>
+
+<script>
+let lastPage='page-home';
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));const t=document.getElementById(id);if(t){lastPage=id;t.classList.add('active');}window.scrollTo(0,0);closeMenu();}
+function goBack(){if(lastPage&&lastPage!=='page-home'){showPage('page-home');}else{window.location.href='index.html';}}
+function toggleMenu(){const m=document.getElementById('navMenu'),b=document.getElementById('burger');if(!m||!b)return;m.classList.toggle('open');b.classList.toggle('open');}
+function closeMenu(){const m=document.getElementById('navMenu'),b=document.getElementById('burger');if(m)m.classList.remove('open');if(b)b.classList.remove('open');}
+function scrollToEtym(){showPage('page-home');setTimeout(()=>{const el=document.getElementById('etym');if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},120);}
+document.addEventListener('click',function(e){const m=document.getElementById('navMenu'),bu=document.getElementById('burger');if(m&&m.classList.contains('open')&&!m.contains(e.target)&&bu&&!bu.contains(e.target))closeMenu();});
+const starsEl=document.getElementById('stars');
+for(let i=0;i<60;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';const sz=(Math.random()*2+0.4)+'px';s.style.width=sz;s.style.height=sz;s.style.setProperty('--d',(Math.random()*4+2)+'s');s.style.setProperty('--o',(Math.random()*0.28+0.07).toFixed(2));s.style.animationDelay=Math.random()*6+'s';starsEl.appendChild(s);}
+const canvas=document.getElementById('hexCanvas');const ctx=canvas.getContext('2d');let W,H,cx,cy,t=0,cells=[];const HEX_R=17,RING_MIN=118,RING_MAX=210;
+function resize(){const wrap=canvas.parentElement;W=canvas.width=wrap.offsetWidth;H=canvas.height=wrap.offsetHeight;cx=W/2;cy=H/2;buildCells();}
+function buildCells(){const sc=W/480,rMn=RING_MIN*sc,rMx=RING_MAX*sc,hr=HEX_R*sc,ww=hr*Math.sqrt(3),hh=hr*2;cells=[];const rows=Math.ceil(H/(hh*.75))+3,cols=Math.ceil(W/ww)+3;for(let r=-rows;r<rows;r++)for(let c=-cols;c<cols;c++){const x=c*ww+(r%2)*(ww/2),y=r*hh*.75,d=Math.sqrt(x*x+y*y);if(d>=rMn&&d<=rMx)cells.push({x,y,d});}}
+resize();window.addEventListener('resize',resize);
+function hexPath(x,y,r){ctx.beginPath();for(let i=0;i<6;i++){const a=(Math.PI/3)*i-Math.PI/6;i===0?ctx.moveTo(x+r*Math.cos(a),y+r*Math.sin(a)):ctx.lineTo(x+r*Math.cos(a),y+r*Math.sin(a));}ctx.closePath();}
+function animate(){requestAnimationFrame(animate);t+=0.016;ctx.clearRect(0,0,W,H);const sc=W/480,rMn=RING_MIN*sc,rMx=RING_MAX*sc,hr=HEX_R*sc-1.5;cells.forEach(cell=>{const x=cx+cell.x,y=cy+cell.y,norm=(cell.d-rMn)/(rMx-rMn),ang=Math.atan2(cell.y,cell.x);const wave=Math.sin(t*2.4-norm*Math.PI*3.2+ang*1.6)*.5+.5;const pulse=Math.sin(t*1.5+cell.d*.025)*.5+.5;const e=wave*.6+pulse*.4;const cr=Math.round(210+45*e),cg=Math.round(155+75*e),cb=Math.round(25+110*e),br=0.18+e*.72;hexPath(x,y,hr*.80);ctx.fillStyle=`rgba(${cr},${cg},${cb},${br*.30})`;ctx.fill();ctx.strokeStyle=`rgba(${cr},${cg},${cb},${br*.90})`;ctx.lineWidth=0.9;ctx.stroke();});const g=ctx.createRadialGradient(cx,cy,0,cx,cy,rMn*.85);g.addColorStop(0,'rgba(242,200,75,0.12)');g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);}
+animate();
+</script>
+
+
+
+<div id="page-platform" class="page">
+  <div class="inner-page">
+    <button class="page-back" onclick="goBack()">&#8592; Назад</button>
+    <div class="page-eyebrow">KOLOSVIT ASBL</div>
+    <h2 class="page-title">Платформа взаємодії</h2>
+    <img src="arch2.png" alt="ARCH" style="display:block;width:min(85vw,680px);margin:0 auto 28px;border-radius:8px;">
+    <p style="font-size:0.92rem;font-weight:300;color:#F2F4F8;line-height:1.9;margin-bottom:24px;">KOLOSVIT ASBL розвивається як <strong style="color:#f0ede4;">платформа взаємодії</strong> — мережа, що об'єднує людей та організації, які підтримують Україну і діють разом заради її майбутнього. Не "український клуб", а мережа співпраці <em>навколо</em> України.</p>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:24px;">
+      <div class="sh-label">Мережа партнерів</div>
+      <p style="font-size:0.92rem;color:#F2F4F8;line-height:1.85;margin-bottom:10px;">KOLOSVIT ASBL представляє мережу партнерів з підписаними меморандумами про співпрацю:</p>
+      <ul style="font-size:0.92rem;color:#F2F4F8;line-height:1.9;padding-left:18px;margin-bottom:12px;"><li><strong style="color:#f0ede4;">48</strong> українських підприємств</li><li><strong style="color:#f0ede4;">5</strong> українських громадських організацій</li><li><strong style="color:#f0ede4;">1</strong> українського благодійного фонду</li><li><strong style="color:#f0ede4;">3</strong> угоди про співпрацю за участі української експертизи</li></ul>
+      <p style="font-size:0.9rem;color:#F2F4F8;line-height:1.85;margin-bottom:8px;">Технологічні партнери включають <strong style="color:#f2c84b;">LuGus Studios</strong> (Бельгія) та <strong style="color:#f2c84b;">Velosidron</strong>. Запрошуємо до співпраці університети, освітні центри та державні структури.</p>
+      <p style="font-size:0.9rem;color:#F2F4F8;line-height:1.85;margin-bottom:8px;">У <strong style="color:#f0ede4;">травні 2026</strong> ми запустили перший пілотний проект з навчання на симуляторах дронів — зараз працюємо з <strong style="color:#f0ede4;">6 ліцензіями Liftoff</strong>. Ми визначаємось з місцем та обладнанням для нашого <strong style="color:#f0ede4;">першого навчального класу</strong>.</p>
+      <p style="font-size:0.85rem;color:rgba(255,240,200,0.75);line-height:1.75;margin-top:10px;padding-top:10px;border-top:1px solid rgba(242,200,75,0.12);">На основі цих меморандумів, якщо вас цікавить виробнича діяльність в Україні — ми можемо допомогти. Наші партнерські підприємства мають <strong style="color:#f0ede4;">податкові пільги за умови працевлаштування людей з інвалідністю</strong>.</p>
+    </div>
+    <div class="card-grid"><div class="card"><div class="card-title">&#128218; Каталог організацій</div><div class="card-body">Організації та фонди, що підтримують Україну.</div></div><div class="card"><div class="card-title">&#128101; Підприємці та фізособи</div><div class="card-body">Фахівці та приватні особи з формами підтримки.</div></div><div class="card"><div class="card-title">&#127968; Партнерські майданчики</div><div class="card-body">Простори для заходів, зустрічей та проектів.</div></div><div class="card"><div class="card-title">&#129504; Каталог експертів</div><div class="card-body">Експерти, готові ділитися знаннями та співпрацювати.</div></div><div class="card"><div class="card-title">&#127775; Можливості</div><div class="card-body">Гранти, приміщення, події та інші можливості.<br><br><em style="font-size:0.78rem;color:rgba(242,200,75,0.6);">У розробці — поповнюватиметься з часом</em></div></div></div>
+    <div class="hdiv"></div>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.2);padding:22px 24px;border-radius:4px;margin-bottom:24px;">
+      <div class="sh-label">Приєднатися до мережі</div>
+      <p style="font-size:0.92rem;color:#F2F4F8;line-height:1.85;margin-bottom:12px;">Two questions:</p>
+      <p style="font-size:1rem;color:#f2c84b;font-weight:500;margin-bottom:6px;">&#10033; Що ви шукаєте?</p>
+      <p style="font-size:1rem;color:#f2c84b;font-weight:500;margin-bottom:12px;">&#10033; Що ви готові запропонувати?</p>
+      <p style="font-size:0.88rem;color:rgba(255,240,200,0.8);line-height:1.75;">Ті, хто тільки шукає, не вносячи нічого — навіть у вигляді волонтерства — не приєднуються до цієї мережі. Це принцип живої спільноти.</p>
+    </div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold">Приєднатися до мережі &#8594;</button></a>
+  <footer style="margin-top:48px;padding-top:24px;border-top:1px solid rgba(242,200,75,0.15);text-align:center;">
+    <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);letter-spacing:0.08em;margin-bottom:6px;">&#169; 2026 KOLOSVIT ASBL &middot; RCS F15616 | <a href="privacy.html#ukr" style="color:#f2c84b;text-decoration:underline;">Політика конфіденційності</a></div>
+    <div style="font-size:0.75rem;color:rgba(255,255,255,0.3);font-style:italic;">Асоціація заснована українцями в Європі</div>
+  </footer>
+  </div>
+</div>
+
+  <div id="etym" class="footer-etym">* <strong>KOLOSVIT</strong> &#8212; гра слів з украïнськоï та грецькоï: <strong>Коло</strong> (Коло/Єднання) + <strong>Світ</strong> (Світ/Світло/Мир) &#8212; коло світла і глобальна спільнота. <strong>Колос</strong> (Колос пшениці) + <strong>Vita</strong> (грецьк.: Життя) &#8212; зерно життя, символ стійкості та зростання.</div>
+</body>
+
+<div id="page-caretera" class="page">
+  <div class="inner-page">
+    <a class="page-logo" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+    <button class="page-back" onclick="goBack()">← Назад</button>
+    <div class="page-eyebrow">KOLOSVIT ASBL</div>
+    <div style="display:flex;align-items:center;gap:18px;margin-bottom:8px;flex-wrap:wrap;">
+      <img src="caretera_logo.png" alt="CareterA" style="width:72px;height:72px;object-fit:contain;border-radius:8px;">
+      <h2 class="page-title" style="margin:0;">CareterA</h2>
+    </div>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#f2c84b;font-weight:400;letter-spacing:0.06em;margin-bottom:16px;">Здоров'я та Догляд за Нерухомістю · We Care. You Relax.</p>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:18px 22px;border-radius:4px;margin-bottom:24px;text-align:center;">
+      <p style="font-size:1rem;font-weight:400;color:#F2F4F8;line-height:1.8;margin:0;">Повний догляд та моніторинг вашої нерухомості під час вашої відсутності.</p>
+    </div>
+    <div style="width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:12px;border-radius:10px;box-shadow:0 0 32px rgba(242,200,75,0.1),0 8px 40px rgba(0,0,0,0.3);">
+      <img src="caretera_banner.png" alt="CareterA" style="display:block;min-width:700px;width:100%;max-width:none;border-radius:10px;">
+    </div>
+    <p style="font-size:0.75rem;color:rgba(255,240,200,0.45);text-align:center;margin-bottom:24px;font-style:italic;">← scroll to see full banner →</p>
+    <div class="hdiv"></div>
+    <div class="sh-label">Наші Послуги</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">🏠 House Sitting</div>
+        <div class="card-body">Ми залишаємося у вашій нерухомості та доглядаємо за нею як за власною.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🏡 Будинки</div>
+        <div class="card-body">Регулярні візити та перевірка стану.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🚜 Ферми</div>
+        <div class="card-body">Догляд та моніторинг сільських об'єктів.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🏭 Склади</div>
+        <div class="card-body">Безпека, інспекції та звіти про стан.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🏢 Офіси</div>
+        <div class="card-body">Нагляд за комерційною нерухомістю.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🏗️ Промислові будівлі</div>
+        <div class="card-body">Технічні перевірки та профілактичне обслуговування.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🔍 Інспекції нерухомості</div>
+        <div class="card-body">Детальні інспекції зсередини та зовні.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🛡️ Перевірки безпеки</div>
+        <div class="card-body">Двері, вікна, сигналізації тощо.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🔧 Догляд та обслуговування</div>
+        <div class="card-body">Запобігайте проблемам, захищайте цінність.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">📷 Фото та відео звіти</div>
+        <div class="card-body">Чіткі звіти з фото після кожного візиту.</div>
+      </div>
+    </div>
+    <div class="hdiv"></div>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.18);padding:20px 24px;border-radius:4px;margin-bottom:24px;">
+      <div class="sh-label">Майбутні послуги</div>
+      <ul style="padding-left:20px;margin:0;">
+        <li style="font-size:0.92rem;color:#F2F4F8;line-height:1.8;">🚁 Дронові інспекції</li><li style="font-size:0.92rem;color:#F2F4F8;line-height:1.8;">📡 Сенсорний моніторинг</li><li style="font-size:0.92rem;color:#F2F4F8;line-height:1.8;">💻 Цифрова історія нерухомості</li><li style="font-size:0.92rem;color:#F2F4F8;line-height:1.8;">🏠 Цифровий двійник</li>
+      </ul>
+    </div>
+    <div class="hdiv"></div>
+    <div class="sh-label">Чому CareterA</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">✅ Надійно та перевірено</div>
+        <div class="card-body">Досвідчений, застрахований та дискретний сервіс.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">📅 Регулярні інспекції</div>
+        <div class="card-body">Заплановані візити та детальні звіти про стан.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">⚠️ Раннє виявлення проблем</div>
+        <div class="card-body">Ми виявляємо проблеми заздалегідь та допомагаємо уникнути дорогого ремонту.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">📸 Прозора звітність</div>
+        <div class="card-body">Фото, нотатки та дії — завжди прозоро.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🌱 Сталий підхід</div>
+        <div class="card-body">Ми дбаємо про вашу нерухомість та навколишнє середовище.</div>
+      </div>
+    </div>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:20px 24px;border-radius:4px;margin:24px 0;text-align:center;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#f2c84b;font-style:italic;margin:0;">Ми захищаємо здоров'я, цінність та готовність вашої нерухомості.</p>
+    </div>
+    <button class="btn-gold" onclick="showPage('page-contacts')">Зв'язатися →</button>
+  <footer style="margin-top:48px;padding-top:24px;border-top:1px solid rgba(242,200,75,0.15);text-align:center;">
+    <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);letter-spacing:0.08em;margin-bottom:6px;">&#169; 2026 KOLOSVIT ASBL &middot; RCS F15616 | <a href="privacy.html#ukr" style="color:#f2c84b;text-decoration:underline;">Політика конфіденційності</a></div>
+    <div style="font-size:0.75rem;color:rgba(255,255,255,0.3);font-style:italic;">Асоціація заснована українцями в Європі</div>
+  </footer>
+  </div>
+</div>
+
+<div id="page-arch" class="page">
+  <div class="inner-page">
+    <a class="page-logo" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+    <button class="page-back" onclick="goBack()">← Назад</button>
+    <div class="page-eyebrow">KOLOSVIT ASBL</div>
+    <h2 class="page-title">ARCH Alliance</h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#f2c84b;font-weight:400;letter-spacing:0.06em;margin-bottom:6px;">Aerospace Resilience &amp; Cognitive Health</p>
+    <p style="display:inline-block;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;padding:5px 14px;border-radius:8px;background:rgba(242,200,75,0.1);color:#f2c84b;border:1px solid rgba(242,200,75,0.3);margin-bottom:28px;">⚙️ У розробці</p>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.95rem;font-weight:300;color:#F2F4F8;line-height:1.9;margin-bottom:10px;">ARCH Resilience Hub — це структурована програма профілактики, яка поєднує моніторинг добробуту за допомогою ШІ, індивідуальні консультації та заходи з розвитку стійкості в єдиний інтегрований підхід.</p>
+      <p style="font-size:0.9rem;font-weight:300;color:rgba(255,240,200,0.8);line-height:1.85;font-style:italic;">ARCH не лікує. ARCH виявляє, інформує та рекомендує. Кожен учасник отримує персоналізований план відновлення.</p>
+    </div>
+    <div class="hdiv"></div>
+    <div class="sh-label">Наші Пілотні Програми</div>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#f2c84b;margin-bottom:6px;">Пілотна Програма · Фінансовий Сектор</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:12px;">ARCH Resilience Hub для Фінансових Установ</p>
+      <p style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;margin-bottom:14px;"><strong style='color:#f0ede4;'>Проблема:</strong> Команди Compliance, AML, Ризиків та Операцій працюють під постійним когнітивним навантаженням — регуляторні дедлайни, особиста відповідальність та багатомовне середовище підвищують ризик вигорання та плинності кадрів.</p>
+      <p style="font-size:0.82rem;font-weight:300;color:rgba(255,240,200,0.7);line-height:1.75;font-style:italic;">Пілотні бюджети від приблизно 10 000 € на місяць. Детальна пропозиція готується після вступної розмови.</p>
+    </div>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#f2c84b;margin-bottom:6px;">Пілотна Програма · Логістика та Транспорт</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:12px;">ARCH Resilience Hub для Транспортних Операторів</p>
+      <p style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;margin-bottom:14px;"><strong style='color:#f0ede4;'>Проблема:</strong> Водії, диспетчери та координатори стикаються з хронічною втомою, змінною роботою та відповідальними рішеннями. Директива NIS2 відносить транспорт до критичної інфраструктури.</p>
+      <p style="font-size:0.82rem;font-weight:300;color:rgba(255,240,200,0.7);line-height:1.75;font-style:italic;">Пілотні бюджети від приблизно 10 000–12 000 € на місяць (базова версія) / 15–20 операторів.</p>
+    </div>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#f2c84b;margin-bottom:6px;">Пілотна Програма · Освіта та Інтеграція</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:12px;">Навчання на Симуляторах для Молоді та Біженців</p>
+      <p style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;">За допомогою симуляторів польоту дронів Liftoff (6 ліцензій, підписано MoU) ARCH розробляє практичні навчальні програми для молоді та біженців. Ми визначаємось з місцем та обладнанням для нашого першого навчального класу.</p>
+    </div>
+    <div style="background:rgba(242,200,75,0.07);border:1px solid rgba(242,200,75,0.2);padding:20px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#f2c84b;margin-bottom:6px;">Громадська Ініціатива</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:10px;">🐾 Програма Порятунку — Розплідник та Притулок для Собак, Полтавська область, Україна</p>
+      <p style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;">ARCH готує програму порятунку розплідника та притулку для собак у Полтавській області. Ми плануємо проводити благодійні заходи для збору коштів та запрошуємо меценатів і організації, зацікавлені у збереженні об'єкту із залученням собак.</p>
+    </div>
+    <div class="hdiv"></div>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#f2c84b;font-weight:600;margin-bottom:12px;">Зацікавлені стати однією з перших пілотних організацій у Люксембурзі?</p>
+      <p style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;margin-bottom:10px;">Пілотні програми адаптуються до розміру організації та обраних модулів. Детальна пропозиція готується після вступної розмови.</p>
+      <p style="font-size:0.88rem;font-weight:300;color:rgba(255,240,200,0.8);line-height:1.8;">Прямий контакт? <strong style='color:#f2c84b;'>📧 kolosvit@proton.me</strong></p>
+    </div>
+    <div class="sh-label">Запросити Пілотну Розмову</div>
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(242,200,75,0.18);padding:18px 22px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;color:#f2c84b;margin-bottom:10px;">У листі, будь ласка, вкажіть:</p>
+      <ul style="padding-left:18px;margin:0;">
+        <li style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;">Ваше ім'я та посаду</li><li style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;">Назву компанії та сектор</li><li style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;">Вашу робочу електронну пошту</li><li style="font-size:0.9rem;font-weight:300;color:#F2F4F8;line-height:1.85;">Коротке повідомлення — напр.: <em style="color:rgba(255,240,200,0.8);">Хочу обговорити пілотну програму ARCH для нашої організації.</em></li>
+      </ul>
+    </div>
+    <a href="mailto:kolosvit@proton.me"><button class="btn-gold">Написати нам →</button></a>
+  <footer style="margin-top:48px;padding-top:24px;border-top:1px solid rgba(242,200,75,0.15);text-align:center;">
+    <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);letter-spacing:0.08em;margin-bottom:6px;">&#169; 2026 KOLOSVIT ASBL &middot; RCS F15616 | <a href="privacy.html#ukr" style="color:#f2c84b;text-decoration:underline;">Політика конфіденційності</a></div>
+    <div style="font-size:0.75rem;color:rgba(255,255,255,0.3);font-style:italic;">Асоціація заснована українцями в Європі</div>
+  </footer>
+  </div>
+</div>
+</html>
