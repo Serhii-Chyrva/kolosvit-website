@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KOLOSVIT ASBL Luxembourg</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+img{max-width:100%;height:auto;}
+html{scroll-behavior:smooth;}
+body{
+  background: radial-gradient(circle at top, #4a6fa8 0%, #3a5d96 35%, #2e4f88 70%, #243f78 100%);
+  min-height:100vh;
+  width:100%;
+  color:#e8edf5;
+  font-family:'Jost',sans-serif;
+  overflow-x:hidden;
+  word-wrap:break-word;
+  overflow-wrap:break-word;
+}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  display:flex;align-items:center;
+  padding:10px 18px;
+  background:rgba(30,52,96,0.92);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(242,200,75,0.18);
+  gap:18px;
+}
+.nav-brand{flex:1;min-width:0;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.0rem;font-weight:700;letter-spacing:0.06em;color:#f2c84b;text-transform:uppercase;line-height:1;display:block;white-space:nowrap;text-shadow:0 0 8px rgba(242,200,75,0.35);}
+.nav-tm{font-size:0.5rem;vertical-align:super;color:rgba(242,200,75,0.6);}
+.nav-star{font-size:0.55rem;vertical-align:super;color:#f2c84b;cursor:pointer;text-decoration:none;position:relative;}
+.nav-star .tip{visibility:hidden;opacity:0;position:absolute;top:-26px;left:50%;transform:translateX(-50%);background:rgba(20,40,90,0.97);color:#f2c84b;font-size:0.55rem;padding:3px 7px;border-radius:6px;white-space:nowrap;border:1px solid rgba(242,200,75,0.2);transition:opacity 0.25s;pointer-events:none;}
+.nav-star:hover .tip{visibility:visible;opacity:1;}
+.nav-asbl{font-size:0.6rem;font-weight:700;letter-spacing:0.06em;color:rgba(242,200,75,0.95);text-transform:uppercase;display:block;margin-top:3px;white-space:nowrap;}
+.nav-rcs{font-size:0.62rem;letter-spacing:0.1em;color:#f2c84b;font-weight:700;text-transform:uppercase;display:block;white-space:nowrap;}
+.lang-dropdown{position:relative;flex-shrink:0;}
+.lang-btn{
+  background:none;border:1px solid rgba(242,200,75,0.35);
+  color:rgba(242,200,75,0.85);font-family:'Jost',sans-serif;
+  font-size:0.68rem;letter-spacing:0.1em;padding:6px 10px;
+  border-radius:10px;cursor:pointer;
+  display:flex;align-items:center;gap:5px;white-space:nowrap;
+  transition:all 0.35s ease;
+}
+.lang-btn:hover,.lang-btn.open{border-color:#f2c84b;color:#f2c84b;background:rgba(242,200,75,0.08);box-shadow:0 0 10px rgba(242,200,75,0.2);}
+.lang-btn::after{content:'▾';font-size:0.6rem;transition:transform 0.3s;}
+.lang-btn.open::after{transform:rotate(180deg);}
+.lang-list{
+  display:none;position:absolute;top:calc(100% + 6px);right:0;
+  background:rgba(22,42,88,0.98);backdrop-filter:blur(20px);
+  border:1px solid rgba(242,200,75,0.18);border-radius:12px;
+  min-width:155px;z-index:500;overflow:hidden;
+}
+.lang-list.open{display:block;}
+.lang-list a{
+  display:block;padding:10px 16px;font-size:0.73rem;
+  letter-spacing:0.09em;text-transform:uppercase;
+  color:rgba(242,200,75,0.82);text-decoration:none;
+  border-bottom:1px solid rgba(242,200,75,0.07);
+  transition:all 0.25s ease;
+}
+.lang-list a:last-child{border-bottom:none;}
+.lang-list a:hover{color:#f2c84b;background:rgba(242,200,75,0.08);padding-left:22px;}
+.hamburger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:6px;flex-shrink:0;}
+.hamburger span{display:block;width:22px;height:2px;background:#f2c84b;border-radius:2px;transition:all 0.3s ease;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-menu{
+  display:none;position:fixed;inset:0;z-index:250;
+  background:rgba(38,72,128,0.97);backdrop-filter:blur(24px);
+  padding:118px 32px 40px;
+}
+.nav-menu.open{display:flex;flex-direction:column;justify-content:flex-start;overflow-y:auto;}
+.menu-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#f2c84b;font-size:1.8rem;cursor:pointer;transition:all 0.25s ease;}
+.menu-close:hover{transform:rotate(90deg);}
+.menu-logo{display:none;}
+.menu-logo img{width:100px;height:auto;opacity:0.95;filter:drop-shadow(0 0 16px rgba(242,200,75,0.3));}
+.menu-top-links{display:flex;justify-content:center;gap:14px;margin-bottom:26px;flex-wrap:wrap;}
+.menu-top-links a{
+  font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(242,200,75,0.75);text-decoration:none;
+  border:1px solid rgba(242,200,75,0.28);padding:7px 16px;
+  border-radius:10px;transition:all 0.35s ease;
+}
+.menu-top-links a:hover{color:#f2c84b;border-color:#f2c84b;background:rgba(242,200,75,0.08);box-shadow:0 0 12px rgba(242,200,75,0.2);}
+.menu-pages a{
+  display:block;padding:18px 0;
+  font-family:'Cormorant Garamond',serif;font-size:1.1rem;
+  font-weight:400;letter-spacing:0.1em;text-transform:uppercase;
+  color:rgba(242,200,75,0.85);text-decoration:none;
+  border-bottom:1px solid rgba(242,200,75,0.1);
+  transition:all 0.35s ease;
+}
+.menu-pages a:hover{color:#f2c84b;padding-left:12px;text-shadow:0 0 10px rgba(242,200,75,0.4);}
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle var(--d,3s) ease-in-out infinite;opacity:var(--o,.2);}
+@keyframes twinkle{0%,100%{opacity:var(--o,.2);transform:scale(1);}50%{opacity:calc(var(--o,.2)*2.5);transform:scale(1.4);}}
+.page{display:none;}.page.active{display:block;}
+.section-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(242,200,75,0.28),transparent);}
+/* HERO IMAGE — cinematic, no crop */
+.hero-image{width:100%;position:relative;z-index:1;padding:0 28px 0;}
+.hero-image img{
+  width:100%;height:auto;
+  display:block;
+  border-radius:18px;
+  object-fit:contain;
+  box-shadow:0 0 40px rgba(242,200,75,0.14), 0 8px 48px rgba(0,0,0,0.35);
+  animation:breathe 8s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{box-shadow:0 0 25px rgba(242,200,75,0.13),0 8px 40px rgba(0,0,0,0.3);}50%{box-shadow:0 0 45px rgba(242,200,75,0.22),0 8px 52px rgba(0,0,0,0.35);}}
+.hero-block{position:relative;z-index:1;text-align:center;padding:32px 28px 20px;}
+.hero-cta{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:20px;}
+.btn-gold{
+  background:#f2c84b;color:#0f1828;border:none;
+  padding:14px 34px;font-family:'Jost',sans-serif;
+  font-size:0.82rem;font-weight:600;letter-spacing:0.14em;
+  text-transform:uppercase;cursor:pointer;border-radius:14px;
+  transition:all 0.35s ease;
+  box-shadow:0 0 18px rgba(242,200,75,0.28);
+}
+.btn-gold:hover{background:#ffe88a;transform:translateY(-2px);box-shadow:0 0 28px rgba(242,200,75,0.45);}
+.btn-ghost{
+  background:transparent;color:#f2c84b;
+  border:1px solid rgba(242,200,75,0.38);
+  padding:14px 34px;font-family:'Jost',sans-serif;
+  font-size:0.82rem;font-weight:500;letter-spacing:0.14em;
+  text-transform:uppercase;cursor:pointer;border-radius:14px;
+  transition:all 0.35s ease;
+}
+.btn-ghost:hover{border-color:#f2c84b;background:rgba(242,200,75,0.08);transform:translateY(-2px);box-shadow:0 0 18px rgba(242,200,75,0.22);}
+.hero-survey{margin-bottom:32px;}
+.hero-survey a{font-size:0.9rem;font-weight:500;color:rgba(242,200,75,0.88);text-decoration:underline;text-underline-offset:4px;letter-spacing:0.04em;transition:all 0.3s ease;}
+.hero-survey a:hover{color:#ffe88a;text-shadow:0 0 8px rgba(242,200,75,0.4);}
+.hero-eyebrow{font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:#c8a830;margin-bottom:10px;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,11vw,3.8rem);font-weight:700;line-height:1.0;color:#e8edf5;margin-bottom:32px;}
+.hero-title .hl{color:#f2c84b;text-shadow:0 0 12px rgba(242,200,75,0.3);}
+.ring-section{position:relative;z-index:1;display:flex;justify-content:center;padding:28px 0 32px;}
+.ring-wrap{width:min(320px,80vw);height:min(320px,80vw);position:relative;flex-shrink:0;}
+.ring-glow{position:absolute;inset:-40px;border-radius:50%;background:radial-gradient(circle,rgba(242,200,75,0.1) 0%,transparent 68%);animation:glowPulse 4s ease-in-out infinite;pointer-events:none;}
+@keyframes glowPulse{0%,100%{opacity:.4;transform:scale(1);}50%{opacity:.85;transform:scale(1.08);}}
+#hexCanvas{position:absolute;inset:0;width:100%;height:100%;}
+.contact-wrap{text-align:center;padding:0 28px 56px;position:relative;z-index:1;}
+/* PAGE LOGO */
+.page-logo{display:block;text-align:center;margin:20px 0;}
+.page-logo img{width:120px;height:auto;opacity:0.94;filter:drop-shadow(0 0 14px rgba(242,200,75,0.28));}
+.inner-page{max-width:880px;width:100%;margin:0 auto;padding:24px 28px 72px;overflow-wrap:break-word;word-wrap:break-word;}
+.page-back{
+  display:inline-flex;align-items:center;gap:7px;margin-bottom:32px;
+  font-size:0.72rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(242,200,75,0.78);text-decoration:none;cursor:pointer;
+  background:none;border:1px solid rgba(242,200,75,0.28);
+  padding:8px 18px;border-radius:10px;transition:all 0.35s ease;
+}
+.page-back:hover{color:#f2c84b;border-color:#f2c84b;background:rgba(242,200,75,0.07);box-shadow:0 0 12px rgba(242,200,75,0.18);}
+.page-eyebrow{font-size:0.65rem;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#c8a830;margin-bottom:10px;}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.25rem,4.2vw,1.7rem);font-weight:700;color:#e8edf5;margin-bottom:16px;line-height:1.2;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:26px;}
+.card{
+  min-width:0;
+  background:#2F518E;
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(242,200,75,0.13);
+  border-top:3px solid var(--pg-accent,rgba(242,200,75,0.5));
+  padding:16px 18px;border-radius:12px;
+  transition:all 0.35s ease;
+}
+.card:hover{background:rgba(242,200,75,0.06);border-color:rgba(242,200,75,0.28);box-shadow:0 0 18px rgba(242,200,75,0.12);transform:translateY(-2px);}
+.card-tag{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--pg-accent-text,#c8a830);margin-bottom:6px;}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-weight:600;color:var(--pg-accent-text,#f2c84b);margin-bottom:6px;line-height:1.25;}
+.card-body{text-shadow:0 1px 2px rgba(0,0,0,.2);font-size:0.85rem;font-weight:500;color:rgba(232,237,245,0.9);line-height:1.42;margin-bottom:8px;}
+.card-date{font-size:0.66rem;color:rgba(242,200,75,0.42);margin-top:6px;}
+.badge{display:inline-block;font-size:0.56rem;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border-radius:8px;margin-bottom:8px;background:rgba(242,200,75,0.12);color:var(--pg-accent-text,#f2c84b);border:1px solid rgba(242,200,75,0.25);}
+.hdiv{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(242,200,75,0.2),transparent);margin:22px 0;}
+.sh-label{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--pg-accent-text,#c8a830);margin-bottom:5px;}
+/* ============ PER-PAGE COLOR PHILOSOPHY ============
+   Turquoise = Innovation & Wellbeing (ARCH)
+   Green = Property, Environment (CareterA)
+   Blue = Trust, Communities, Institutions (Municipal)
+   Gold = People, Culture, Values (Pearls/Culture) — default
+   Steel-grey = Technology, AI, Professionalism (Training) */
+#page-arch{--pg-accent:#2fb8ac;--pg-accent-text:#5fe0d2;}
+#page-caretera{--pg-accent:#4caf6e;--pg-accent-text:#8fe0a8;}
+#page-municipal{--pg-accent:#4d7fd6;--pg-accent-text:#8fb4f0;}
+#page-training{--pg-accent:#8a97a8;--pg-accent-text:#c3ccd8;}
+#page-culture, #page-pearls{--pg-accent:#f2c84b;--pg-accent-text:#f2c84b;}
+#page-arch .page-eyebrow,#page-arch .btn-gold{color:#5fe0d2;}
+#page-arch .btn-gold{background:#2fb8ac;color:#06231f;}
+#page-caretera .page-eyebrow{color:#8fe0a8;}
+#page-caretera .btn-gold{background:#4caf6e;color:#0b2412;}
+#page-municipal .page-eyebrow{color:#8fb4f0;}
+#page-municipal .btn-gold{background:#4d7fd6;color:#0c1c3a;}
+#page-training .page-eyebrow{color:#c3ccd8;}
+#page-training .btn-gold{background:#8a97a8;color:#171c22;}
+.sh-title{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:400;color:#e8edf5;margin-bottom:20px;}
+.field{margin-top:8px;}
+.field input{
+  width:100%;background:rgba(255,255,255,0.06);
+  border:1px solid rgba(242,200,75,0.2);color:#e8edf5;
+  font-family:'Jost',sans-serif;font-size:0.9rem;
+  padding:10px 14px;border-radius:10px;outline:none;
+  transition:all 0.35s ease;margin-top:5px;
+  backdrop-filter:blur(4px);
+}
+.field input::placeholder{color:rgba(242,200,75,0.28);}
+.field input:focus{border-color:rgba(242,200,75,0.52);box-shadow:0 0 10px rgba(242,200,75,0.12);}
+.about-grid{display:grid;grid-template-columns:1fr;gap:32px;min-width:0;}
+.about-grid>div{min-width:0;}
+.about-logo{text-align:center;}
+.about-logo img{width:160px;height:auto;border-radius:10px;filter:drop-shadow(0 0 14px rgba(242,200,75,0.22));}
+.about-text p{font-size:0.9rem;font-weight:500;color:rgba(232,237,245,0.9);line-height:1.5;margin-bottom:12px;}
+.about-text strong{color:#e8edf5;font-weight:500;}
+.rcs-note{font-size:0.62rem;letter-spacing:0.1em;color:rgba(242,200,75,0.35);text-transform:uppercase;margin-top:16px;}
+.c-row{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(242,200,75,0.1);min-width:0;}
+.c-row:last-of-type{border-bottom:none;}
+.c-lbl{font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#c8a830;min-width:80px;padding-top:2px;}
+.c-val{font-size:0.9rem;font-weight:500;color:rgba(232,237,245,0.85);min-width:0;overflow-wrap:break-word;word-break:break-word;}
+.c-val a{color:rgba(232,237,245,0.85);text-decoration:none;transition:all 0.3s ease;}
+.c-val a:hover{color:#f2c84b;text-shadow:0 0 8px rgba(242,200,75,0.3);}
+/* FOOTER — світлий, читабельний */
+footer{
+  text-align:center;
+  padding:32px 28px 36px;
+  border-top:1px solid rgba(242,200,75,0.22);
+  background:rgba(25,45,85,0.92);
+  position:relative;z-index:1;opacity:0.9;
+}
+.footer-copy{
+  font-size:1.0rem;
+  letter-spacing:0.06em;
+  color:#c8d8f0;
+  margin-bottom:10px;
+  font-weight:500;
+}
+.footer-copy a{color:#f2c84b;text-decoration:underline;text-underline-offset:3px;}
+.footer-founded{
+  font-size:0.88rem;
+  letter-spacing:0.08em;
+  font-style:italic;
+  color:#a8c4e8;
+  margin-bottom:14px;
+}
+.footer-etym{
+  font-size:0.82rem;
+  line-height:1.48;
+  font-style:italic;
+  color:#b8cce0;
+  max-width:640px;
+  margin:0 auto;
+  padding-top:14px;
+  border-top:1px solid rgba(242,200,75,0.15);
+}
+.footer-etym strong{color:#f2c84b;font-weight:400;}
+/* EN link on lang pages */
+.en-link{flex-shrink:0;font-size:0.68rem;letter-spacing:0.12em;color:rgba(242,200,75,0.75);text-decoration:none;border:1px solid rgba(242,200,75,0.28);padding:5px 11px;border-radius:10px;white-space:nowrap;transition:all 0.35s ease;}
+.en-link:hover{color:#f2c84b;border-color:#f2c84b;background:rgba(242,200,75,0.07);box-shadow:0 0 10px rgba(242,200,75,0.18);}
+/* ============ NEW TOP CONCEPT SECTION ============ */
+.top-hero{
+  position:relative;z-index:1;
+  background:linear-gradient(180deg,#d8f5ef 0%,#a8e5db 55%,#78d2c2 100%);
+  padding:82px 24px 18px;
+  color:#333;
+}
+.top-hero-inner{max-width:1100px;margin:0 auto;text-align:center;}
+.th-tagline{font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#111;margin-bottom:6px;}
+.th-sub{font-size:0.78rem;font-weight:600;color:#111;max-width:560px;margin:0 auto 16px;line-height:1.4;}
+.th-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(161px,1fr));gap:10px;margin-bottom:22px;text-align:left;max-width:860px;margin-left:auto;margin-right:auto;}
+.th-card{
+  background:linear-gradient(160deg,#e3faf6 0%,#c3f0e8 100%);border-radius:11px;padding:11px 14px;cursor:pointer;
+  box-shadow:0 3px 12px rgba(20,90,80,0.14);
+  border-top:3px solid var(--accent,#1c9e8f);
+  transition:all 0.3s ease;
+}
+.th-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(20,90,80,0.22);}
+.th-card-line{font-size:0.83rem;font-weight:600;line-height:1.4;color:#1e3230;}
+.th-card-ico{font-size:0.98rem;}
+.th-card-title{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:0.98rem;letter-spacing:0.01em;color:#123a5e;}
+.th-slogan{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:clamp(0.95rem,2.4vw,1.2rem);color:#2b2b2b;max-width:600px;margin:0 auto;line-height:1.35;}
+@media(min-width:768px){
+  .top-hero{padding:130px 40px 56px;}
+}
+/* ============ Solutions dropdown ============ */
+.nav-contact-btn{
+  flex-shrink:0;background:#2fb8ac;color:#fff;border:none;
+  font-family:'Jost',sans-serif;font-size:0.7rem;font-weight:600;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:9px 16px;border-radius:10px;cursor:pointer;white-space:nowrap;
+  transition:all 0.3s ease;text-decoration:none;display:inline-block;
+}
+.nav-contact-btn:hover{background:#f2c84b;color:#1c3f7a;}
+/* Solutions dropdown in overlay menu */
+.menu-solutions{border-bottom:1px solid rgba(242,200,75,0.1);}
+.menu-solutions>.ms-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 0;cursor:pointer;
+  font-family:'Cormorant Garamond',serif;font-size:1.1rem;
+  letter-spacing:0.1em;text-transform:uppercase;color:rgba(242,200,75,0.85);
+}
+.menu-solutions>.ms-head:hover{color:#f2c84b;}
+.menu-solutions .ms-arrow{transition:transform 0.3s;font-size:1rem;}
+.menu-solutions.open .ms-arrow{transform:rotate(180deg);}
+.ms-sub{display:none;padding:0 0 14px 16px;}
+.menu-solutions.open .ms-sub{display:block;}
+.ms-sub a{
+  display:block;padding:9px 0;font-family:'Jost',sans-serif;
+  font-size:0.85rem;letter-spacing:0.04em;color:rgba(232,237,245,0.72);
+  text-decoration:none;border:none !important;transition:all 0.25s ease;
+}
+.ms-sub a:hover{color:#f2c84b;padding-left:8px;}
+.ms-sub-label{font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(242,200,75,0.5);margin:10px 0 2px;}
+@media(min-width:768px){
+  nav{padding:10px 40px;}
+  .hero-image{padding:0 40px 0;}
+  .ring-wrap{width:420px;height:420px;}
+  .about-grid{grid-template-columns:160px 1fr 1fr;gap:40px;align-items:start;}
+  .inner-page{padding:32px 48px 72px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <span class="nav-logo">Kolosvit<sup class="nav-tm">&#8482;</sup><a class="nav-star" onclick="scrollToEtym();return false;" href="#etym"><span class="tip">Discover our meaning below</span>*</a></span>
+    <span class="nav-asbl">ASBL Luxembourg</span>
+    <span class="nav-rcs">RCS F15616</span>
+  </div>
+  <div class="lang-dropdown">
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()">&#127760; EN</button>
+    <div class="lang-list" id="langList">
+      <a href="ukr.html">&#127482;&#127462; UKR</a>
+      <a href="fr.html">&#127467;&#127479; FR</a>
+      <a href="de.html">&#127465;&#127466; DE</a>
+      <a href="lux.html">&#127473;&#127482; LUX</a>
+      <a href="pt.html">&#127477;&#127481; PT</a>
+      <a href="it.html">&#127470;&#127481; IT</a>
+      <a href="es.html">&#127466;&#127480; ES</a>
+    </div>
+  </div>
+  <button class="hamburger" id="burger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="nav-menu" id="navMenu">
+  <button class="menu-close" onclick="closeMenu()">&#10005;</button>
+  <div class="menu-pages">
+    <a href="javascript:void(0)" onclick="showPage('page-home');closeMenu();">Home</a>
+    <a href="javascript:void(0)" onclick="showPage('page-about');closeMenu();">About</a>
+    <div class="menu-solutions" id="menuSolutions">
+      <div class="ms-head" onclick="toggleSolutions()"><span>Solutions</span><span class="ms-arrow">&#9662;</span></div>
+      <div class="ms-sub">
+        <div class="ms-sub-label">&#129504; Solutions for People</div>
+        <a href="javascript:void(0)" onclick="showPage('page-arch');closeMenu();">ARCH — Human Performance, Wellbeing &amp; Stress Resilience</a>
+        <div class="ms-sub-label">&#127961;&#65039; Solutions for Communities</div>
+        <a href="javascript:void(0)" onclick="showPage('page-municipal');closeMenu();">Municipal Innovation</a>
+        <div class="ms-sub-label">&#127968; Solutions for Property</div>
+        <a href="javascript:void(0)" onclick="showPage('page-caretera');closeMenu();">CareterA — Property Intelligence &amp; Activation</a>
+        <div class="ms-sub-label">&#127891; Training &amp; Capacity Building</div>
+        <a href="javascript:void(0)" onclick="showPage('page-training');closeMenu();">Drone Training · Digital Skills · AI Literacy</a>
+        <div class="ms-sub-label">&#127917; Solutions for Society</div>
+        <a href="javascript:void(0)" onclick="showPage('page-culture');closeMenu();">Culture, Community &amp; Integration</a>
+      </div>
+    </div>
+    <a href="javascript:void(0)" onclick="showPage('page-pearls');closeMenu();">Perles d'Onyx</a>
+    <a href="javascript:void(0)" onclick="showPage('page-initiatives');closeMenu();">Initiatives / News</a>
+    <a href="javascript:void(0)" onclick="showPage('page-contacts');closeMenu();">Contact</a>
+  </div>
+</div>
+
+<div class="stars" id="stars"></div>
+
+<div id="page-home" class="page active">
+
+  <div class="top-hero">
+    <div class="top-hero-inner">
+      <div class="th-tagline">Innovation &middot; Wellbeing &middot; Resilience</div>
+      <p class="th-sub">We develop practical solutions for communities, organisations and critical infrastructure.</p>
+      <div class="th-cards">
+        <div class="th-card" style="--accent:#2fb8ac" onclick="showPage('page-arch')">
+          <div class="th-card-line"><span class="th-card-ico">&#129504;</span> <span class="th-card-title">ARCH</span> — Human performance, wellbeing &amp; stress resilience.</div>
+        </div>
+        <div class="th-card" style="--accent:#1c3f7a" onclick="showPage('page-municipal')">
+          <div class="th-card-line"><span class="th-card-ico">&#127961;&#65039;</span> <span class="th-card-title">Communities</span> — Municipal innovation &amp; community activation.</div>
+        </div>
+        <div class="th-card" style="--accent:#3f9142" onclick="showPage('page-caretera')">
+          <div class="th-card-line"><span class="th-card-ico">&#127968;</span> <span class="th-card-title">CareterA</span> — Property intelligence, monitoring &amp; activation.</div>
+        </div>
+        <div class="th-card" style="--accent:#5b6b7a" onclick="showPage('page-arch')">
+          <div class="th-card-line"><span class="th-card-ico">&#9992;&#65039;</span> <span class="th-card-title">Critical Infrastructure</span> — Air &middot; Rail &middot; FinTech</div>
+        </div>
+        <div class="th-card" style="--accent:#e0a52e" onclick="showPage('page-pearls')">
+          <div class="th-card-line"><span class="th-card-ico">&#127917;</span> <span class="th-card-title">Culture</span> — Community, integration &amp; shared stories.</div>
+        </div>
+      </div>
+      <p class="th-slogan">Connecting people, ideas and innovation to build stronger communities.</p>
+    </div>
+  </div>
+
+  <div class="hero-image">
+    <img src="circle_people_full.jpg" alt="A Circle of Light — United Field of Consciousness">
+  </div>
+
+  <div class="section-divider"></div>
+
+  <div class="hero-block">
+    <div class="hero-cta">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold" style="font-weight:700;">Share Your Challenge</button></a>
+    </div>
+    <p style="font-size:0.92rem;font-weight:700;color:#f0ede4;line-height:1.6;margin-bottom:28px;">Tell us about your needs.<br>Every challenge starts with a conversation.</p>
+    <div class="hero-eyebrow">A Circle of Good People</div>
+    <p style="font-size:0.95rem;font-weight:500;color:rgba(232,237,245,0.8);letter-spacing:0.03em;margin-bottom:14px;">Sharing Knowledge. Building Trust. Creating Impact.</p>
+    <h1 class="hero-title">Circle <span class="hl">of Light</span></h1>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <div class="ring-section">
+    <div class="ring-wrap">
+      <div class="ring-glow"></div>
+      <canvas id="hexCanvas"></canvas>
+    </div>
+  </div>
+
+    <div style="text-align:center;padding:12px 0 4px;opacity:0.5;animation:kolosBounce 2s infinite;">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f2c84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+  </div>
+  <style>@keyframes kolosBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}</style>
+  <div class="contact-wrap">
+    <button class="btn-ghost" onclick="showPage('page-contacts')">Contact</button>
+  </div>
+
+</div>
+
+<div id="page-initiatives" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+  </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div>
+        <div class="page-eyebrow">2026</div>
+        <h2 class="page-title" style="margin-bottom:0;">Initiatives</h2>
+      </div>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-tag">25.03.2026</div>
+        <div class="card-title">Grand Th&#233;&#226;tre &middot; Philharmonie &middot; MUDAM</div>
+        <div class="card-body">Together with the Red Cross Luxembourg, we organised 8 cultural excursions &#8212; approximately 10 participants per event &#8212; to the Grand Th&#233;&#226;tre, Philharmonie Luxembourg, and the MUDAM contemporary art museum. These outings gave Ukrainian refugees a chance to connect with Luxembourg&#8217;s cultural life, find moments of joy and beauty, and feel part of the European community.</div>
+        <div class="card-date">March 2026</div>
+      </div>
+      <div class="card">
+        <div class="card-tag">26.04.2026</div>
+        <div class="card-title">Concert &middot; Serhii &amp; Hanna</div>
+        <div class="card-body">A warm community concert at Boulevard Konrad Adenauer brought together Ukrainians, Luxembourgers and friends from across Europe. Performers Serhii and Hanna filled the evening with soul, music and unity. Special thanks to Tami &amp; Sergo for making this evening possible &#8212; your generosity and care for our community is truly felt.</div>
+        <div class="card-date">April 2026</div>
+      </div>
+      <div class="card">
+        <div class="card-tag">03.05.2026</div>
+        <div class="card-title">Community Survey</div>
+        <div class="card-body">We launched our first community survey to better understand the real needs of Ukrainians and newcomers in Luxembourg. Your voice shapes our direction. Every answer matters and helps us plan initiatives that truly serve the community.<br><br><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank" style="color:#f2c84b;text-decoration:underline;">Fill in the survey &#8594;</a></div>
+        <div class="card-date">May 2026</div>
+      </div>
+      <div class="card">
+        <div class="card-tag">05–06.2026</div>
+        <div class="card-title">Community Activities — May & June 2026</div>
+        <div class="card-body">In May and June 2026, in collaboration with various ASBLs (Politique pour Tous, Scouts, Red Cross, Belle Bandura and others), we organised: a trip to Arlon (Interreg), a visit to the Parliament of Luxembourg, a visit to the Musée Dräi Eechelen, and participation in cultural programmes.<br><br>Follow our interaction platform on Telegram: <a href="https://t.me/kolosvit_lux" target="_blank" style="color:#f2c84b;text-decoration:underline;">t.me/kolosvit_lux</a> — as of 29.06.2026, 44 members and growing.<br><br>We continue our survey offline and online:<br><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank" style="color:#f2c84b;text-decoration:underline;">Tell us your needs — help set the right priorities &#8594;</a></div>
+        <div class="card-date">May–June 2026</div>
+      </div>
+    </div>
+    <div class="hdiv"></div>
+    <div class="sh-label">May 2026</div>
+    <div class="sh-title">Grant Applications</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">Culture Helps Solidarity</div>
+        <div class="card-body">In partnership with NGO &#8220;Strings of Heart&#8221;, we submitted a joint application for psychological and cultural support for Ukrainian refugees across Luxembourg, the Netherlands and Finland. The programme combines arts therapy, community events and mental resilience workshops &#8212; addressing trauma, isolation and the challenge of rebuilding life in a new country.</div>
+        <p style="font-size:0.86rem;color:rgba(160,210,255,0.95);font-style:italic;line-height:1.46;margin-top:12px;padding-top:10px;border-top:1px solid rgba(160,200,255,0.18);"><strong style="color:rgba(180,225,255,1);">Update (June 2026):</strong> The proposal was not selected during this funding cycle. KOLOSVIT ASBL appreciates the opportunity to participate and continues developing the initiative through other partnerships and funding opportunities.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">ARCH Alliance</div>
+        <div class="card-body">The ARCH (AI Resilience &amp; Community Hub) platform is our most ambitious project: a simulation environment combining aerospace training methodologies with cognitive load awareness tools. Designed for high-stress professional settings, ARCH also has direct application in refugee support and mental resilience training. The first public phase is currently under preparation.</div>
+        <p style="font-size:0.86rem;color:rgba(160,210,255,0.95);font-style:italic;line-height:1.46;margin-top:12px;padding-top:10px;border-top:1px solid rgba(160,200,255,0.18);"><strong style="color:rgba(180,225,255,1);">Update (June 2026):</strong> The proposal was not selected during this funding cycle. KOLOSVIT ASBL appreciates the opportunity to participate and continues developing the initiative through other partnerships and funding opportunities.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-join" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+  </div>
+    <h2 class="page-title">Join Us</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">Membership</div>
+        <div class="card-body">Open to all who share our values: humanity, support, knowledge and light. Become part of a growing circle of people who believe in culture, resilience and community.</div>
+        <div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold">Join &#8594;</button></a></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Volunteering</div>
+        <div class="card-body">Help with events, communication, research or admin. Every hour of your time helps us create meaningful moments for people who need them most.<br><br><em>What can you help with? Write us a letter!</em></div>
+        <div style="margin-top:12px;"><button class="btn-ghost" onclick="showPage('page-contacts')">Contact Us &#8594;</button></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Partnership</div>
+        <div class="card-body">Open to organisations, universities and foundations sharing our values. We welcome collaborations that amplify impact &#8212; cultural, social, scientific or humanitarian.</div>
+        <div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-ghost">Join &#8594;</button></a></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Survey</div>
+        <div class="card-body">Tell us your needs &#8212; help set the right priorities. Your answers directly shape the initiatives we design and the communities we serve.</div>
+        <div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold">Tell us &#8594;</button></a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-about" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    
+    <h2 class="page-title">About KOLOSVIT</h2>
+    <div class="about-grid">
+      <div class="about-logo"><img src="logo.png" alt="KOLOSVIT ASBL"></div>
+      <div class="about-text">
+        <p><strong>KOLOSVIT ASBL</strong> is an innovative association registered in Luxembourg, where future technologies serve real human needs. We believe that digital education, mental resilience and cultural belonging are not luxuries &#8212; they are foundations for a dignified life in a new country.</p>
+        <p>Founded by Ukrainians living in Europe, KOLOSVIT builds bridges between communities, generations and disciplines. We work at the intersection of culture, science and social care &#8212; always led by humanity first.</p>
+        <p>At least <strong>90% of our resources</strong> go directly to our mission: supporting displaced people, developing educational programmes and fostering meaningful cultural connections across Europe.</p>
+        <p><em>&#8220;We are united by shared values &#8212; humanity, knowledge, and the belief that every talent matters. Every person who arrives carrying loss also arrives carrying gifts. Our role is to help those gifts bloom.&#8221;</em></p>
+        <p><strong>&#128421; Digital Education</strong> &#8212; Autonomous systems, AI literacy and future-skills training.<br>
+        <strong>&#129504; Neuro-Resilience</strong> &#8212; The ARCH programme for cognitive health and stress recovery.<br>
+        <strong>&#129309; Social Integration</strong> &#8212; Cultural events, wellness and community belonging.<br>
+        <strong>&#127807; Environment</strong> &#8212; Ecological responsibility as a civic value.</p>
+        <div class="rcs-note">Luxembourg ASBL &middot; RCS F15616 &middot; Registered 1 April 2026</div>
+      </div>
+      <div>
+        <div class="c-row"><div class="c-lbl">Email</div><div class="c-val"><a href="mailto:kolosvit@proton.me">kolosvit@proton.me</a></div></div>
+        <div class="c-row"><div class="c-lbl">Telegram</div><div class="c-val"><a href="https://t.me/ASBLKolosvit" target="_blank">t.me/ASBLKolosvit</a></div></div>
+        <div class="c-row"><div class="c-lbl">Telegram</div><div class="c-val"><a href="https://t.me/kolosvit_lux" target="_blank">t.me/kolosvit_lux</a> <span style="font-size:0.8rem;color:rgba(255,240,200,0.6);">(interaction platform for specific calendar directions)</span></div></div>
+        <div class="c-row"><div class="c-lbl">Instagram</div><div class="c-val"><a href="https://www.instagram.com/kolosvitasbl/" target="_blank">instagram.com/kolosvitasbl</a> <span style="font-size:0.8rem;color:rgba(255,240,200,0.6);">(in development)</span></div></div>
+        <div class="c-row"><div class="c-lbl">Facebook</div><div class="c-val"><a href="https://www.facebook.com/kolosvitasbl/" target="_blank">facebook.com/kolosvitasbl</a> <span style="font-size:0.8rem;color:rgba(255,240,200,0.6);">(in development)</span></div></div>
+        <div class="c-row"><div class="c-lbl">LinkedIn</div><div class="c-val"><a href="https://www.linkedin.com/in/kolosvitasbl/" target="_blank">linkedin.com/in/kolosvitasbl</a> <span style="font-size:0.8rem;color:rgba(255,240,200,0.6);">(in development)</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-contacts" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+  </div>
+    <h2 class="page-title">Contact</h2>
+    <div class="c-reg">LUXEMBOURG ASBL · RCS F15616 · REGISTERED 1 APRIL 2026</div>
+    <div class="c-row"><div class="c-lbl">Email</div><div class="c-val"><a href="mailto:kolosvit@proton.me">kolosvit@proton.me</a></div></div>
+    <div class="c-row"><div class="c-lbl">Telegram</div><div class="c-val"><a href="https://t.me/ASBLKolosvit" target="_blank">t.me/ASBLKolosvit</a></div></div>
+    <div class="c-row"><div class="c-lbl">Phone</div><div class="c-val"><a href="tel:+352661693371">+352 661 693 371</a></div></div>
+    <div class="c-row"><div class="c-lbl">Address</div><div class="c-val">90 Bd Konrad Adenauer, L-1115 Luxembourg</div></div>
+    <div class="c-row"><div class="c-lbl">Survey</div><div class="c-val"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank">Tell us your needs →</a></div></div>
+  </div>
+</div>
+
+
+
+<script>
+let lastPage='page-home';
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const t=document.getElementById(id);
+  if(t){lastPage=id;t.classList.add('active');}
+  window.scrollTo(0,0);closeMenu();
+}
+function goBack(){
+  if(lastPage&&lastPage!=='page-home'){showPage('page-home');}
+  else{window.history.back();}
+}
+function toggleMenu(){const m=document.getElementById('navMenu'),b=document.getElementById('burger');if(!m||!b)return;m.classList.toggle('open');b.classList.toggle('open');}
+function closeMenu(){const m=document.getElementById('navMenu'),b=document.getElementById('burger');if(m)m.classList.remove('open');if(b)b.classList.remove('open');}
+function toggleLang(){const btn=document.getElementById('langBtn'),list=document.getElementById('langList');if(!btn||!list)return;btn.classList.toggle('open');list.classList.toggle('open');}
+function toggleSolutions(){const el=document.getElementById('menuSolutions');if(el)el.classList.toggle('open');}
+function scrollToEtym(){showPage('page-home');setTimeout(()=>{const el=document.getElementById('etym');if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},120);}
+document.addEventListener('click',function(e){
+  const dd=document.querySelector('.lang-dropdown');
+  if(dd&&!dd.contains(e.target)){const b=document.getElementById('langBtn'),l=document.getElementById('langList');if(b)b.classList.remove('open');if(l)l.classList.remove('open');}
+  const m=document.getElementById('navMenu'),bu=document.getElementById('burger');
+  if(m&&m.classList.contains('open')&&!m.contains(e.target)&&bu&&!bu.contains(e.target))closeMenu();
+});
+const starsEl=document.getElementById('stars');
+for(let i=0;i<60;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';const sz=(Math.random()*2+0.4)+'px';s.style.width=sz;s.style.height=sz;s.style.setProperty('--d',(Math.random()*4+2)+'s');s.style.setProperty('--o',(Math.random()*0.28+0.07).toFixed(2));s.style.animationDelay=Math.random()*6+'s';starsEl.appendChild(s);}
+const canvas=document.getElementById('hexCanvas');
+const ctx=canvas.getContext('2d');
+let W,H,cx,cy,t=0,cells=[];
+const HEX_R=17,RING_MIN=118,RING_MAX=210;
+function resize(){const wrap=canvas.parentElement;W=canvas.width=wrap.offsetWidth;H=canvas.height=wrap.offsetHeight;cx=W/2;cy=H/2;buildCells();}
+function buildCells(){const sc=W/480,rMn=RING_MIN*sc,rMx=RING_MAX*sc,hr=HEX_R*sc,ww=hr*Math.sqrt(3),hh=hr*2;cells=[];const rows=Math.ceil(H/(hh*.75))+3,cols=Math.ceil(W/ww)+3;for(let r=-rows;r<rows;r++)for(let c=-cols;c<cols;c++){const x=c*ww+(r%2)*(ww/2),y=r*hh*.75,d=Math.sqrt(x*x+y*y);if(d>=rMn&&d<=rMx)cells.push({x,y,d});}}
+resize();window.addEventListener('resize',resize);
+function hexPath(x,y,r){ctx.beginPath();for(let i=0;i<6;i++){const a=(Math.PI/3)*i-Math.PI/6;i===0?ctx.moveTo(x+r*Math.cos(a),y+r*Math.sin(a)):ctx.lineTo(x+r*Math.cos(a),y+r*Math.sin(a));}ctx.closePath();}
+function animate(){requestAnimationFrame(animate);t+=0.016;ctx.clearRect(0,0,W,H);const sc=W/480,rMn=RING_MIN*sc,rMx=RING_MAX*sc,hr=HEX_R*sc-1.5;cells.forEach(cell=>{const x=cx+cell.x,y=cy+cell.y,norm=(cell.d-rMn)/(rMx-rMn),ang=Math.atan2(cell.y,cell.x);const wave=Math.sin(t*2.4-norm*Math.PI*3.2+ang*1.6)*.5+.5;const pulse=Math.sin(t*1.5+cell.d*.025)*.5+.5;const e=wave*.6+pulse*.4;const cr=Math.round(210+45*e),cg=Math.round(155+75*e),cb=Math.round(25+110*e),br=0.18+e*.72;hexPath(x,y,hr*.80);ctx.fillStyle=`rgba(${cr},${cg},${cb},${br*.30})`;ctx.fill();ctx.strokeStyle=`rgba(${cr},${cg},${cb},${br*.90})`;ctx.lineWidth=0.9;ctx.stroke();});const g=ctx.createRadialGradient(cx,cy,0,cx,cy,rMn*.85);g.addColorStop(0,'rgba(242,200,75,0.12)');g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);}
+animate();
+</script>
+
+
+<div id="page-platform" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div class="page-eyebrow">Archive</div>
+    <h2 class="page-title">KOLOSVIT Community Activation Platform</h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#f2c84b;font-weight:400;letter-spacing:0.06em;margin-bottom:28px;">CAP · One Partner. Multiple Solutions.</p>
+
+    <div style="background:#2F518E;border:2px solid rgba(242,200,75,0.35);padding:22px 24px;border-radius:4px;margin-bottom:24px;">
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:20px;">KOLOSVIT Community Activation Platform (CAP) is an innovative ecosystem that brings together community wellbeing, municipal asset activation, cultural programmes and digital innovation under one coordinated partnership. Rather than offering isolated projects, KOLOSVIT provides municipalities, organisations and communities with a flexible platform — where every module can be implemented independently or as part of a comprehensive long-term collaboration.</p>
+      <p style="font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:#f2c84b;margin-bottom:12px;">Platform Modules</p>
+      <div style="display:grid;gap:10px;"><div style="background:rgba(255,255,255,0.05);padding:14px 16px;border-radius:4px;border-left:3px solid rgba(242,200,75,0.4);">
+          <p style="font-size:0.95rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">🏙️ CareterA</p>
+          <p style="font-size:0.83rem;color:rgba(242,244,248,0.82);line-height:1.42;margin:0;">Community &amp; Property Activation System — AI-assisted municipal governance, property monitoring and community activation.</p> <button class="btn-ghost" style="margin-top:8px;padding:6px 12px;font-size:0.78rem;" onclick="showPage('page-caretera')">→</button>
+        </div><div style="background:rgba(255,255,255,0.05);padding:14px 16px;border-radius:4px;border-left:3px solid rgba(242,200,75,0.4);">
+          <p style="font-size:0.95rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">💚 ARCH</p>
+          <p style="font-size:0.83rem;color:rgba(242,244,248,0.82);line-height:1.42;margin:0;">Community Wellbeing Module — prevention, resilience and AI-assisted wellbeing programmes for municipalities, businesses and individuals.</p> <button class="btn-ghost" style="margin-top:8px;padding:6px 12px;font-size:0.78rem;" onclick="showPage('page-arch')">→</button>
+        </div><div style="background:rgba(255,255,255,0.05);padding:14px 16px;border-radius:4px;border-left:3px solid rgba(242,200,75,0.4);">
+          <p style="font-size:0.95rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">💎 Pearls of Luxembourg</p>
+          <p style="font-size:0.83rem;color:rgba(242,244,248,0.82);line-height:1.42;margin:0;">Community Events &amp; Culture — inspiring stories, skills and connections through community gatherings.</p> <button class="btn-ghost" style="margin-top:8px;padding:6px 12px;font-size:0.78rem;" onclick="showPage('page-pearls')">→</button>
+        </div><div style="background:rgba(255,255,255,0.05);padding:14px 16px;border-radius:4px;border-left:3px solid rgba(242,200,75,0.4);">
+          <p style="font-size:0.95rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">🚁 Digital Innovation</p>
+          <p style="font-size:0.83rem;color:rgba(242,244,248,0.82);line-height:1.42;margin:0;">Drone Academy, AI tools, digital skills and technology partnerships for communities and municipalities.</p>
+        </div><div style="background:rgba(255,255,255,0.05);padding:14px 16px;border-radius:4px;border-left:3px solid rgba(242,200,75,0.4);">
+          <p style="font-size:0.95rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">🇪🇺 European Projects</p>
+          <p style="font-size:0.83rem;color:rgba(242,244,248,0.82);line-height:1.42;margin:0;">Support in accessing Interreg, CERV, ERDF, ESF and other European funding programmes.</p>
+        </div></div>
+    </div>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.2);padding:22px 24px;border-radius:4px;margin-bottom:20px;">
+      <div class="sh-label">Join the Network</div>
+      <p style="font-size:0.92rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:12px;">Membership is based on mutual exchange. We ask two questions:</p>
+      <p style="font-size:1rem;color:#f2c84b;font-weight:500;margin-bottom:6px;">✶ What are you looking for?</p>
+      <p style="font-size:1rem;color:#f2c84b;font-weight:500;margin-bottom:14px;">✶ What are you ready to offer?</p>
+      <p style="font-size:0.88rem;font-weight:500;color:rgba(255,240,200,0.8);line-height:1.46;margin-bottom:16px;">Those who only seek without contributing do not join this network — the principle of a living community where everyone gives and receives.</p>
+    </div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold">Join the Network →</button></a>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.2);padding:22px 24px;border-radius:4px;margin-bottom:16px;">
+      <div class="sh-label">A Growing Network</div>
+      <p style="font-size:0.92rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:12px;">Our partner network is growing. Today it includes 53 Ukrainian partners — 48 enterprises and 5 civil society organisations — with expertise in manufacturing, technology, social services and innovation. We actively expand across Europe and beyond, inviting universities, businesses, NGOs and public institutions to join.</p>
+      <p style="font-size:0.85rem;font-weight:500;color:rgba(255,240,200,0.75);line-height:1.46;padding-top:10px;border-top:1px solid rgba(242,200,75,0.12);">Based on our memoranda, if you are interested in manufacturing activities in Ukraine, we can assist — our partner enterprises have tax benefits for employing people with disabilities.</p>
+    </div>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.2);padding:22px 24px;border-radius:4px;margin-bottom:24px;">
+      <div class="sh-label">Digital Innovation &amp; Drone Academy</div>
+      <p style="font-size:0.92rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:12px;">In May 2026 we launched our first pilot project — drone simulator training — holding 6 Liftoff licences. We are currently seeking a permanent location and appropriate equipment (including 6 MacBook Pro M1 laptops, joysticks, and indoor training drones) to open our first training classroom.</p>
+      <p style="font-size:0.88rem;font-weight:500;color:rgba(255,240,200,0.8);line-height:1.48;">Development partners: <strong style="color:#f2c84b;">LuGus Studios</strong> (Belgium, game &amp; simulation technology) and <strong style="color:#f2c84b;">Velosidron</strong> (memorandum of cooperation for ARCH development). We invite universities, educational centres and public institutions to collaborate.</p>
+    </div>
+  </div>
+</div>
+
+<div id="page-municipal" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+  </div>
+    <div class="page-eyebrow">Solutions for Communities</div>
+    <h2 class="page-title">&#127961;&#65039; Municipal Innovation</h2>
+    <div style="background:#2F518E;border:1px solid rgba(127,168,242,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:12px;">KOLOSVIT supports municipalities and public institutions with data-driven, community-led approaches to underused assets, social services and public engagement — connecting real needs on the ground with practical, measurable action.</p>
+      <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.52;">This includes property and infrastructure activation (via CareterA), community wellbeing programmes (via ARCH), digital skills and drone training for local capacity building, and support for integration and social cohesion initiatives.</p>
+    </div>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">Community Needs Assessment</div><div class="card-body">Understanding real needs of residents and public institutions through simple, private data collection and analysis.</div></div>
+      <div class="card"><div class="card-title">Smart City &amp; Urban Planning</div><div class="card-body">Better decisions on planning, zoning, resource allocation and infrastructure maintenance.</div></div>
+      <div class="card"><div class="card-title">Social Services &amp; Inclusion</div><div class="card-body">Targeted support programmes, service matching and integration for vulnerable groups.</div></div>
+      <div class="card"><div class="card-title">Community Resilience</div><div class="card-body">Programmes connecting wellbeing (ARCH) and property activation (CareterA) at municipal scale. <button class="btn-ghost" style="margin-top:10px;padding:6px 12px;font-size:0.78rem;" onclick="showPage('page-arch')">See ARCH →</button></div></div>
+    </div>
+    <div class="hdiv"></div>
+    <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.8);line-height:1.52;margin-bottom:16px;">Interested in a pilot for your municipality or institution?</p>
+    <button class="btn-gold" onclick="showPage('page-contacts')">Contact Us →</button>
+  </div>
+</div>
+
+<div id="page-training" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+  </div>
+    <div class="page-eyebrow">Capacity Building</div>
+    <h2 class="page-title">&#127891; Training &amp; Capacity Building</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">&#128257; Drone Training</div>
+        <div class="card-body">In May 2026 we launched our first pilot project — drone simulator training — holding 6 Liftoff licences. We are currently seeking a permanent location and equipment (including 6 MacBook Pro M1 laptops, joysticks and indoor training drones) to open our first training classroom. Development partners: <strong style="color:#b8c2cf;">LuGus Studios</strong> (Belgium) and <strong style="color:#b8c2cf;">Velosidron</strong>.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">&#128421; Digital Skills</div>
+        <div class="card-body">Practical digital-literacy programmes helping people and organisations build future-ready skills — from basic device use to autonomous systems.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">&#129302; AI Literacy</div>
+        <div class="card-body">Hands-on training to help individuals, municipalities and organisations understand and responsibly use AI tools in daily work.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Community Resilience</div>
+        <div class="card-body">Training linked to municipal-scale resilience programmes. <button class="btn-ghost" style="margin-top:10px;padding:6px 12px;font-size:0.78rem;" onclick="showPage('page-municipal')">See Municipal Innovation →</button></div>
+      </div>
+      <div class="card">
+        <div class="card-title">FinTech</div>
+        <div class="card-body">Applications of ARCH human-performance tools for financial-sector teams. <button class="btn-ghost" style="margin-top:10px;padding:6px 12px;font-size:0.78rem;" onclick="showPage('page-arch')">See ARCH →</button></div>
+      </div>
+    </div>
+    <div class="hdiv"></div>
+    <button class="btn-gold" onclick="showPage('page-contacts')">Contact Us →</button>
+  </div>
+</div>
+
+<div id="page-culture" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+  </div>
+    <div class="page-eyebrow">Solutions for Society</div>
+    <h2 class="page-title">&#127917; Culture, Community &amp; Integration</h2>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:12px;">We organise a variety of cultural and community programmes &mdash; gatherings and integration events that bring together musicians, poets and artists, as well as integration activities built around cooking master classes and similar shared experiences.</p>
+      <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;">We design these programmes for different community groups &mdash; for example, mutual-aid initiatives for childcare (including during shopping trips), wellness programmes, hiking and similar activities.</p>
+    </div>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">&#127908; Cultural Gatherings</div><div class="card-body">Meetings and events bringing together musicians, poets and artists &mdash; creating spaces for shared creative expression and connection.</div></div>
+      <div class="card"><div class="card-title">&#127860; Integration Through Food</div><div class="card-body">Cooking master classes and shared meals that bring people together across cultures and backgrounds.</div></div>
+      <div class="card"><div class="card-title">&#128118; Mutual Aid for Families</div><div class="card-body">Community-driven support for childcare, including during shopping trips and everyday errands.</div></div>
+      <div class="card"><div class="card-title">&#127961; Wellness &amp; Outdoor Programmes</div><div class="card-body">Hiking, wellness activities and nature-based gatherings that build connection and resilience.</div></div>
+    </div>
+    <div class="hdiv"></div>
+    <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.8);line-height:1.48;margin-bottom:16px;">Interested in joining or proposing a community programme?</p>
+    <button class="btn-gold" onclick="showPage('page-contacts')">Contact Us &rarr;</button>
+  </div>
+</div>
+
+<div id="page-pearls" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+  </div>
+    <div class="page-eyebrow">Solutions for Society</div>
+    <h2 class="page-title">Les Perles d'Onyx · Pearls of Luxembourg</h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#f2c84b;font-weight:400;letter-spacing:0.08em;margin-bottom:32px;">Stories · Skills · Connections</p>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:12px;">Pearls of Luxembourg is an initiative of KOLOSVIT ASBL and its CEO Jan Onyx (pen name) that brings together remarkable people through inspiring stories, practical knowledge and meaningful human connections.</p>
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:12px;">Luxembourg is full of people whose stories deserve to be heard beyond their own circle. Pearls creates the space where these stories are shared — and where new connections begin.</p>
+      <p style="font-size:0.92rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.52;font-style:italic;">Pearls is not just an evening series. It is a growing ecosystem — adaptable to any sector, any community, any story worth telling.</p>
+    </div>
+    <div class="hdiv"></div>
+    <div class="sh-label">Our Formats</div>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">💎 Pearls Talks</div><div class="card-body">Three guests. Three stories. Three dreams for Luxembourg. An intimate evening where entrepreneurs, scientists, artists and professionals share their experience. Each guest shares a story from their professional world, something about Luxembourg they wish more people knew, and a dream — what they would change, if they could.</div></div>
+      <div class="card"><div class="card-title">💎 Pearls Workshops</div><div class="card-body">Learning directly from remarkable people. Every guest answers one simple question: <em>"What can I teach people in one hour?"</em><br><br>Topics include drone flying, photography, leadership, AI, logistics, public speaking, cooking, dance, wellbeing, entrepreneurship, first aid, creativity — and many others.</div></div>
+      <div class="card"><div class="card-title">💎 Pearls Together</div><div class="card-body">A programme for people open to building a lifelong partnership and family. Not speed dating. Not a dating app.<br><br>At registration, guests may indicate their openness to meaningful connection. Those who do receive a small heart on their badge — visible, but never intrusive. Every participant joins on the basis of shared values and serious intentions.</div></div>
+      <div class="card"><div class="card-title">💎 Pearls Podcast</div><div class="card-body">Conversations that continue beyond the event. Interviews with inspiring guests, innovators, entrepreneurs and community builders — available to audiences far beyond Luxembourg.</div></div>
+      <div class="card"><div class="card-title">💎 Pearls Charity</div><div class="card-body">Selected evenings include charity auctions or initiatives supporting cultural, educational or humanitarian causes. Every pearl can create new opportunities for others.</div></div>
+      <div class="card"><div class="card-title">💎 Pearls Media</div><div class="card-body">Every story deserves to be preserved. Professional photography and short documentaries capture each evening — creating content for media partners, employer branding and wider distribution.</div></div>
+    </div>
+    <div class="hdiv"></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:24px;margin-bottom:32px;">
+      <div>
+        <div class="sh-label">The Relay Model</div>
+        <p style="font-size:0.92rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:12px;">Every Pearls evening begins with people and ends with new connections. After each evening, every guest recommends the next remarkable person — and possibly the next location. The network grows organically, one story at a time.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#f2c84b;font-style:italic;line-height:1.44;">"I am not looking for celebrities. I am looking for people who connect people."</p>
+      </div>
+      <div>
+        <div class="sh-label">What to Expect</div>
+        <ul style="font-size:0.92rem;font-weight:500;color:#F2F4F8;line-height:1.55;padding-left:18px;margin-bottom:16px;">
+          <li>3 guests · 3 stories · one evening</li>
+          <li>Live music · informal networking</li>
+          <li>Tea and coffee included</li>
+          <li>Professional photography and video (with consent)</li>
+        </ul>
+        <div class="sh-label" style="margin-top:12px;">Badge System</div>
+        <ul style="font-size:0.92rem;font-weight:500;color:#F2F4F8;line-height:1.55;padding-left:18px;">
+          <li>🟡 Entry — included with every ticket</li>
+          <li>❤️ Pearls Together — open to meaningful connection</li>
+          <li>🍴 Culinary option — at selected evenings</li>
+        </ul>
+        <p style="font-size:0.82rem;color:rgba(255,240,200,0.72);line-height:1.46;margin-top:10px;font-style:italic;">Alcohol is not part of the Pearls experience. Food, when present, is always part of the programme — never a standard buffet.</p>
+      </div>
+    </div>
+    <div class="hdiv"></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:24px;margin-bottom:32px;">
+      <div>
+        <div class="sh-label">Partners & Locations</div>
+        <p style="font-size:0.92rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:10px;">Pearls evenings take place in remarkable spaces across Luxembourg — cultural centres, private galleries, historic spaces, wellness destinations such as Mondorf-les-Bains, and partner restaurants or studios.</p>
+        <p style="font-size:0.88rem;color:rgba(255,240,200,0.78);line-height:1.48;font-style:italic;">We welcome long-term venue partnerships. Providing a space for Pearls evenings is a meaningful in-kind contribution — and a natural opportunity to connect with an engaged, values-driven community.</p>
+      </div>
+      <div>
+        <div class="sh-label">Partnership Opportunities</div>
+        <ul style="font-size:0.92rem;font-weight:500;color:#F2F4F8;line-height:1.55;padding-left:18px;">
+          <li>🤝 <strong style="color:#f0ede4;">Venue Partner</strong> — Host a Pearls evening in your space</li>
+          <li>🍽️ <strong style="color:#f0ede4;">Culinary Partner</strong> — Present your cuisine at a selected evening</li>
+          <li>📸 <strong style="color:#f0ede4;">Media Partner</strong> — Co-produce content and documentary material</li>
+          <li>🎓 <strong style="color:#f0ede4;">Workshop Partner</strong> — Bring your expertise as a guest instructor</li>
+          <li>🌍 <strong style="color:#f0ede4;">Institutional Partner</strong> — Support Pearls through sponsorship or grants</li>
+        </ul>
+      </div>
+    </div>
+    <div class="hdiv"></div>
+    <div class="sh-label">Business Model</div>
+    <p style="font-size:0.92rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:20px;">Pearls of Luxembourg is an initiative of KOLOSVIT ASBL — a non-profit association. Our model is transparent and built for long-term sustainability.</p>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">🎟️ Individual Ticket</div><div class="card-body">Entry to every Pearls evening is ticketed. Tea and coffee are included. Each evening has a recommended contribution reflecting the format and programme. Additional donations are always welcome.</div></div>
+      <div class="card"><div class="card-title">🏢 Corporate Participation</div><div class="card-body">Companies may reserve places for their teams — priority registration and optional recognition as an evening partner.</div></div>
+      <div class="card"><div class="card-title">🤝 Partnership in Kind</div><div class="card-body">Venues, culinary partners and media partners contribute through their space, product or expertise — recognised as a valued contribution to the Pearls ecosystem.</div></div>
+      <div class="card"><div class="card-title">🌍 Grants & Sponsorship</div><div class="card-body">Organisations and foundations may sponsor selected evenings or the programme as a whole. Once documented, Pearls will be eligible for FNR, EDF and sector innovation funding.</div></div>
+    </div>
+    <div class="hdiv"></div>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;text-align:center;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#f2c84b;font-weight:600;margin-bottom:10px;">Our Vision</p>
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:10px;">Pearls of Luxembourg is more than a series of evenings. It is a long-term community where people inspire one another, learn from experts, create new projects, build friendships — and sometimes even create families.</p>
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:10px;">Our goal is to build one of Europe's most trusted communities — rooted in Luxembourg, open to the world.</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#f2c84b;font-style:italic;">Because every pearl begins with something small — and grows into something lasting.</p>
+    </div>
+    <button class="btn-gold" onclick="showPage('page-contacts')">Get in Touch →</button>
+  </div>
+</div>
+</div>
+
+<div id="page-caretera" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div class="page-eyebrow">Solutions for Property</div>
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:8px;">
+      <span style="display:inline-block;width:64px;height:64px;overflow:hidden;border-radius:8px;flex-shrink:0;"><img src="caretera_logo.png" alt="CareterA" style="width:64px;height:64px;object-fit:cover;"></span>
+      <h2 class="page-title" style="margin:0;">CareterA</h2>
+    </div>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#6fd98f;font-weight:700;letter-spacing:0.06em;margin-bottom:8px;">Community &amp; Property Activation System</p>
+    <p style="display:inline-block;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;padding:5px 14px;border-radius:8px;background:rgba(111,217,143,0.1);color:#6fd98f;border:1px solid rgba(111,217,143,0.3);margin-bottom:20px;">⚙️ In Development</p>
+
+    <div style="background:#2F518E;border:1px solid rgba(111,217,143,0.22);padding:20px 24px;border-radius:4px;margin-bottom:24px;">
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;">CareterA is an AI-assisted platform that turns community and public sector needs into measurable action — connecting people, places, data and partners.</p>
+    </div>
+
+    <div style="width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:8px;border-radius:10px;">
+      <img src="caretera_new_banner.png" alt="CareterA AI Community Governance" style="display:block;min-width:1200px;width:1200px;height:auto;border-radius:10px;">
+    </div>
+    <p style="font-size:0.75rem;color:rgba(255,240,200,0.45);text-align:center;margin-bottom:28px;font-style:italic;">← swipe to see full diagram →</p>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#2F518E;border:2px solid rgba(111,217,143,0.35);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#6fd98f;margin-bottom:6px;">AI Community Governance</p>
+      <p style="font-size:1.05rem;font-weight:600;color:#f0ede4;margin-bottom:10px;">Turning Real Needs into Smarter Decisions</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:12px;">CareterA AI analyses both people's and places' needs, identifies priorities and connects them with the right solutions and partners — helping municipalities, ministries and public institutions make data-driven decisions for communities.</p>
+      <p style="font-size:0.82rem;color:rgba(255,240,200,0.7);margin-bottom:16px;">For: Municipalities &middot; Governments &middot; Ministries &middot; Public Institutions &middot; NGOs &middot; Social Services</p>
+
+      <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#6fd98f;margin-bottom:10px;">From Insights to Impact</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px;">
+        <div style="background:rgba(255,255,255,0.06);padding:12px;border-radius:4px;text-align:center;">
+          <p style="font-size:0.9rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">🔍 Projects</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.8);line-height:1.5;">The right projects for people and places that need them most.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);padding:12px;border-radius:4px;text-align:center;">
+          <p style="font-size:0.9rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">🤝 Services</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.8);line-height:1.5;">Better connections and easier access to services.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);padding:12px;border-radius:4px;text-align:center;">
+          <p style="font-size:0.9rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">💶 Funding</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.8);line-height:1.5;">More effective use of public and private resources.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);padding:12px;border-radius:4px;text-align:center;">
+          <p style="font-size:0.9rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">📈 Impact</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.8);line-height:1.5;">Measurable results for communities, places and partners.</p>
+        </div>
+      </div>
+
+      <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#6fd98f;margin-bottom:10px;">Possible Applications</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:16px;"><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🏘️ Community Needs Assessment</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🏙️ Smart City &amp; Urban Planning</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🏛️ Public Asset Management</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">❤️ Social Services &amp; Inclusion</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🚨 Emergency Response</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">👴 Youth &amp; Senior Support</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🌿 Environment &amp; Sustainability</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">💡 Local Economy &amp; Innovation</div></div>
+
+      <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#6fd98f;margin-bottom:10px;">Why CareterA</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;"><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">✅ Data-driven decisions for people and places</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🤖 AI for social good</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🤝 Stronger collaboration across sectors</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🏢 More efficient use of public assets</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">📊 Measurable impact and transparency</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🔒 Privacy and ethics by design</div></div>
+    </div>
+
+    <div class="hdiv"></div>
+
+
+    <div style="background:#2F518E;border:1px solid rgba(111,217,143,0.25);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#6fd98f;margin-bottom:6px;">Municipal Property Activation</p>
+      <p style="font-size:1.05rem;font-weight:600;color:#f0ede4;margin-bottom:8px;">Municipal Property Activation Program</p>
+      <p style="font-size:0.9rem;font-weight:400;color:#6fd98f;font-style:italic;margin-bottom:12px;">Transforming underused municipal and private assets into active community spaces.</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:14px;">KOLOSVIT CareterA supports municipalities in identifying, activating and coordinating the sustainable use of underutilized buildings, public facilities, natural areas and community infrastructure. Our mission is not only to identify vacant properties, but to transform them into places that generate social, cultural, educational, health and economic value for local communities.</p>
+      <p style="font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;color:#6fd98f;margin-bottom:8px;">The programme may include:</p>
+      <ul style="padding-left:18px;margin:0 0 18px;"><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Activation of vacant municipal buildings</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Temporary use of unused schools, farms and public facilities</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Community use of parks, forests, gardens and vineyards</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Adaptive reuse of historic buildings</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">House-sitting and property stewardship programmes</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Cultural, educational and wellbeing activities</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Co-living and community hubs</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Support for owners willing to temporarily activate unused properties</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Digital monitoring and AI-supported property management</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Preparation of projects for European funding</li></ul>
+      <div class="hdiv"></div>
+      <p style="font-size:1rem;font-weight:600;color:#f0ede4;margin-bottom:8px;">Flexible Partnership &amp; Business Models</p>
+      <p style="font-size:0.88rem;font-weight:500;color:#F2F4F8;line-height:1.48;margin-bottom:14px;">KOLOSVIT believes that every municipality has different needs and capacities. Our programmes are designed around flexible partnership models rather than a single funding mechanism.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;"><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;"><p style="font-size:0.85rem;font-weight:600;color:#f0ede4;margin-bottom:8px;">💰 Financial Partnerships</p><ul style="padding-left:16px;margin:0;"><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Service contracts</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Annual framework agreements</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Project-based funding</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">European co-funded projects</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Sponsorship programmes</li></ul></div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;"><p style="font-size:0.85rem;font-weight:600;color:#f0ede4;margin-bottom:8px;">🏛️ Asset-based Partnerships</p><ul style="padding-left:16px;margin:0;"><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Temporary use agreements</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Long-term operation of municipal facilities</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Symbolic rent</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Free use of public premises</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Transfer of unused equipment</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Shared management of community infrastructure</li></ul></div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;"><p style="font-size:0.85rem;font-weight:600;color:#f0ede4;margin-bottom:8px;">🤝 Community Partnerships</p><ul style="padding-left:16px;margin:0;"><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Joint event organisation</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Volunteer programmes</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Local business engagement</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Universities and schools</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">NGOs and social enterprises</li></ul></div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;"><p style="font-size:0.85rem;font-weight:600;color:#f0ede4;margin-bottom:8px;">💡 Innovation Partnerships</p><ul style="padding-left:16px;margin:0;"><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Pilot projects</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Digital platforms</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">AI-based municipal asset management</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Data collection and analysis</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Community participation tools</li></ul></div></div>
+    </div>
+
+    <div style="background:#2F518E;border:1px solid rgba(111,217,143,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#6fd98f;margin-bottom:6px;">Community Ecosystem</p>
+      <p style="font-size:1.05rem;font-weight:600;color:#f0ede4;margin-bottom:10px;">An Ecosystem Where Everyone Participates</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:16px;">CareterA is not just a platform — it is an operating system for communities. Every participant either creates demand or fulfils it. From a single resident to a municipality, from an ASBL to a business — all are connected in one coordinated ecosystem.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;"><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🏛️ Public Sector</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">Municipalities · Ministries · Social Services · Employment Agencies · Libraries</p>
+        </div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🤝 Civil Society</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">ASBLs · Foundations · Volunteer Organisations · Youth · Veterans · Cultural Associations</p>
+        </div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🏘️ Housing Communities</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">Co-livings · Co-housings · Cooperatives · Student Residences · Senior Housing · Social Housing</p>
+        </div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">💼 Business</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">Hotels · Restaurants · Co-workings · Medical Centres · Architects · Real Estate · Insurance</p>
+        </div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🎓 Education</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">Universities · Schools · Language Schools · Vocational Training · Children's Clubs</p>
+        </div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">❤️ Social Care</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">Senior Homes · Home Care · Day Centres · Psychological Centres · Family Support</p>
+        </div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🌱 Communities</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">Integration Communities · Expat Groups · Interest Clubs · Sports · Music · Gardening</p>
+        </div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🏠 Property Owners</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">Building Associations · Property Managers · Landlords · Developers · Homeowners</p>
+        </div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🌍 European Partners</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">EU Programmes · International ASBL Networks · Grant Funds · Social Investors</p>
+        </div></div>
+    </div>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#2F518E;border:1px solid rgba(111,217,143,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#6fd98f;margin-bottom:6px;">Property Care Services</p>
+      <p style="font-size:1.05rem;font-weight:600;color:#f0ede4;margin-bottom:10px;">Property Monitoring &amp; Care</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:16px;">Practical inspection, monitoring and care services for empty and occupied buildings — public, municipal and private.</p>
+      <div class="card-grid"><div class="card"><div class="card-title">🔍 Detection &amp; Monitoring</div><div class="card-body">Identification of empty or underused buildings and lands — public, municipal and private sector. Ongoing monitoring of their condition.</div></div><div class="card"><div class="card-title">🏗️ Building Inspection</div><div class="card-body">Assessment of roof, attic, basement, façade and solar panels. Technical condition reports for houses, farms, warehouses, offices and industrial buildings.</div></div><div class="card"><div class="card-title">🌿 Territory &amp; Land Care</div><div class="card-body">Monitoring and maintenance of surrounding lands, gardens, agricultural plots and outdoor spaces.</div></div><div class="card"><div class="card-title">🏡 House Sitting &amp; Occupancy</div><div class="card-body">House sitting through commodat agreements and paid services. Regular visits, condition checks and photo-video reports.</div></div><div class="card"><div class="card-title">📅 Care Through Events</div><div class="card-body">Keeping properties alive and maintained through community events, temporary use programmes and cultural activities.</div></div></div>
+    </div>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#2F518E;border:1px solid rgba(111,217,143,0.22);padding:22px 24px;border-radius:4px;margin-bottom:24px;text-align:center;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#6fd98f;font-weight:600;margin-bottom:10px;">Become a Pilot Partner</p>
+      <p style="font-size:0.92rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:0;">CareterA is currently in development. We are looking for municipalities, organisations and property owners interested in co-developing and piloting the platform.</p>
+    </div>
+    <button class="btn-gold" onclick="showPage('page-contacts')">Discuss a Pilot →</button>
+  </div>
+</div>
+
+<div id="page-arch" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+  </div>
+    <div class="page-eyebrow">Solutions for People</div>
+    <div style="text-align:center;margin:16px 0 8px;">
+      <img src="arch_logo.png" alt="ARCH" style="width:180px;height:auto;filter:drop-shadow(0 0 12px rgba(255,255,255,0.1));">
+    </div>
+    <h2 class="page-title">ARCH Alliance</h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#2fe0cc;font-weight:400;letter-spacing:0.06em;margin-bottom:6px;">AI Resilience &amp; Community Hub</p>
+    <p style="display:inline-block;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;padding:5px 14px;border-radius:8px;background:rgba(47,224,204,0.1);color:#2fe0cc;border:1px solid rgba(47,224,204,0.3);margin-bottom:28px;">⚙️ In Development</p>
+
+    <div style="background:#2F518E;border:1px solid rgba(47,224,204,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:10px;">ARCH is a prevention and resilience ecosystem developed by KOLOSVIT ASBL. It brings AI-assisted wellbeing tools, community programmes and sector-specific solutions together under one coordinated approach — adaptable to municipalities, organisations and individuals alike.</p>
+      <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.8);line-height:1.52;font-style:italic;">ARCH does not treat. ARCH detects, informs and recommends. It complements — never replaces — healthcare, social services and clinical judgement.</p>
+    </div>
+
+    <div class="hdiv"></div>
+
+    <!-- ═══ 1. COMMUNITY WELL-BEING ECOSYSTEM ═══ -->
+    <div style="background:#2F518E;border:2px solid rgba(47,224,204,0.4);padding:22px 24px;border-radius:4px;margin-bottom:24px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#2fe0cc;margin-bottom:6px;">⭐ Flagship Programme</p>
+      <p style="font-size:1.15rem;font-weight:600;color:#f0ede4;margin-bottom:10px;">ARCH Community Well-being Ecosystem</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:14px;">A modular, scalable programme helping municipalities, social services, hospitals, universities and foundations improve quality of life, strengthen resilience and promote inclusion — through prevention, innovation and community engagement.</p>
+
+      <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#2fe0cc;margin-bottom:10px;">Core Modules</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:18px;">
+        <div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.88rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🧓 Healthy Ageing</p>
+          <p style="font-size:0.82rem;color:rgba(242,244,248,0.8);line-height:1.6;">Supporting independence, social participation and quality of life for seniors.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.88rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">💻 Digital Inclusion</p>
+          <p style="font-size:0.82rem;color:rgba(242,244,248,0.8);line-height:1.6;">Helping residents confidently navigate digital services and online safety.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.88rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🕊️ Veterans &amp; Displaced Persons</p>
+          <p style="font-size:0.82rem;color:rgba(242,244,248,0.8);line-height:1.6;">Resilience-building, peer support and integration for war-affected individuals.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.88rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🤝 Inclusive Community</p>
+          <p style="font-size:0.82rem;color:rgba(242,244,248,0.8);line-height:1.6;">Accessibility and participation programmes for people with disabilities.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.88rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🏛️ Healthy Municipal Workforce</p>
+          <p style="font-size:0.82rem;color:rgba(242,244,248,0.8);line-height:1.6;">Stress prevention and organisational resilience for municipal teams.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.88rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">📡 Smart Well-being Monitoring</p>
+          <p style="font-size:0.82rem;color:rgba(242,244,248,0.8);line-height:1.6;">Voluntary, non-medical monitoring using certified wearable technology.</p>
+        </div>
+      </div>
+
+      <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#2fe0cc;margin-bottom:8px;">For Whom</p>
+      <p style="font-size:0.88rem;font-weight:500;color:#F2F4F8;line-height:1.48;margin-bottom:16px;">Municipalities · Ministries · Social Services · Hospitals · Senior Care · Universities · Foundations</p>
+
+      <div style="font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,240,200,0.7);">Prevention &middot; Healthy Ageing &middot; Digital Inclusion &middot; AI &middot; Community Resilience</div>
+    </div>
+
+    <!-- ═══ 2. CARETERA LINK ═══ -->
+    <div style="background:#2F518E;border:1px solid rgba(47,224,204,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#2fe0cc;margin-bottom:6px;">Property &amp; Infrastructure</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:10px;">🏠 CareterA — Property Care Ecosystem</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:10px;">A practical solution for municipalities and property owners: vacant property monitoring, drone inspections, temporary occupancy support, solar and roof monitoring, and preventive property care.</p>
+      <p style="font-size:0.78rem;color:rgba(255,240,200,0.6);font-style:italic;margin-bottom:14px;">Drone inspections, solar monitoring and moss detection — coming soon.</p>
+      <p style="font-size:0.85rem;color:rgba(255,240,200,0.7);margin-bottom:14px;">For: Municipalities · Social Housing · Insurance · Property Owners</p>
+      <button class="btn-ghost" onclick="showPage('page-caretera')">Explore CareterA →</button>
+    </div>
+
+    <!-- ═══ 3. PEARLS LINK ═══ -->
+    <div style="background:#2F518E;border:1px solid rgba(47,224,204,0.2);padding:20px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#2fe0cc;margin-bottom:6px;">Culture &amp; Community</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:10px;">💎 Pearls of Luxembourg</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:14px;">Building community through culture, stories and connection — supporting tourism, local economy and civic engagement across Luxembourg.</p>
+      <button class="btn-ghost" onclick="showPage('page-pearls')">Explore Pearls →</button>
+    </div>
+
+    <div class="hdiv"></div>
+    <div class="sh-label">Corporate Well-being Solutions</div>
+    <p style="font-size:0.85rem;font-weight:500;color:rgba(255,240,200,0.75);line-height:1.48;margin-bottom:20px;font-style:italic;">ARCH adapts to the specific operational and psychosocial challenges of each industry. Below are examples of sector-specific resilience solutions — not standalone projects, but tailored applications of the same core methodology.</p>
+
+    <!-- FINANCIAL SECTOR -->
+    <div style="background:#2F518E;border:1px solid rgba(47,224,204,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#2fe0cc;margin-bottom:6px;">Pilot Programme · Financial Sector</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:12px;">ARCH Resilience Hub for Financial Institutions</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:14px;"><strong style="color:#f0ede4;">The Problem:</strong> Compliance, AML, Risk and Operations teams work under constant cognitive overload — regulatory deadlines, personal accountability and high-pressure multilingual environments increase the risk of burnout, loss of focus and staff turnover. Luxembourg has one of the highest burnout rates in the EU financial workforce.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:16px;">
+        <div>
+          <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#2fe0cc;margin-bottom:8px;">What We Offer</p>
+          <ul style="font-size:0.88rem;font-weight:500;color:#F2F4F8;line-height:1.52;padding-left:16px;margin:0;">
+            <li>AI-assisted wellbeing monitoring</li>
+            <li>Early burnout detection</li>
+            <li>Individual resilience consultations</li>
+            <li>Resilience Hub sessions</li>
+            <li>Cognitive recovery activities</li>
+            <li>Anonymous management reporting</li>
+            <li>ESG wellbeing metrics</li>
+            <li>Voluntary employee participation</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#2fe0cc;margin-bottom:8px;">For Whom</p>
+          <ul style="font-size:0.88rem;font-weight:500;color:#F2F4F8;line-height:1.52;padding-left:16px;margin:0;">
+            <li>Banks</li>
+            <li>Investment Funds</li>
+            <li>AML Teams</li>
+            <li>Compliance Departments</li>
+            <li>FinTech</li>
+            <li>Insurance</li>
+            <li>Financial Service Providers</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#2fe0cc;margin-bottom:8px;">Key Benefits</p>
+          <ul style="font-size:0.88rem;font-weight:500;color:#F2F4F8;line-height:1.52;padding-left:16px;margin:0;">
+            <li>Earlier burnout detection</li>
+            <li>Higher employee resilience</li>
+            <li>Lower absenteeism</li>
+            <li>Better staff retention</li>
+            <li>Support for ESG initiatives</li>
+            <li>Privacy-first approach</li>
+            <li>EU AI Act aware design</li>
+          </ul>
+        </div>
+      </div>
+      <p style="font-size:0.82rem;font-weight:500;color:rgba(255,240,200,0.7);line-height:1.46;font-style:italic;">Pilot budgets start from approximately €14,000 per month. A detailed proposal is prepared after an introductory discussion. (Co-funding options may be available — to be confirmed with relevant authorities.)</p>
+    </div>
+
+    <!-- LOGISTICS SECTOR -->
+    <div style="background:#2F518E;border:1px solid rgba(47,224,204,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#2fe0cc;margin-bottom:6px;">Pilot Programme · Logistics &amp; Transport</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:12px;">ARCH Resilience Hub for Transport Operators</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:14px;"><strong style="color:#f0ede4;">The Problem:</strong> Drivers, dispatchers, ground coordinators and aviation operators face chronic fatigue, shift work and high-stakes decisions. EU NIS2 Directive classifies rail and road freight as critical infrastructure — human resilience is now a compliance issue. Fatigue-related incidents remain the leading human factor in European transport safety.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:16px;">
+        <div>
+          <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#2fe0cc;margin-bottom:8px;">What We Offer</p>
+          <ul style="font-size:0.88rem;font-weight:500;color:#F2F4F8;line-height:1.52;padding-left:16px;margin:0;">
+            <li>Physiological fatigue monitoring</li>
+            <li>Pre-shift readiness screening</li>
+            <li>Simulator-based state assessment</li>
+            <li>Recovery Hub between shifts</li>
+            <li>Peer support groups</li>
+            <li>Anonymous safety reporting</li>
+            <li>NIS2 compliance support</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#2fe0cc;margin-bottom:8px;">For Whom</p>
+          <ul style="font-size:0.88rem;font-weight:500;color:#F2F4F8;line-height:1.52;padding-left:16px;margin:0;">
+            <li>Logistics operators (CFL, airport, etc.)</li>
+            <li>Road freight companies</li>
+            <li>Cargo &amp; aviation operators</li>
+            <li>Postal &amp; logistics operators</li>
+            <li>Dispatchers &amp; coordinators</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#2fe0cc;margin-bottom:8px;">Key Benefits</p>
+          <ul style="font-size:0.88rem;font-weight:500;color:#F2F4F8;line-height:1.52;padding-left:16px;margin:0;">
+            <li>Reduced fatigue-related incidents</li>
+            <li>Measurable safety improvement</li>
+            <li>NIS2 compliance evidence</li>
+            <li>Lower sick leave</li>
+            <li>Better crew retention</li>
+            <li>ESG safety metrics</li>
+          </ul>
+        </div>
+      </div>
+      <p style="font-size:0.82rem;font-weight:500;color:rgba(255,240,200,0.7);line-height:1.46;font-style:italic;">Pilot budgets from approximately €10,000–12,000 per month (basic version). Final proposal after initial discussion.</p>
+    </div>
+
+    <!-- YOUTH & REFUGEES -->
+    <div style="background:#2F518E;border:1px solid rgba(47,224,204,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#2fe0cc;margin-bottom:6px;">Pilot Programme · Education &amp; Integration</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:12px;">Simulator-Based Training for Youth and Refugees</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:14px;">Using Liftoff drone flight simulators (6 licences, MoU signed), ARCH develops practical training programmes for young people and refugees — building real technical skills, focus and resilience through simulation. We are currently determining the location and equipment for our first training classroom.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+        <div>
+          <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#2fe0cc;margin-bottom:8px;">Programme Elements</p>
+          <ul style="font-size:0.88rem;font-weight:500;color:#F2F4F8;line-height:1.52;padding-left:16px;margin:0;">
+            <li>Drone flight simulation training</li>
+            <li>Focus and decision-making exercises</li>
+            <li>Stress resilience development</li>
+            <li>Certification pathways</li>
+            <li>Community integration</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#2fe0cc;margin-bottom:8px;">Target Participants</p>
+          <ul style="font-size:0.88rem;font-weight:500;color:#F2F4F8;line-height:1.52;padding-left:16px;margin:0;">
+            <li>Young people (16–25)</li>
+            <li>Refugees and displaced persons</li>
+            <li>NEET youth (not in education or employment)</li>
+            <li>Integration programme participants</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="hdiv"></div>
+    <div class="sh-label">Innovation &amp; AI</div>
+    <div style="background:#2F518E;border:1px solid rgba(47,224,204,0.2);padding:20px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:14px;">Artificial intelligence supports programme coordination, anonymous trend analysis and evidence-informed decision making — always as a supportive technology, never replacing healthcare professionals or clinical judgement.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">
+        <div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🤖 AI Coordination</div>
+        <div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">📊 Smart Monitoring</div>
+        <div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">⌚ Certified Wearables</div>
+        <div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🗂️ Community Intelligence Platform <em style="opacity:0.6;">(under development)</em></div>
+      </div>
+    </div>
+
+    <!-- SHELTER -->
+    <div style="background:rgba(47,224,204,0.07);border:1px solid rgba(47,224,204,0.2);padding:20px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#2fe0cc;margin-bottom:6px;">Community Initiative</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:10px;">🐾 Rescue Programme — Dog Shelter, Poltava Region, Ukraine</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:10px;">ARCH is preparing a rescue programme for a dog breeding facility and shelter in the Poltava region, Ukraine. We plan to organise charity fundraising events and invite patrons, organisations and individuals interested in preserving this facility and supporting the animals.</p>
+      <p style="font-size:0.88rem;font-weight:500;color:rgba(255,240,200,0.8);line-height:1.48;">If your organisation is interested in supporting this initiative or co-organising a charity event — we would be glad to hear from you.</p>
+    </div>
+
+    <div class="hdiv"></div>
+    <div style="background:#2F518E;border:1px solid rgba(47,224,204,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#2fe0cc;font-weight:600;margin-bottom:12px;">Interested in becoming one of the first Luxembourg pilot organisations?</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:10px;">Pilot programmes are tailored to the size of the organisation and the selected modules. A detailed proposal is prepared after an introductory discussion.</p>
+      <p style="font-size:0.88rem;font-weight:500;color:rgba(255,240,200,0.8);line-height:1.48;">Prefer direct contact? <strong style="color:#2fe0cc;">📧 kolosvit@proton.me</strong></p>
+    </div>
+
+    <!-- CONTACT FORM -->
+    <div class="sh-label">Request a Pilot Discussion</div>
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(47,224,204,0.18);padding:18px 22px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;color:#2fe0cc;margin-bottom:10px;">When contacting us, please include:</p>
+      <ul style="padding-left:18px;margin:0;">
+        <li style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;">Your name and position</li><li style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;">Company name and sector</li><li style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;">Your work email</li><li style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;">A brief message — e.g.: <em style="color:rgba(255,240,200,0.8);">I would like to discuss an ARCH pilot for our organisation.</em></li>
+      </ul>
+    </div>
+    <button class="btn-gold" onclick="showPage('page-contacts')">Write to Us →</button>
+  </div>
+</div>
+</div>
+
+<footer>
+  <div class="footer-copy">&#169; 2026 KOLOSVIT ASBL &middot; RCS F15616 | <a href="privacy.html#en">Privacy Policy</a></div>
+  <div class="footer-founded">Ukrainian-founded European Association</div>
+  <div id="etym" class="footer-etym">* <strong>KOLOSVIT</strong> &#8212; Ukrainian &amp; Greek wordplay: <strong>Kolo</strong> (Circle/Union) + <strong>Svit</strong> (World/Light/Peace) &#8212; a circle of light and a global community. <strong>Kolos</strong> (Ear of grain) + <strong>Vita</strong> (Greek: Life) &#8212; the grain of life, symbol of resilience and growth.</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="lb">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KOLOSVIT ASBL &#8212; Krees vum Liicht</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+img{max-width:100%;height:auto;}
+html{scroll-behavior:smooth;}
+body{
+  background: radial-gradient(circle at top, #4a6fa8 0%, #3a5d96 35%, #2e4f88 70%, #243f78 100%);
+  min-height:100vh;
+  width:100%;
+  color:#e8edf5;
+  font-family:'Jost',sans-serif;
+  overflow-x:hidden;
+  word-wrap:break-word;
+  overflow-wrap:break-word;
+}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  display:flex;align-items:center;
+  padding:10px 18px;
+  background:rgba(30,52,96,0.92);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(242,200,75,0.18);
+  gap:18px;
+}
+.nav-brand{flex:1;min-width:0;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.0rem;font-weight:700;letter-spacing:0.06em;color:#f2c84b;text-transform:uppercase;line-height:1;display:block;white-space:nowrap;text-shadow:0 0 8px rgba(242,200,75,0.35);}
+.nav-tm{font-size:0.5rem;vertical-align:super;color:rgba(242,200,75,0.6);}
+.nav-star{font-size:0.55rem;vertical-align:super;color:#f2c84b;cursor:pointer;text-decoration:none;position:relative;}
+.nav-star .tip{visibility:hidden;opacity:0;position:absolute;top:-26px;left:50%;transform:translateX(-50%);background:rgba(20,40,90,0.97);color:#f2c84b;font-size:0.55rem;padding:3px 7px;border-radius:6px;white-space:nowrap;border:1px solid rgba(242,200,75,0.2);transition:opacity 0.25s;pointer-events:none;}
+.nav-star:hover .tip{visibility:visible;opacity:1;}
+.nav-asbl{font-size:0.6rem;font-weight:700;letter-spacing:0.06em;color:rgba(242,200,75,0.95);text-transform:uppercase;display:block;margin-top:3px;white-space:nowrap;}
+.nav-rcs{font-size:0.62rem;letter-spacing:0.1em;color:#f2c84b;font-weight:700;text-transform:uppercase;display:block;white-space:nowrap;}
+.lang-dropdown{position:relative;flex-shrink:0;}
+.lang-btn{
+  background:none;border:1px solid rgba(242,200,75,0.35);
+  color:rgba(242,200,75,0.85);font-family:'Jost',sans-serif;
+  font-size:0.68rem;letter-spacing:0.1em;padding:6px 10px;
+  border-radius:10px;cursor:pointer;
+  display:flex;align-items:center;gap:5px;white-space:nowrap;
+  transition:all 0.35s ease;
+}
+.lang-btn:hover,.lang-btn.open{border-color:#f2c84b;color:#f2c84b;background:rgba(242,200,75,0.08);box-shadow:0 0 10px rgba(242,200,75,0.2);}
+.lang-btn::after{content:'▾';font-size:0.6rem;transition:transform 0.3s;}
+.lang-btn.open::after{transform:rotate(180deg);}
+.lang-list{
+  display:none;position:absolute;top:calc(100% + 6px);right:0;
+  background:rgba(22,42,88,0.98);backdrop-filter:blur(20px);
+  border:1px solid rgba(242,200,75,0.18);border-radius:12px;
+  min-width:155px;z-index:500;overflow:hidden;
+}
+.lang-list.open{display:block;}
+.lang-list a{
+  display:block;padding:10px 16px;font-size:0.73rem;
+  letter-spacing:0.09em;text-transform:uppercase;
+  color:rgba(242,200,75,0.82);text-decoration:none;
+  border-bottom:1px solid rgba(242,200,75,0.07);
+  transition:all 0.25s ease;
+}
+.lang-list a:last-child{border-bottom:none;}
+.lang-list a:hover{color:#f2c84b;background:rgba(242,200,75,0.08);padding-left:22px;}
+.hamburger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:6px;flex-shrink:0;}
+.hamburger span{display:block;width:22px;height:2px;background:#f2c84b;border-radius:2px;transition:all 0.3s ease;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-menu{display:none;position:fixed;inset:0;z-index:250;background:rgba(38,72,128,0.97);backdrop-filter:blur(24px);padding:100px 32px 40px;}
+.nav-menu.open{display:flex;flex-direction:column;justify-content:flex-start;overflow-y:auto;}
+.menu-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#f2c84b;font-size:1.8rem;cursor:pointer;transition:all 0.25s ease;}
+.menu-close:hover{transform:rotate(90deg);}
+.menu-logo{display:none;}
+.menu-logo img{width:100px;height:auto;opacity:0.95;filter:drop-shadow(0 0 16px rgba(242,200,75,0.3));}
+.menu-top-links{display:flex;justify-content:center;gap:14px;margin-bottom:26px;flex-wrap:wrap;}
+.menu-top-links a{
+  font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(242,200,75,0.75);text-decoration:none;
+  border:1px solid rgba(242,200,75,0.28);padding:7px 16px;
+  border-radius:10px;transition:all 0.35s ease;
+}
+.menu-top-links a:hover{color:#f2c84b;border-color:#f2c84b;background:rgba(242,200,75,0.08);box-shadow:0 0 12px rgba(242,200,75,0.2);}
+.menu-pages a{display:block;padding:18px 0;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:rgba(242,200,75,0.85);text-decoration:none;border-bottom:1px solid rgba(242,200,75,0.1);transition:all 0.35s ease;}
+.menu-pages a:hover{color:#f2c84b;padding-left:12px;text-shadow:0 0 10px rgba(242,200,75,0.4);}
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle var(--d,3s) ease-in-out infinite;opacity:var(--o,.2);}
+@keyframes twinkle{0%,100%{opacity:var(--o,.2);transform:scale(1);}50%{opacity:calc(var(--o,.2)*2.5);transform:scale(1.4);}}
+.page{display:none;}.page.active{display:block;}
+.section-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(242,200,75,0.28),transparent);}
+/* HERO IMAGE — cinematic, no crop */
+.hero-image{width:100%;position:relative;z-index:1;padding:0 28px 0;}
+.hero-image img{
+  width:100%;height:auto;
+  display:block;
+  border-radius:18px;
+  object-fit:contain;
+  box-shadow:0 0 40px rgba(242,200,75,0.14), 0 8px 48px rgba(0,0,0,0.35);
+  animation:breathe 8s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{box-shadow:0 0 25px rgba(242,200,75,0.13),0 8px 40px rgba(0,0,0,0.3);}50%{box-shadow:0 0 45px rgba(242,200,75,0.22),0 8px 52px rgba(0,0,0,0.35);}}
+.hero-block{position:relative;z-index:1;text-align:center;padding:32px 28px 20px;}
+.hero-cta{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:20px;}
+.btn-gold{
+  background:#f2c84b;color:#0f1828;border:none;
+  padding:14px 34px;font-family:'Jost',sans-serif;
+  font-size:0.82rem;font-weight:600;letter-spacing:0.14em;
+  text-transform:uppercase;cursor:pointer;border-radius:14px;
+  transition:all 0.35s ease;
+  box-shadow:0 0 18px rgba(242,200,75,0.28);
+}
+.btn-gold:hover{background:#ffe88a;transform:translateY(-2px);box-shadow:0 0 28px rgba(242,200,75,0.45);}
+.btn-ghost{
+  background:transparent;color:#f2c84b;
+  border:1px solid rgba(242,200,75,0.38);
+  padding:14px 34px;font-family:'Jost',sans-serif;
+  font-size:0.82rem;font-weight:500;letter-spacing:0.14em;
+  text-transform:uppercase;cursor:pointer;border-radius:14px;
+  transition:all 0.35s ease;
+}
+.btn-ghost:hover{border-color:#f2c84b;background:rgba(242,200,75,0.08);transform:translateY(-2px);box-shadow:0 0 18px rgba(242,200,75,0.22);}
+.hero-survey{margin-bottom:32px;}
+.hero-survey a{font-size:0.9rem;font-weight:500;color:rgba(242,200,75,0.88);text-decoration:underline;text-underline-offset:4px;letter-spacing:0.04em;transition:all 0.3s ease;}
+.hero-survey a:hover{color:#ffe88a;text-shadow:0 0 8px rgba(242,200,75,0.4);}
+.hero-eyebrow{font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:#c8a830;margin-bottom:10px;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,11vw,3.8rem);font-weight:700;line-height:1.0;color:#e8edf5;margin-bottom:32px;}
+.hero-title .hl{color:#f2c84b;text-shadow:0 0 12px rgba(242,200,75,0.3);}
+.ring-section{position:relative;z-index:1;display:flex;justify-content:center;padding:28px 0 32px;}
+.ring-wrap{width:min(320px,80vw);height:min(320px,80vw);position:relative;flex-shrink:0;}
+.ring-glow{position:absolute;inset:-40px;border-radius:50%;background:radial-gradient(circle,rgba(242,200,75,0.1) 0%,transparent 68%);animation:glowPulse 4s ease-in-out infinite;pointer-events:none;}
+@keyframes glowPulse{0%,100%{opacity:.4;transform:scale(1);}50%{opacity:.85;transform:scale(1.08);}}
+#hexCanvas{position:absolute;inset:0;width:100%;height:100%;}
+.contact-wrap{text-align:center;padding:0 28px 56px;position:relative;z-index:1;}
+/* PAGE LOGO */
+.page-logo{display:block;text-align:center;margin:20px 0;}
+.page-logo img{width:120px;height:auto;opacity:0.94;filter:drop-shadow(0 0 14px rgba(242,200,75,0.28));}
+.inner-page{max-width:880px;width:100%;margin:0 auto;padding:24px 28px 72px;overflow-wrap:break-word;word-wrap:break-word;}
+.page-back{
+  display:inline-flex;align-items:center;gap:7px;margin-bottom:32px;
+  font-size:0.72rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(242,200,75,0.78);text-decoration:none;cursor:pointer;
+  background:none;border:1px solid rgba(242,200,75,0.28);
+  padding:8px 18px;border-radius:10px;transition:all 0.35s ease;
+}
+.page-back:hover{color:#f2c84b;border-color:#f2c84b;background:rgba(242,200,75,0.07);box-shadow:0 0 12px rgba(242,200,75,0.18);}
+.page-eyebrow{font-size:0.65rem;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#c8a830;margin-bottom:10px;}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.25rem,4.2vw,1.7rem);font-weight:700;color:#e8edf5;margin-bottom:16px;line-height:1.2;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:26px;}
+.card{
+  min-width:0;
+  background:#2F518E;
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(242,200,75,0.13);
+  border-top:3px solid var(--pg-accent,rgba(242,200,75,0.5));
+  padding:16px 18px;border-radius:12px;
+  transition:all 0.35s ease;
+}
+.card:hover{background:rgba(242,200,75,0.06);border-color:rgba(242,200,75,0.28);box-shadow:0 0 18px rgba(242,200,75,0.12);transform:translateY(-2px);}
+.card-tag{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--pg-accent-text,#c8a830);margin-bottom:6px;}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-weight:600;color:var(--pg-accent-text,#f2c84b);margin-bottom:6px;line-height:1.25;}
+.card-body{text-shadow:0 1px 2px rgba(0,0,0,.2);font-size:0.85rem;font-weight:500;color:rgba(232,237,245,0.9);line-height:1.42;margin-bottom:8px;}
+.card-date{font-size:0.66rem;color:rgba(242,200,75,0.42);margin-top:6px;}
+.badge{display:inline-block;font-size:0.56rem;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border-radius:8px;margin-bottom:8px;background:rgba(242,200,75,0.12);color:var(--pg-accent-text,#f2c84b);border:1px solid rgba(242,200,75,0.25);}
+.hdiv{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(242,200,75,0.2),transparent);margin:22px 0;}
+.sh-label{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--pg-accent-text,#c8a830);margin-bottom:5px;}
+/* ============ PER-PAGE COLOR PHILOSOPHY ============
+   Turquoise = Innovation & Wellbeing (ARCH)
+   Green = Property, Environment (CareterA)
+   Blue = Trust, Communities, Institutions (Municipal)
+   Gold = People, Culture, Values (Pearls/Culture) — default
+   Steel-grey = Technology, AI, Professionalism (Training) */
+#page-arch{--pg-accent:#2fb8ac;--pg-accent-text:#5fe0d2;}
+#page-caretera{--pg-accent:#4caf6e;--pg-accent-text:#8fe0a8;}
+#page-municipal{--pg-accent:#4d7fd6;--pg-accent-text:#8fb4f0;}
+#page-training{--pg-accent:#8a97a8;--pg-accent-text:#c3ccd8;}
+#page-culture, #page-pearls{--pg-accent:#f2c84b;--pg-accent-text:#f2c84b;}
+#page-arch .page-eyebrow,#page-arch .btn-gold{color:#5fe0d2;}
+#page-arch .btn-gold{background:#2fb8ac;color:#06231f;}
+#page-caretera .page-eyebrow{color:#8fe0a8;}
+#page-caretera .btn-gold{background:#4caf6e;color:#0b2412;}
+#page-municipal .page-eyebrow{color:#8fb4f0;}
+#page-municipal .btn-gold{background:#4d7fd6;color:#0c1c3a;}
+#page-training .page-eyebrow{color:#c3ccd8;}
+#page-training .btn-gold{background:#8a97a8;color:#171c22;}
+.sh-title{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:400;color:#e8edf5;margin-bottom:20px;}
+.field{margin-top:8px;}
+.field input{
+  width:100%;background:rgba(255,255,255,0.06);
+  border:1px solid rgba(242,200,75,0.2);color:#e8edf5;
+  font-family:'Jost',sans-serif;font-size:0.9rem;
+  padding:10px 14px;border-radius:10px;outline:none;
+  transition:all 0.35s ease;margin-top:5px;
+  backdrop-filter:blur(4px);
+}
+.field input::placeholder{color:rgba(242,200,75,0.28);}
+.field input:focus{border-color:rgba(242,200,75,0.52);box-shadow:0 0 10px rgba(242,200,75,0.12);}
+.about-grid{display:grid;grid-template-columns:1fr;gap:32px;min-width:0;}
+.about-grid>div{min-width:0;}
+.about-logo{text-align:center;}
+.about-logo img{width:160px;height:auto;border-radius:10px;filter:drop-shadow(0 0 14px rgba(242,200,75,0.22));}
+.about-text p{font-size:0.9rem;font-weight:500;color:rgba(232,237,245,0.9);line-height:1.5;margin-bottom:12px;}
+.about-text strong{color:#e8edf5;font-weight:500;}
+.rcs-note{font-size:0.62rem;letter-spacing:0.1em;color:rgba(242,200,75,0.35);text-transform:uppercase;margin-top:16px;}
+.c-row{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(242,200,75,0.1);min-width:0;}
+.c-row:last-of-type{border-bottom:none;}
+.c-lbl{font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#c8a830;min-width:80px;padding-top:2px;}
+.c-val{font-size:0.9rem;font-weight:500;color:rgba(232,237,245,0.85);min-width:0;overflow-wrap:break-word;word-break:break-word;}
+.c-val a{color:rgba(232,237,245,0.85);text-decoration:none;transition:all 0.3s ease;}
+.c-val a:hover{color:#f2c84b;text-shadow:0 0 8px rgba(242,200,75,0.3);}
+/* FOOTER — світлий, читабельний */
+footer{
+  text-align:center;
+  padding:32px 28px 36px;
+  border-top:1px solid rgba(242,200,75,0.22);
+  background:rgba(25,45,85,0.92);
+  position:relative;z-index:1;opacity:0.9;
+}
+.footer-copy{
+  font-size:1.0rem;
+  letter-spacing:0.06em;
+  color:#c8d8f0;
+  margin-bottom:10px;
+  font-weight:500;
+}
+.footer-copy a{color:#f2c84b;text-decoration:underline;text-underline-offset:3px;}
+.footer-founded{
+  font-size:0.88rem;
+  letter-spacing:0.08em;
+  font-style:italic;
+  color:#a8c4e8;
+  margin-bottom:14px;
+}
+.footer-etym{
+  font-size:0.82rem;
+  line-height:1.48;
+  font-style:italic;
+  color:#b8cce0;
+  max-width:640px;
+  margin:0 auto;
+  padding-top:14px;
+  border-top:1px solid rgba(242,200,75,0.15);
+}
+.footer-etym strong{color:#f2c84b;font-weight:400;}
+/* EN link on lang pages */
+.en-link{flex-shrink:0;font-size:0.68rem;letter-spacing:0.12em;color:rgba(242,200,75,0.75);text-decoration:none;border:1px solid rgba(242,200,75,0.28);padding:5px 11px;border-radius:10px;white-space:nowrap;transition:all 0.35s ease;}
+.en-link:hover{color:#f2c84b;border-color:#f2c84b;background:rgba(242,200,75,0.07);box-shadow:0 0 10px rgba(242,200,75,0.18);}
+/* ============ NEW TOP CONCEPT SECTION ============ */
+.top-hero{
+  position:relative;z-index:1;
+  background:linear-gradient(180deg,#d8f5ef 0%,#a8e5db 55%,#78d2c2 100%);
+  padding:82px 24px 18px;
+  color:#333;
+}
+.top-hero-inner{max-width:1100px;margin:0 auto;text-align:center;}
+.th-tagline{font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#111;margin-bottom:6px;}
+.th-sub{font-size:0.78rem;font-weight:600;color:#111;max-width:560px;margin:0 auto 16px;line-height:1.4;}
+.th-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(161px,1fr));gap:10px;margin-bottom:22px;text-align:left;max-width:860px;margin-left:auto;margin-right:auto;}
+.th-card{
+  background:linear-gradient(160deg,#e3faf6 0%,#c3f0e8 100%);border-radius:11px;padding:11px 14px;cursor:pointer;
+  box-shadow:0 3px 12px rgba(20,90,80,0.14);
+  border-top:3px solid var(--accent,#1c9e8f);
+  transition:all 0.3s ease;
+}
+.th-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(20,90,80,0.22);}
+.th-card-line{font-size:0.83rem;font-weight:600;line-height:1.4;color:#1e3230;}
+.th-card-ico{font-size:0.98rem;}
+.th-card-title{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:0.98rem;letter-spacing:0.01em;color:#123a5e;}
+.th-slogan{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:clamp(0.95rem,2.4vw,1.2rem);color:#2b2b2b;max-width:600px;margin:0 auto;line-height:1.35;}
+@media(min-width:768px){
+  .top-hero{padding:130px 40px 56px;}
+}
+/* ============ Solutions dropdown ============ */
+.nav-contact-btn{
+  flex-shrink:0;background:#2fb8ac;color:#fff;border:none;
+  font-family:'Jost',sans-serif;font-size:0.7rem;font-weight:600;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:9px 16px;border-radius:10px;cursor:pointer;white-space:nowrap;
+  transition:all 0.3s ease;text-decoration:none;display:inline-block;
+}
+.nav-contact-btn:hover{background:#f2c84b;color:#1c3f7a;}
+/* Solutions dropdown in overlay menu */
+.menu-solutions{border-bottom:1px solid rgba(242,200,75,0.1);}
+.menu-solutions>.ms-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 0;cursor:pointer;
+  font-family:'Cormorant Garamond',serif;font-size:1.1rem;
+  letter-spacing:0.1em;text-transform:uppercase;color:rgba(242,200,75,0.85);
+}
+.menu-solutions>.ms-head:hover{color:#f2c84b;}
+.menu-solutions .ms-arrow{transition:transform 0.3s;font-size:1rem;}
+.menu-solutions.open .ms-arrow{transform:rotate(180deg);}
+.ms-sub{display:none;padding:0 0 14px 16px;}
+.menu-solutions.open .ms-sub{display:block;}
+.ms-sub a{
+  display:block;padding:9px 0;font-family:'Jost',sans-serif;
+  font-size:0.85rem;letter-spacing:0.04em;color:rgba(232,237,245,0.72);
+  text-decoration:none;border:none !important;transition:all 0.25s ease;
+}
+.ms-sub a:hover{color:#f2c84b;padding-left:8px;}
+.ms-sub-label{font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(242,200,75,0.5);margin:10px 0 2px;}
+@media(min-width:768px){
+  nav{padding:10px 40px;}
+  .hero-image{padding:0 40px 0;}
+  .ring-wrap{width:420px;height:420px;}
+  .about-grid{grid-template-columns:160px 1fr 1fr;gap:40px;align-items:start;}
+  .inner-page{padding:32px 48px 72px;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-brand">
+    <span class="nav-logo">Kolosvit<sup class="nav-tm">&#8482;</sup></span>
+    <span class="nav-asbl">ASBL Lëtzebuerg</span>
+    <span class="nav-rcs">RCS F15616</span>
+  </div>
+  <a href="index.html" class="en-link"">EN &#8594;</a>
+  <button class="hamburger" id="burger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-menu" id="navMenu">
+  <button class="menu-close" onclick="closeMenu()">&#10005;</button>
+  <div class="menu-pages">
+    <a href="javascript:void(0)" onclick="showPage('page-home');closeMenu();">Home</a>
+    <a href="javascript:void(0)" onclick="showPage('page-about');closeMenu();">&Uuml;ns iwwer</a>
+    <div class="menu-solutions" id="menuSolutions">
+      <div class="ms-head" onclick="toggleSolutions()"><span>L&eacute;isungen</span><span class="ms-arrow">&#9662;</span></div>
+      <div class="ms-sub">
+        <div class="ms-sub-label">&#129504; L&eacute;isunge fir Mënschen</div>
+        <a href="javascript:void(0)" onclick="showPage('page-arch');closeMenu();">ARCH &mdash; Mënschlech Leeschtung, Wuelbefannen a Stress-Resilienz</a>
+        <div class="ms-sub-label">&#127961;&#65039; L&eacute;isunge fir Gemengen</div>
+        <a href="javascript:void(0)" onclick="showPage('page-municipal');closeMenu();">Kommunal Innovatioun</a>
+        <div class="ms-sub-label">&#127968; L&eacute;isunge fir Immobilien</div>
+        <a href="javascript:void(0)" onclick="showPage('page-caretera');closeMenu();">CareterA &mdash; Immobilien-Intelligenz an -Aktivatioun</a>
+        <div class="ms-sub-label">&#127891; Formatioun a Kompetenzopbau</div>
+        <a href="javascript:void(0)" onclick="showPage('page-training');closeMenu();">Droune-Formatioun &middot; Digital Kompetenzen &middot; KI-Kompetenz</a>
+        <div class="ms-sub-label">&#127917; L&eacute;isunge fir d'Gesellschaft</div>
+        <a href="javascript:void(0)" onclick="showPage('page-culture');closeMenu();">Kultur, Gemeinschaft an Integratioun</a>
+      </div>
+    </div>
+    <a href="javascript:void(0)" onclick="showPage('page-pearls');closeMenu();">Perles d'Onyx</a>
+    <a href="javascript:void(0)" onclick="showPage('page-initiatives');closeMenu();">Initiativen / News</a>
+    <a href="javascript:void(0)" onclick="showPage('page-contacts');closeMenu();">Kontakt</a>
+  </div>
+</div>
+<div class="stars" id="stars"></div>
+
+<div id="page-home" class="page active">
+
+  <div class="top-hero">
+    <div class="top-hero-inner">
+      <div class="th-tagline">Innovatioun &middot; Wuelbefannen &middot; Resilienz</div>
+      <p class="th-sub">Mir entwéckelen praktesch L&eacute;isunge fir Gemeinschaften, Organisatiounen an kritesch Infrastrukturen.</p>
+      <div class="th-cards">
+        <div class="th-card" style="--accent:#2fb8ac" onclick="showPage('page-arch')">
+          <div class="th-card-line"><span class="th-card-ico">&#129504;</span> <span class="th-card-title">ARCH</span> — Mënschlech Leeschtung, Wuelbefannen a Stress-Resilienz.</div>
+        </div>
+        <div class="th-card" style="--accent:#1c3f7a" onclick="showPage('page-municipal')">
+          <div class="th-card-line"><span class="th-card-ico">&#127961;&#65039;</span> <span class="th-card-title">Gemengen</span> — Kommunal Innovatioun an Aktivatioun vu Gemeinschaften.</div>
+        </div>
+        <div class="th-card" style="--accent:#3f9142" onclick="showPage('page-caretera')">
+          <div class="th-card-line"><span class="th-card-ico">&#127968;</span> <span class="th-card-title">CareterA</span> — Immobilien-Intelligenz an -Aktivatioun.</div>
+        </div>
+        <div class="th-card" style="--accent:#5b6b7a" onclick="showPage('page-arch')">
+          <div class="th-card-line"><span class="th-card-ico">&#9992;&#65039;</span> <span class="th-card-title">Kritesch Infrastruktur</span> — Loft &middot; Schinn &middot; FinTech</div>
+        </div>
+        <div class="th-card" style="--accent:#e0a52e" onclick="showPage('page-pearls')">
+          <div class="th-card-line"><span class="th-card-ico">&#127917;</span> <span class="th-card-title">Kultur</span> — Gemeinschaft, Integratioun a gemeinsam Geschichten.</div>
+        </div>
+      </div>
+      <p class="th-slogan">Mir verbannen Mënschen, Iddien an Innovatioun fir st&auml;erker Gemeinschaften opzebauen.</p>
+    </div>
+  </div>
+
+  <div class="hero-image">
+    <img src="circle_people_full.jpg" alt="Krees vum Liicht">
+  </div>
+  <div class="section-divider"></div>
+  <div class="hero-block">
+    <div class="hero-cta">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold" style="font-weight:700;">Deel eis deng Erausfuerderung mat</button></a>
+    </div>
+    <p style="font-size:0.92rem;font-weight:700;color:#f0ede4;line-height:1.6;margin-bottom:28px;">Erz&auml;ilt eis är Besoin.<br>All Erausfuerderung fänkt mat engem Gespr&auml;ich un.</p>
+    <div class="hero-eyebrow">E Krees vu Gudde Mënschen</div>
+    <p style="font-size:0.95rem;font-weight:500;color:rgba(232,237,245,0.8);letter-spacing:0.03em;margin-bottom:14px;">Wëssen deelen. Vertrauen opbauen. Wierkung schafen.</p>
+    <h1 class="hero-title">Krees <span class="hl">vum Liicht</span></h1>
+  </div>
+  <div class="section-divider"></div>
+  <div class="ring-section"><div class="ring-wrap"><div class="ring-glow"></div><canvas id="hexCanvas"></canvas></div></div>
+    <div style="text-align:center;padding:12px 0 4px;opacity:0.5;animation:kolosBounce 2s infinite;">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f2c84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+  </div>
+  <style>@keyframes kolosBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}</style>
+  <div class="contact-wrap"><button class="btn-ghost" onclick="showPage('page-contacts')">Kontakt</button></div>
+</div>
+
+<div id="page-initiatives" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+  </div>
+    <div class="page-eyebrow">2026</div>
+    <h2 class="page-title">Initiativën</h2>
+    <div class="card-grid">
+      <div class="card"><div class="card-tag">25.03.2026</div><div class="card-title">Grand Th&#233;&#226;tre &middot; Philharmonie &middot; MUDAM</div><div class="card-body">Zesumme mat dem Roude Krees Lëtzebuerg hu mir 8 kulturell Ausflich organiséiert &#8212; ongeféier 10 Participanten pro Evenement &#8212; an de Grand Th&#233;&#226;tre, d&#8217;Philharmonie Luxembourg an d&#8217;Musée fir zäitgenëssesch Konscht MUDAM. Dës Ausflich hunn ukrainesche Fl&#252;chtlinge d&#8217;Méiglechkeet gi\\nn, de kulturelle Liewen vu Lëtzebuerg kennenzeléieren, Momenter vu Freed a Schéinheet ze fannen, a sech als Deel vun der europäescher Gemeinschaft ze fillen.</div><div class="card-date">Mäerz 2026</div></div>
+      <div class="card"><div class="card-tag">26.04.2026</div><div class="card-title">Konzert &middot; Serhii &amp; Hanna</div><div class="card-body">E waarmt Gemeinschaftskonzert um Boulevard Konrad Adenauer huet Ukrainer, Lëtzebuerger a Frënn aus ganz Europa zesummebruecht. D&#8217;Kënschtler Serhii a Hanna hunn den Owend mat Séil, Musek a Gemeinschaft erfëllt. E besonnesche Merci u Tami &amp; Sergo, datt si dësen Owend méiglech gemaach hunn &#8212; Ären Engagement a Är Suureg fir eis Gemeinschaft si\\nn déif spierbar.</div><div class="card-date">Abrëll 2026</div></div>
+      <div class="card"><div class="card-tag">03.05.2026</div><div class="card-title">Gemeinschaftsëmfro</div><div class="card-body">Mir hu\\nn eis éischt Gemeinschaftsëmfro gestart, fir d&#8217;reell Besoinen vun Ukrainer a Nei-Ukommer zu Lëtzebuerg besser ze verstoen. Är Stëmm bestëmmt eis Richtung. All Äntwert ass wichteg a hëlleft eis, Initiativë ze plange\\nn, déi der Gemeinschaft wierklech dienen.<br><br><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank" style="color:#f2c84b;text-decoration:underline;">Ëmfro ausfélle\\nn &#8594;</a></div><div class="card-date">Mee 2026</div></div>
+    </div>
+    <div class="hdiv"></div>
+    <div class="sh-label">Mee 2026</div>
+    <div class="sh-title">Subventiounsufroe</div>
+    <div class="card-grid">
+      <div class="card"><div class="badge">A Pr&#252;fung</div><div class="card-title">Kultur hëlleft Solidaritéit</div><div class="card-body">A Partnerschaft mat der NGO &#171;Strings of Heart&#187; hu mir e gemeinsame Gesuch fir psychologesch a kulturell Ënnerstëtzung fir ukrainesch Fl&#252;chtlinge zu Lëtzebuerg, an den Nidderlänner a Finnland agereecht. De Programm kombinéiert Konschttherapie, Gemeinschaftsevenementer a Workshops zur mentaler Resilienz &#8212; fir Traumae, Isolatioun an d&#8217;Erausfuerderung vum Neistart an engem neien Land unzegoen.</div></div>
+      <div class="card"><div class="badge">A Pr&#252;fung</div><div class="card-title">LSA &#8212; ARCH-Plattform</div><div class="card-body">D&#8217;ARCH-Plattform (AI Resilience &amp; Community Hub) ass eise ambitiéisste Projet: en Simulatiounsëmfeld, deen Ausbildungsméthoden aus der Raumfaart mat Instrumenter zur kognitiver Belaaschtungsanalyse kombinéiert. Entworf fir hochbeansprochend professionell Ëmfeller, huet ARCH och direkt Uwendung bei der Fl&#252;chtlingsënnerstëtzung a mentaler Resilienzausbildung.</div></div>
+        <p style="font-size:0.86rem;color:rgba(160,210,255,0.95);font-style:italic;line-height:1.46;margin-top:12px;padding-top:10px;border-top:1px solid rgba(160,200,255,0.18);"><strong style="color:rgba(180,225,255,1);">Update (Juni 2026):</strong> De Virschlag gouf net ausgewielt. KOLOSVIT ASBL schätzt d'Méiglechkeet zur Participatioun.</p>
+    </div>
+  </div>
+        <p style="font-size:0.86rem;color:rgba(160,210,255,0.95);font-style:italic;line-height:1.46;margin-top:12px;padding-top:10px;border-top:1px solid rgba(160,200,255,0.18);"><strong style="color:rgba(180,225,255,1);">Update (Juni 2026):</strong> De Virschlag gouf net ausgewielt. KOLOSVIT ASBL schätzt d'Méiglechkeet zur Participatioun.</p>
+</div>
+
+<div id="page-join" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+  </div>
+    <h2 class="page-title">Matmaachen</h2>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">Memberschaft</div><div class="card-body">Offe\\nn fir jiddereen, deen eis Wäerter deelt: Mënschlechkeet, Ënnerstëtzung, Wësse\\nn a Liicht. Gitt Deel vun engem wuessende Krees vu Leit, déi u Kultur, Resilienz a Gemeinschaft gleewen.</div><div class="field"><input type="text" placeholder="Äre\\nn Numm"></div><div class="field"><input type="email" placeholder="E-Mail"></div><div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold">Matmaachen &#8594;</button></a></div></div>
+      <div class="card"><div class="card-title">Volontariat</div><div class="card-body">Hëllef bei Evenementer, Kommunikatioun, Fuerschung oder Administratioun. All Stonn vun Ärer Zäit hëlleft, bedeitungsvoller Momenter fir Leit ze schaffen, déi se am meeschten brauchen.</div><div class="field"><input type="text" placeholder="Wéi Dir wëllt hëllefen"></div><div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-ghost">Matmaachen &#8594;</button></a></div></div>
+      <div class="card"><div class="card-title">Partnerschaft</div><div class="card-body">Offen fir Organisatiounen, Universitéiten a Stëftungen, déi eis Wäerter deelen. Mir begrësse Kooperatiounen, déi d&#8217;Wierkung amplificéieren &#8212; kulturell, sozial, wëssenschaftlech oder humanitär.</div><div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-ghost">Matmaachen &#8594;</button></a></div></div>
+      <div class="card"><div class="card-title">Ëmfro</div><div class="card-body">Sot eis Är Besoinen &#8212; hëlleft, déi richteg Prioritéiten ze setzen. Är Äntwerte\\nn forme\\nn direkt d&#8217;Initiativën, déi mir designen.</div><div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold">Äntwerten &#8594;</button></a></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="page-about" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    
+    <h2 class="page-title">&#220;wer KOLOSVIT</h2>
+    <div class="about-grid">
+      <div class="about-logo"><img src="logo.png" alt="KOLOSVIT ASBL"></div>
+      <div class="about-text">
+        <p><strong>KOLOSVIT ASBL</strong> ass eng innovativ Associatioun, ageschriwwen zu Lëtzebuerg, wou Zukunftstechnologien reale mënschleche Besoinen dienen. Mir gleewen, datt digital Bildung, mental Resilienz a kulturell Zougehéieregkeet kee Luxus sinn &#8212; si sinn d&#8217;Grondlag fir e wäerdegt Liewe\\nn an engem neien Land.</p>
+        <p>Gegrënnt vun Ukrainer, déi a\\nn Europa liewen, baut KOLOSVIT Bréck tëschent Gemeinschaften, Generatiounen a Disziplinnen. Mir schaffen un der Kräizung vu Kultur, Wëssenschaft a sozialem Suergen &#8212; ëmmer vu Mënschlechkeet als éischt gefouert.</p>
+        <p>Mindestens <strong>90&#160;% vun eisem Ressourcen</strong> ginn direkt an eis Missioun: Ënnerstëtzung vu vertriibene Leit, Entwécklung vun Educatiounsprogrammer a Fërderung vu bedeitungsvollen kulturellen Verbindungen duerch ganz Europa.</p>
+        <p><em>&#171;Mir si\\nn duerch gemeinsam Wäerter vereent &#8212; Mënschlechkeet, Wëssen a\\nn d&#8217;Iwwerzeegung, datt all Talent zielet. All Mënsch, deen mat Verloscht ukënnt, kënnt och mat Goben. Eis Roll ass et, dëse Goben ze hëllefen ze bléien.&#187;</em></p>
+        <p><strong>&#128421; Digitale Bildung</strong> &#8212; Autonom Systemer, AI-Kompetenz a Zukonftsfertigkeeten.<br>
+        <strong>&#129504; Neuro-Resilienz</strong> &#8212; D&#8217;ARCH-Programm fir kognitiv Gesondheet a Stresserhuelung.<br>
+        <strong>&#129309; Sozial Integratioun</strong> &#8212; Kulturell Evenementer, Wellness a Gemeinschaftsgehéieren.<br>
+        <strong>&#127807; Ëmwelt</strong> &#8212; Ökologesch Responsabilitéit als zi\\nnesch Wäert.</p>
+        <div class="rcs-note">Luxembourg ASBL &middot; RCS F15616 &middot; Registréiert de\\nn 1. Abrëll 2026</div>
+      </div>
+      <div>
+        <div class="c-row"><div class="c-lbl">E-Mail</div><div class="c-val"><a href="mailto:kolosvit@proton.me">kolosvit@proton.me</a></div></div>
+        <div class="c-row"><div class="c-lbl">Telegram</div><div class="c-val"><a href="https://t.me/ASBLKolosvit" target="_blank">t.me/ASBLKolosvit</a></div></div>
+        <div class="c-row"><div class="c-lbl">Telegram</div><div class="c-val"><a href="https://t.me/kolosvit_lux" target="_blank">t.me/kolosvit_lux</a> <span style="font-size:0.8rem;color:rgba(255,240,200,0.6);">(Interaktiounsplattform fir spezifesch Kalenderorientéierungen)</span></div></div>
+        <div class="c-row"><div class="c-lbl">Instagram</div><div class="c-val"><a href="https://www.instagram.com/kolosvitasbl/" target="_blank">instagram.com/kolosvitasbl</a> <span style="font-size:0.8rem;color:rgba(255,240,200,0.6);">(a Entwécklung)</span></div></div>
+        <div class="c-row"><div class="c-lbl">Facebook</div><div class="c-val"><a href="https://www.facebook.com/kolosvitasbl/" target="_blank">facebook.com/kolosvitasbl</a> <span style="font-size:0.8rem;color:rgba(255,240,200,0.6);">(a Entwécklung)</span></div></div>
+        <div class="c-row"><div class="c-lbl">LinkedIn</div><div class="c-val"><a href="https://www.linkedin.com/in/kolosvitasbl/" target="_blank">linkedin.com/in/kolosvitasbl</a> <span style="font-size:0.8rem;color:rgba(255,240,200,0.6);">(a Entwécklung)</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-contacts" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+  </div>
+    <h2 class="page-title">Kontakt</h2>
+    <div class="c-reg">LUXEMBOURG ASBL · RCS F15616 · AGESCHRIWWEN 1. ABRËLL 2026</div>
+    <div class="c-row"><div class="c-lbl">Email</div><div class="c-val"><a href="mailto:kolosvit@proton.me">kolosvit@proton.me</a></div></div>
+    <div class="c-row"><div class="c-lbl">Telegram</div><div class="c-val"><a href="https://t.me/ASBLKolosvit" target="_blank">t.me/ASBLKolosvit</a></div></div>
+    <div class="c-row"><div class="c-lbl">Telefon</div><div class="c-val"><a href="tel:+352661693371">+352 661 693 371</a></div></div>
+    <div class="c-row"><div class="c-lbl">Adress</div><div class="c-val">90 Bd Konrad Adenauer, L-1115 Luxembourg</div></div>
+    <div class="c-row"><div class="c-lbl">Enquête</div><div class="c-val"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank">Sot eis Är Besoinen →</a></div></div>
+  </div>
+</div>
+
+
+<script>
+let lastPage='page-home';
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));const t=document.getElementById(id);if(t){lastPage=id;t.classList.add('active');}window.scrollTo(0,0);closeMenu();}
+function goBack(){if(lastPage&&lastPage!=='page-home'){showPage('page-home');}else{window.location.href='index.html';}}
+function toggleMenu(){const m=document.getElementById('navMenu'),b=document.getElementById('burger');if(!m||!b)return;m.classList.toggle('open');b.classList.toggle('open');}
+function closeMenu(){const m=document.getElementById('navMenu'),b=document.getElementById('burger');if(m)m.classList.remove('open');if(b)b.classList.remove('open');}
+function toggleSolutions(){const el=document.getElementById('menuSolutions');if(el)el.classList.toggle('open');}
+document.addEventListener('click',function(e){const m=document.getElementById('navMenu'),bu=document.getElementById('burger');if(m&&m.classList.contains('open')&&!m.contains(e.target)&&bu&&!bu.contains(e.target))closeMenu();});
+const starsEl=document.getElementById('stars');
+for(let i=0;i<60;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';const sz=(Math.random()*2+0.4)+'px';s.style.width=sz;s.style.height=sz;s.style.setProperty('--d',(Math.random()*4+2)+'s');s.style.setProperty('--o',(Math.random()*0.28+0.07).toFixed(2));s.style.animationDelay=Math.random()*6+'s';starsEl.appendChild(s);}
+const canvas=document.getElementById('hexCanvas');const ctx=canvas.getContext('2d');let W,H,cx,cy,t=0,cells=[];const HEX_R=17,RING_MIN=118,RING_MAX=210;
+function resize(){const wrap=canvas.parentElement;W=canvas.width=wrap.offsetWidth;H=canvas.height=wrap.offsetHeight;cx=W/2;cy=H/2;buildCells();}
+function buildCells(){const sc=W/480,rMn=RING_MIN*sc,rMx=RING_MAX*sc,hr=HEX_R*sc,ww=hr*Math.sqrt(3),hh=hr*2;cells=[];const rows=Math.ceil(H/(hh*.75))+3,cols=Math.ceil(W/ww)+3;for(let r=-rows;r<rows;r++)for(let c=-cols;c<cols;c++){const x=c*ww+(r%2)*(ww/2),y=r*hh*.75,d=Math.sqrt(x*x+y*y);if(d>=rMn&&d<=rMx)cells.push({x,y,d});}}
+resize();window.addEventListener('resize',resize);
+function hexPath(x,y,r){ctx.beginPath();for(let i=0;i<6;i++){const a=(Math.PI/3)*i-Math.PI/6;i===0?ctx.moveTo(x+r*Math.cos(a),y+r*Math.sin(a)):ctx.lineTo(x+r*Math.cos(a),y+r*Math.sin(a));}ctx.closePath();}
+function animate(){requestAnimationFrame(animate);t+=0.016;ctx.clearRect(0,0,W,H);const sc=W/480,rMn=RING_MIN*sc,rMx=RING_MAX*sc,hr=HEX_R*sc-1.5;cells.forEach(cell=>{const x=cx+cell.x,y=cy+cell.y,norm=(cell.d-rMn)/(rMx-rMn),ang=Math.atan2(cell.y,cell.x);const wave=Math.sin(t*2.4-norm*Math.PI*3.2+ang*1.6)*.5+.5;const pulse=Math.sin(t*1.5+cell.d*.025)*.5+.5;const e=wave*.6+pulse*.4;const cr=Math.round(210+45*e),cg=Math.round(155+75*e),cb=Math.round(25+110*e),br=0.18+e*.72;hexPath(x,y,hr*.80);ctx.fillStyle=`rgba(${cr},${cg},${cb},${br*.30})`;ctx.fill();ctx.strokeStyle=`rgba(${cr},${cg},${cb},${br*.90})`;ctx.lineWidth=0.9;ctx.stroke();});const g=ctx.createRadialGradient(cx,cy,0,cx,cy,rMn*.85);g.addColorStop(0,'rgba(242,200,75,0.12)');g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);}
+animate();
+</script>
+
+
+
+<div id="page-platform" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div class="page-eyebrow">Archive</div>
+    <h2 class="page-title">KOLOSVIT Community Activation Plattform</h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#f2c84b;font-weight:400;letter-spacing:0.06em;margin-bottom:28px;">CAP · Een Partner. Méi Léisungen.</p>
+
+    <div style="background:#2F518E;border:2px solid rgba(242,200,75,0.35);padding:22px 24px;border-radius:4px;margin-bottom:24px;">
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:20px;">D'KOLOSVIT Community Activation Platform (CAP) ass en innovativt Ökosystem dat Gemeinschaftswuelbefannen, kommunal Aktivéierung, Kulturprogrammer an digital Innovatioun an enger koordinéierter Partnerschaft zesummebréngt.</p>
+      <p style="font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:#f2c84b;margin-bottom:12px;">Plattform-Moduler</p>
+      <div style="display:grid;gap:10px;"><div style="background:rgba(255,255,255,0.05);padding:14px 16px;border-radius:4px;border-left:3px solid rgba(242,200,75,0.4);">
+          <p style="font-size:0.95rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">🏙️ CareterA</p>
+          <p style="font-size:0.83rem;color:rgba(242,244,248,0.82);line-height:1.42;margin:0;">Community &amp; Immobilien-Aktivéierungssystem — KI-ënnerstëtzte kommunal Steierung a Gemeinschaftsaktivéierung.</p> <button class="btn-ghost" style="margin-top:8px;padding:6px 12px;font-size:0.78rem;" onclick="showPage('page-caretera')">→</button>
+        </div><div style="background:rgba(255,255,255,0.05);padding:14px 16px;border-radius:4px;border-left:3px solid rgba(242,200,75,0.4);">
+          <p style="font-size:0.95rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">💚 ARCH</p>
+          <p style="font-size:0.83rem;color:rgba(242,244,248,0.82);line-height:1.42;margin:0;">Gemeinschaftleche Wellbeing-Modul — Preventioun, Resilienz a KI-ënnerstëtzte Wellbeing-Programmer.</p> <button class="btn-ghost" style="margin-top:8px;padding:6px 12px;font-size:0.78rem;" onclick="showPage('page-arch')">→</button>
+        </div><div style="background:rgba(255,255,255,0.05);padding:14px 16px;border-radius:4px;border-left:3px solid rgba(242,200,75,0.4);">
+          <p style="font-size:0.95rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">💎 Pearls of Luxembourg</p>
+          <p style="font-size:0.83rem;color:rgba(242,244,248,0.82);line-height:1.42;margin:0;">Gemeinschaftsevenementer &amp; Kultur — inspiréierend Geschichten, Fäegkeeten a Verbindungen.</p> <button class="btn-ghost" style="margin-top:8px;padding:6px 12px;font-size:0.78rem;" onclick="showPage('page-pearls')">→</button>
+        </div><div style="background:rgba(255,255,255,0.05);padding:14px 16px;border-radius:4px;border-left:3px solid rgba(242,200,75,0.4);">
+          <p style="font-size:0.95rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">🚁 Digital Innovatioun</p>
+          <p style="font-size:0.83rem;color:rgba(242,244,248,0.82);line-height:1.42;margin:0;">Drone Academy, KI-Tools, digital Kompetenzen a Technologiepartnerschaften.</p>
+        </div><div style="background:rgba(255,255,255,0.05);padding:14px 16px;border-radius:4px;border-left:3px solid rgba(242,200,75,0.4);">
+          <p style="font-size:0.95rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">🇪🇺 Europäesch Projeten</p>
+          <p style="font-size:0.83rem;color:rgba(242,244,248,0.82);line-height:1.42;margin:0;">Ënnerstëtzung beim Zougang zu Interreg, CERV, EFRE, ESF an anere Subventiounsprogrammer.</p>
+        </div></div>
+    </div>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.2);padding:22px 24px;border-radius:4px;margin-bottom:20px;">
+      <div class="sh-label">Dem Netzwierk bäitrieden</div>
+      <p style="font-size:0.92rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:12px;">D'Memberschaft baséiert op géigesäitegen Austausch. Mir stellen zwou Froen:</p>
+      <p style="font-size:1rem;color:#f2c84b;font-weight:500;margin-bottom:6px;">✶ Wat sicht Dir?</p>
+      <p style="font-size:1rem;color:#f2c84b;font-weight:500;margin-bottom:14px;">✶ Wat kënnt Dir ubidden?</p>
+      <p style="font-size:0.88rem;font-weight:500;color:rgba(255,240,200,0.8);line-height:1.46;margin-bottom:16px;">Déi déi nëmme kréien ouni bäizedroen, trieden dësem Netzwierk net bei — d'Prinzip vun enger lieweger Gemeinschaft.</p>
+    </div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold">Netzwierk bäitrieden →</button></a>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.2);padding:22px 24px;border-radius:4px;margin-bottom:16px;">
+      <div class="sh-label">E wuessend Netzwierk</div>
+      <p style="font-size:0.92rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:12px;">Eise Partnernetzwierk wächst. Haut ëmfasst et 53 prospektiv ukrainesch Partner — 48 Betriber a 5 zivilgesellschaftlech Organisatiounen. Mir expandéieren aktiv a Europa an doriwwer eraus.</p>
+      <p style="font-size:0.85rem;font-weight:500;color:rgba(255,240,200,0.75);line-height:1.46;padding-top:10px;border-top:1px solid rgba(242,200,75,0.12);">Op Basis vun eise Memoranda kënne mir hëllefen, wann Dir un Fabrikatiounsaktivitéiten an der Ukrain interesséiert sidd.</p>
+    </div>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.2);padding:22px 24px;border-radius:4px;margin-bottom:24px;">
+      <div class="sh-label">Digital Innovatioun &amp; Drone Academy</div>
+      <p style="font-size:0.92rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:12px;">Am Mee 2026 hu mir eist éischt Pilotprojet gestart — Droun-Simulator-Training — mat 6 Liftoff-Lizenzen. Mir sichen e feste Standuert an adequat Ausrüstung fir eis éischt Trainingsklass.</p>
+      <p style="font-size:0.88rem;font-weight:500;color:rgba(255,240,200,0.8);line-height:1.48;">Entwécklungspartner: <strong style="color:#f2c84b;">LuGus Studios</strong> (Belsch) an <strong style="color:#f2c84b;">Velosidron</strong> (Memorandum fir ARCH-Entwécklung).</p>
+    </div>
+  </div>
+</div>
+
+<div id="page-municipal" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+  </div>
+    <div class="page-eyebrow">L&eacute;isunge fir Gemengen</div>
+    <h2 class="page-title">&#127961;&#65039; Kommunal Innovatioun</h2>
+    <div style="background:#2F518E;border:1px solid rgba(127,168,242,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:12px;">KOLOSVIT ënnerst&euml;tzt Gemengen an ëffentlech Institutiounen mat datebaséierte, gemeinschaftsorientéierten Usätz fir wéineg genotzt Ressourcen, Sozialdéngschter a Bierger-Engagement &mdash; a verbënnt d'reell Besoin um Terrain mat praktesche, moossbare Aktiounen.</p>
+      <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;">Dat schléisst d'Aktivatioun vu Immobilien an Infrastruktur an (iwwer CareterA), Programmer fir d'Wuelbefanne vun der Gemeinschaft (iwwer ARCH), Formatioun a digitale Kompetenzen a Drounen fir de lokale Kapazitéitsopbau, souwéi Ënnerstëtzung fir Integratioun a sozial Kohesioun.</p>
+    </div>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">Analyse vun de Besoine vun der Gemeinschaft</div><div class="card-body">D'reell Besoine vun de Bierger an ëffentleche Institutiounen verstoen duerch eng einfach, privat Datesammlung.</div></div>
+      <div class="card"><div class="card-title">Smart City a Stadtplanung</div><div class="card-body">Besser Entscheedungen zu Planung, Zonage, Ressource-Verdeelung an Ënnerhalt vun der Infrastruktur.</div></div>
+      <div class="card"><div class="card-title">Sozial Déngschter an Inklusioun</div><div class="card-body">Geziilt Ënnerstëtzungsprogrammer, Servicer-Matching an Integratioun fir vulnerabel Gruppen.</div></div>
+      <div class="card"><div class="card-title">Resilienz vun der Gemeinschaft</div><div class="card-body">Programmer déi Wuelbefanne (ARCH) an Immobilien-Aktivatioun (CareterA) op kommunalem Niveau verbannen. <button class="btn-ghost" style="margin-top:10px;padding:6px 12px;font-size:0.78rem;" onclick="showPage('page-arch')">ARCH kucken &rarr;</button></div></div>
+    </div>
+    <div class="hdiv"></div>
+    <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.8);line-height:1.48;margin-bottom:16px;">Interesséiert un engem Pilotprojet fir är Gemeng oder Institutioun?</p>
+    <button class="btn-gold" onclick="showPage('page-contacts')">Kontaktéiert eis &rarr;</button>
+  </div>
+</div>
+
+<div id="page-training" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+  </div>
+    <div class="page-eyebrow">Kompetenzopbau</div>
+    <h2 class="page-title">&#127891; Formatioun a Kompetenzopbau</h2>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">&#128257; Droune-Formatioun</div><div class="card-body">Am Mee 2026 hu mir eist éischt Pilotprojet lancéiert &mdash; eng Formatioun um Droune-Simulator, mat 6 Liftoff-Lizenzen. Mir sichen aktuell no engem definitive Lokal an Equipement (dorënner 6 MacBook Pro M1, Joysticks an Interieur-Trainingsdrounen), fir eise éischte Formatiounssall opzemaachen. Entwécklungspartner: <strong>LuGus Studios</strong> (Belsch) an <strong>Velosidron</strong>.</div></div>
+      <div class="card"><div class="card-title">&#128421; Digital Kompetenzen</div><div class="card-body">Praktesch Programmer fir digital Alphabetiséierung, déi Mënschen an Organisatiounen hëllefen zukunftsfäheg Kompetenzen z'entwéckelen &mdash; vum Basisgebrauch vu Geräter bis zu autonome Systemer.</div></div>
+      <div class="card"><div class="card-title">&#129302; KI-Kompetenz</div><div class="card-body">Praktesch Formatioun déi Eenzelpersounen, Gemengen an Organisatiounen hëlleft, KI-Tools am Alldag ze verstoen a verantwortlech ze benotzen.</div></div>
+      <div class="card"><div class="card-title">Resilienz vun der Gemeinschaft</div><div class="card-body">Formatioun am Zesummenhang mat Resilienz-Programmer op kommunalem Niveau. <button class="btn-ghost" style="margin-top:10px;padding:6px 12px;font-size:0.78rem;" onclick="showPage('page-municipal')">Kommunal Innovatioun kucken &rarr;</button></div></div>
+      <div class="card"><div class="card-title">FinTech</div><div class="card-body">Uwendungen vun den ARCH-Tools fir mënschlech Leeschtung fir Teams am Finanzsecteur. <button class="btn-ghost" style="margin-top:10px;padding:6px 12px;font-size:0.78rem;" onclick="showPage('page-arch')">ARCH kucken &rarr;</button></div></div>
+    </div>
+    <div class="hdiv"></div>
+    <button class="btn-gold" onclick="showPage('page-contacts')">Kontaktéiert eis &rarr;</button>
+  </div>
+</div>
+
+<div id="page-culture" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+  </div>
+    <div class="page-eyebrow">L&eacute;isunge fir d'Gesellschaft</div>
+    <h2 class="page-title">&#127917; Kultur, Gemeinschaft an Integratioun</h2>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:12px;">Mir organiséieren e ganze Choix vu kulturelle a gemeinschaftleche Programmer &mdash; Rencontren an Integratiounsevenementer mat Museker, Poeten a Kënschtler, souwéi Integratiounsaktivitéiten ronderëm Kach-Atelieren an ähnlech gedeelt Erfarungen.</p>
+      <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;">Mir entwéckelen dës Programmer fir verschidde Gruppe vun der Gemeinschaft &mdash; zum Beispill géigesäiteg Ënnerstëtzungsinitiativen fir Kannerbetreiung (och wärend Akafsgäng), Wellness-Programmer, Wanderen an ähnlech Aktivitéiten.</p>
+    </div>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">&#127908; Kulturell Rencontren</div><div class="card-body">Rencontren an Evenementer mat Museker, Poeten a Kënschtler &mdash; Raim fir gemeinsam kreativ Ausdrock a Verbindung.</div></div>
+      <div class="card"><div class="card-title">&#127860; Integratioun duerch d'Kach-Konscht</div><div class="card-body">Kach-Atelieren a gedeelte Iesse, déi Mënschen aus verschiddene Kulturen a Hannergrënn zesummebréngen.</div></div>
+      <div class="card"><div class="card-title">&#128118; Géigesäiteg Hëllef fir Famillen</div><div class="card-body">Gemeinschaftlech Ënnerstëtzung fir Kannerbetreiung, och wärend Akafsgäng an alldeegleche Besuergungen.</div></div>
+      <div class="card"><div class="card-title">&#127961; Wellness- an Outdoor-Programmer</div><div class="card-body">Wanderen, Wellness-Aktivitéiten a Rencontren an der Natur, déi Verbindung a Resilienz opbauen.</div></div>
+    </div>
+    <div class="hdiv"></div>
+    <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.8);line-height:1.48;margin-bottom:16px;">Interesséiert fir bei engem Gemeinschaftsprogramm matzemaachen oder een virzeschloen?</p>
+    <button class="btn-gold" onclick="showPage('page-contacts')">Kontaktéiert eis &rarr;</button>
+  </div>
+</div>
+
+<div id="page-pearls" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div class="page-eyebrow">L&eacute;isunge fir d'Gesellschaft</div>
+    <h2 class="page-title">Les Perles d'Onyx · Pearls of Luxembourg</h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#f2c84b;font-weight:400;letter-spacing:0.08em;margin-bottom:32px;">Geschichten · Fäegkeeten · Verbindungen</p>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:12px;">Pearls of Luxembourg ass eng Initiativ vu KOLOSVIT ASBL an hirem CEO Jan Onyx (Pseudonym), déi bemerkenswäert Leit duerch inspiréierend Geschichten, praktesch Wëssen a bedeitungsvolle mënschleche Verbindungen zesummebréngt.</p>
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:12px;">Lëtzebuerg ass voller Leit, deenen hir Geschichten iwwer hire eegene Krees eraus sollen gehéiert ginn. Pearls schafft de Raum, wou dës Geschichten gedeelt ginn — a wou nei Verbindunge entstinn.</p>
+      <p style="font-size:0.92rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.52;font-style:italic;">Pearls ass net nëmmen eng Eventreihe. Et ass en wuessend Ökosystem — adaptéierbar fir all Secteur, all Gemeinschaft, all Geschicht.</p>
+    </div>
+    <div class="hdiv"></div>
+    <div class="sh-label">Eis Formate</div>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">💎 Pearls Talks</div><div class="card-body">Dräi Gäscht. Dräi Geschichten. Dräi Dreemer fir Lëtzebuerg. En intimen Owend wou Entrepreneuren, Wëssenschaftler, Kënschtler a Professioneller hir Erfahrungen deelen.</div></div>
+      <div class="card"><div class="card-title">💎 Pearls Workshops</div><div class="card-body">Direkt vu bemerkenswäerte Leit léieren. All Gaascht beäntwert: <em>"Wat kann ech a enger Stonn bäibréngen?"</em> Themen: Drounen, Fotografie, Leadership, KI, Kachen, Danz, Wuelbefannen, Éischt Hëllef, Kreativitéit a méi.</div></div>
+      <div class="card"><div class="card-title">💎 Pearls Together</div><div class="card-body">E Programm fir Leit déi oppe sinn eng laangfristeg Partnerschaft a Famill opzebauen. Kee Speed-Dating. Keng App. Déi déi hir Offenheet uginn kréien e klenge Häerz op hirem Badge.</div></div>
+      <div class="card"><div class="card-title">💎 Pearls Podcast</div><div class="card-body">Gespréicher déi iwwer den Event erausginn. Interviews mat inspiréierende Gäscht, Innovateuren a Gemeinschaftsopbauer — fir en Publikum wäit iwwer Lëtzebuerg eraus.</div></div>
+      <div class="card"><div class="card-title">💎 Pearls Charity</div><div class="card-body">Ausgewielt Owender enthalen charitative Auktioune fir kulturell, edukatif oder humanitär Zwecker.</div></div>
+      <div class="card"><div class="card-title">💎 Pearls Media</div><div class="card-body">All Geschicht verdéngt konservéiert ze ginn. Professionell Fotografie a Kuerzfilmer halen all Owend fir Medienpartner a Employer Branding fest.</div></div>
+    </div>
+    <div class="hdiv"></div>
+    <div class="sh-label">D'Staffel-Modell</div>
+    <p style="font-size:0.92rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:12px;">All Pearls-Owend fänkt mat Leit un a endet mat neie Verbindungen. All Gaascht empfeelt déi nächst bemerkenswäert Persoun. D'Netzwierk wächst organesch.</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#f2c84b;font-style:italic;line-height:1.44;margin-bottom:28px;">"Ech sichen keng Berühmtheeten. Ech sichen Leit déi Leit verbannen."</p>
+    <div class="hdiv"></div>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;text-align:center;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#f2c84b;font-weight:600;margin-bottom:10px;">Eis Visioun</p>
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:10px;">Eng laangfristeg Gemeinschaft wou Leit sech géigesäiteg inspiréieren, vu Experten léieren, nei Projete schafen, Frëndschaften schléissen — a manchmol souguer Famillen grënnen. Verwuerzelt a Lëtzebuerg, oppe fir d'Welt.</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#f2c84b;font-style:italic;">Well all Perl mat eppes Klengem ufänkt — a wächst zu eppes Dauerhaftem.</p>
+    </div>
+    <button class="btn-gold" onclick="showPage('page-contacts')">Kontakt ophuelen →</button>
+  </div>
+</div>
+<div id="page-caretera" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div class="page-eyebrow">L&eacute;isunge fir Immobilien</div>
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:8px;">
+      <span style="display:inline-block;width:64px;height:64px;overflow:hidden;border-radius:8px;flex-shrink:0;"><img src="caretera_logo.png" alt="CareterA" style="width:64px;height:64px;object-fit:cover;"></span>
+      <h2 class="page-title" style="margin:0;">CareterA</h2>
+    </div>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#6fd98f;font-weight:700;letter-spacing:0.06em;margin-bottom:8px;">Betribssystem fir Gemeinschaften</p>
+    <p style="display:inline-block;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;padding:5px 14px;border-radius:8px;background:rgba(111,217,143,0.1);color:#6fd98f;border:1px solid rgba(111,217,143,0.3);margin-bottom:20px;">⚙️ A Entwécklung</p>
+
+    <div style="background:#2F518E;border:1px solid rgba(111,217,143,0.22);padding:20px 24px;border-radius:4px;margin-bottom:24px;">
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;">CareterA ass eng KI-ënnerstëtzte Plattform, déi Gemeinschafts- a ëffentlech Sektorbedürfnisser a messbor Aktiounen ëmwandelt — Leit, Plazen, Daten a Partner verbënnt.</p>
+    </div>
+
+    <div style="width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:8px;border-radius:10px;">
+      <img src="caretera_new_banner.png" alt="CareterA AI Community Governance" style="display:block;min-width:1200px;width:1200px;height:auto;border-radius:10px;">
+    </div>
+    <p style="font-size:0.75rem;color:rgba(255,240,200,0.45);text-align:center;margin-bottom:28px;font-style:italic;">← swipe to see full diagram →</p>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#2F518E;border:2px solid rgba(111,217,143,0.35);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#6fd98f;margin-bottom:6px;">KI Gemeinschaftsteierung</p>
+      <p style="font-size:1.05rem;font-weight:600;color:#f0ede4;margin-bottom:10px;">Richteg Besoinen a méi klug Entscheedunge verwandelen</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:12px;">CareterA AI analyséiert d'Besoinen vu Leit a Plazen, identifizéiert Prioritéiten an verbënnt si mat de richtege Léisungen a Partneren — hëlleft Gemengen, Ministèren a ëffentleche Institutiounen datenbaséiert Entscheedungen ze treffen.</p>
+      <p style="font-size:0.82rem;color:rgba(255,240,200,0.7);margin-bottom:16px;">Fir: Gemengen &middot; Regierungen &middot; Ministèren &middot; Ëffentlech Institutiounen &middot; NGO &middot; Sozialdéngschter</p>
+
+      <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#6fd98f;margin-bottom:10px;">Vun Erkenntnisser zu Impakt</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px;">
+        <div style="background:rgba(255,255,255,0.06);padding:12px;border-radius:4px;text-align:center;">
+          <p style="font-size:0.9rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">🔍 Projeten</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.8);line-height:1.5;">Déi richteg Projeten fir Leit a Plazen déi se am meeschte brauchen.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);padding:12px;border-radius:4px;text-align:center;">
+          <p style="font-size:0.9rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">🤝 Servicer</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.8);line-height:1.5;">Besser Verbindungen a méi einfachen Zougang zu Servicer.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);padding:12px;border-radius:4px;text-align:center;">
+          <p style="font-size:0.9rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">💶 Finanzéierung</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.8);line-height:1.5;">Méi effektiv Notzung vu ëffentleche a private Ressourcen.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);padding:12px;border-radius:4px;text-align:center;">
+          <p style="font-size:0.9rem;font-weight:600;color:#f0ede4;margin-bottom:4px;">📈 Impakt</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.8);line-height:1.5;">Messbor Resultater fir Gemeinschaften, Plazen a Partner.</p>
+        </div>
+      </div>
+
+      <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#6fd98f;margin-bottom:10px;">Méiglech Applikatiounen</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:16px;"><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🏘️ Gemeinschaftsbedarfsermëttlung</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🏙️ Smart City &amp; Stiedtplanung</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🏛️ Verwaltung vu ëffentleche Gudder</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">❤️ Sozialdéngschter &amp; Inklusioun</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🚨 Noutfallreaktioun</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">👴 Jugend- &amp; Seniorenënnerstëtzung</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🌿 Ëmwelt &amp; Nohaltegkeet</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">💡 Lokal Wirtschaft &amp; Innovatioun</div></div>
+
+      <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#6fd98f;margin-bottom:10px;">Firwat CareterA</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;"><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">✅ Datenbaséiert Entscheedungen</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🤖 KI fir soziale Gutt</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🤝 Méi staark sektoriell Zesummenaarbecht</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🏢 Méi effizient Notzung vu ëffentleche Gudder</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">📊 Messbaren Impakt a Transparenz</div><div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🔒 Dateschutz an Ethik by Design</div></div>
+    </div>
+
+    <div class="hdiv"></div>
+
+
+    <div style="background:#2F518E;border:1px solid rgba(111,217,143,0.25);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#6fd98f;margin-bottom:6px;">Kommunal Immobilien-Aktivéierung</p>
+      <p style="font-size:1.05rem;font-weight:600;color:#f0ede4;margin-bottom:8px;">Kommunalt Immobilien-Aktivéierungsprogramm</p>
+      <p style="font-size:0.9rem;font-weight:400;color:#6fd98f;font-style:italic;margin-bottom:12px;">Ongenutzten kommunale a private Verméigenswäerter a aktiv Gemeinschaftsraim verwandelen.</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:14px;">KOLOSVIT CareterA ënnerstëtzt Gemengen dobäi, d'nohalteg Notzung vun ongenutzten Gebaier, ëffentleche Ariichtungen, natierlechen Flächen a kommunaler Infrastruktur ze koordinéieren.</p>
+      <p style="font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;color:#6fd98f;margin-bottom:8px;">De Programm kann ëmfassen:</p>
+      <ul style="padding-left:18px;margin:0 0 18px;"><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Aktivéierung vu lidderege kommunale Gebaier</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Temporär Notzung vun ongenutzten Schoulen, Bauernhaff a ëffentleche Ariichtungen</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Gemeinschaftlech Notzung vu Parken, Bëscher, Gäert a Wéngerten</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Adaptiv Rëtzennotzung vun historesche Gebaier</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">House-Sitting a Immobilien-Stewardship-Programmer</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Kulturell, edukatif a Wellbeing-Aktivitéiten</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Co-Livings a Gemeinschaftshubs</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Ënnerstëtzung fir Proprietairen déi temporär aktivéiere wëllen</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Digital Iwwerwaachung a KI-ënnerstëtzte Immobilienverwaltung</li><li style="font-size:0.88rem;color:#F2F4F8;line-height:1.48;margin-bottom:2px;">Virbereedung vu Projeten fir europäesch Förderung</li></ul>
+      <div class="hdiv"></div>
+      <p style="font-size:1rem;font-weight:600;color:#f0ede4;margin-bottom:8px;">Flexibel Partnerschafts- &amp; Geschäftsmodeller</p>
+      <p style="font-size:0.88rem;font-weight:500;color:#F2F4F8;line-height:1.48;margin-bottom:14px;">KOLOSVIT ass iwwerzeegt, datt all Gemeng aner Besoinen a Kapazitéiten huet.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;"><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;"><p style="font-size:0.85rem;font-weight:600;color:#f0ede4;margin-bottom:8px;">💰 Finanzpartnerschaften</p><ul style="padding-left:16px;margin:0;"><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Serviceverträg</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Jährlech Rahmenvereinbarungen</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Projektbaséiert Finanzéierung</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Europäesch kofinanzéiert Projeten</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Sponsoring-Programmer</li></ul></div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;"><p style="font-size:0.85rem;font-weight:600;color:#f0ede4;margin-bottom:8px;">🏛️ Verméigensbaséiert Partnerschaften</p><ul style="padding-left:16px;margin:0;"><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Vereinbarungen zur temporärer Notzung</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Laangfristege Betrieb kommunale Ariichtungen</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Symbolesche Loyer</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Gratis Notzung vun ëffentleche Raim</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Iwwerdroung vun ongenutzter Ausrüstung</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Gemeinsam Verwaltung vun kommunaler Infrastruktur</li></ul></div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;"><p style="font-size:0.85rem;font-weight:600;color:#f0ede4;margin-bottom:8px;">🤝 Gemeinschaftspartnerschaften</p><ul style="padding-left:16px;margin:0;"><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Gemeinsam Evenementorganisatioun</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Fräiwëlleger Programmer</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Abeziehung vun lokale Betriber</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Universitéiten a Schoulen</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">NGOen a Sozialentreprisen</li></ul></div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;"><p style="font-size:0.85rem;font-weight:600;color:#f0ede4;margin-bottom:8px;">💡 Innovatiounspartnerschaften</p><ul style="padding-left:16px;margin:0;"><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Pilotprojeten</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Digital Plattformen</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">KI-baséiert kommunal Verméigensverwaltung</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Datekollektioun an Analyse</li><li style="font-size:0.82rem;color:rgba(242,244,248,0.85);line-height:1.44;">Instrumener fir Bürgerbeteiligung</li></ul></div></div>
+    </div>
+
+    <div style="background:#2F518E;border:1px solid rgba(111,217,143,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#6fd98f;margin-bottom:6px;">Gemeinschafts-Ökosystem</p>
+      <p style="font-size:1.05rem;font-weight:600;color:#f0ede4;margin-bottom:10px;">En Ökosystem wou jiddereen deelhëlt</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:16px;">CareterA ass net nëmmen eng Plattform — et ass e Betribssystem fir Gemeinschaften. All Participant schafft entweder Nofro oder erfëllt si. Vum eenzelen Awunner bis zur Gemeng, vun enger ASBL bis zu engem Betrib — all sinn an engem koordinéierten Ökosystem verbonnen.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;"><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🏛️ Ëffentleche Secteur</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">Gemengen · Ministèren · Sozialdéngschter · Aarbechtsvermëttlung · Bibliothéiken</p>
+        </div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🤝 Zivil Gesellschaft</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">ASBLs · Fondatiounen · Fräiwëlleger Organisatiounen · Jugend · Veteranen · Kulturell Associatiounen</p>
+        </div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🏘️ Wunngemeinschaften</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">Co-Livings · Co-Housings · Kooperativen · Studentewunnenge · Seniorenwunnen · Sozialwunnen</p>
+        </div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">💼 Betriber</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">Hoteller · Restauranten · Co-Workingen · Medizinesch Zentrumen · Architekten · Immobilien · Versécherungen</p>
+        </div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🎓 Bildung</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">Universitéiten · Schoulen · Sproocheschoulen · Beruffsausbildung · Kannerclub</p>
+        </div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">❤️ Sozial Versuergung</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">Altersheimer · Heemfleesch · Dageszentrumen · Psychologesch Zentrumen · Familljënnerstëtzung</p>
+        </div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🌱 Gemeinschaften</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">Integratiounsgemeinschaften · Expat-Gruppe · Interesseclub · Sport · Musek · Gaardenaarbecht</p>
+        </div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🏠 Immobilieeigentümer</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">Proprietairen Associatiounen · Gestiounsfirmen · Bailleure · Promoteure · Haushärer</p>
+        </div><div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.9rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🌍 Europäesch Partner</p>
+          <p style="font-size:0.8rem;color:rgba(242,244,248,0.75);line-height:1.6;">EU-Programmer · International ASBL-Netzwerker · Subventiounsfonds · Sozialinvestoren</p>
+        </div></div>
+    </div>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#2F518E;border:1px solid rgba(111,217,143,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#6fd98f;margin-bottom:6px;">Immobiliepfleeg-Servicer</p>
+      <p style="font-size:1.05rem;font-weight:600;color:#f0ede4;margin-bottom:10px;">Immobilie-Iwwerwaachung &amp; Fleeg</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:16px;">Praktesch Inspektiounen, Iwwerwaachung a Pfleeg-Servicer fir eidel a bebaute Gebaier — ëffentleche, kommunale a private Secteur.</p>
+      <div class="card-grid"><div class="card"><div class="card-title">🔍 Detektioun &amp; Iwwerwaachung</div><div class="card-body">Identifikatioun vun eidele oder ongenutzten Gebaier a Grondstécker. Dauerhaft Iwwerwaachung vun hirem Zoustand.</div></div><div class="card"><div class="card-title">🏗️ Gebaïinspektioun</div><div class="card-body">Bewäertung vum Daach, Dachraum, Keller, Fassad a Solarpanneauen. Technesch Rapporten fir Haiser, Bauerenhaff, Lagerhalen, Büroen a Industriegebaier.</div></div><div class="card"><div class="card-title">🌿 Terrain- &amp; Landpfleesch</div><div class="card-body">Iwwerwaachung a Fleeg vun ëmliegende Grondstécker, Gäert, landwirtschaftleche Parzellen an Außenraim.</div></div><div class="card"><div class="card-title">🏡 House Sitting &amp; Beliwwerung</div><div class="card-body">House Sitting duerch Kommodat-Kontrakter a bezuelten Servicer. Reegelméisseg Visiten, Zustandskontrolle a Foto-Video-Rapporten.</div></div><div class="card"><div class="card-title">📅 Fleeg duerch Evenementer</div><div class="card-body">Proprietéite lieweg halen duerch Gemeinschaftsevenement, temporär Notzungsprogrammer a kulturell Aktivitéiten.</div></div></div>
+    </div>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#2F518E;border:1px solid rgba(111,217,143,0.22);padding:22px 24px;border-radius:4px;margin-bottom:24px;text-align:center;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#6fd98f;font-weight:600;margin-bottom:10px;">Gitt Pilotpartner</p>
+      <p style="font-size:0.92rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:0;">CareterA ass aktuell an der Entwécklung. Mir sichen Gemengen, Organisatiounen a Proprietairen déi interesséiert sinn d'Plattform zesummen ze entwéckelen a ze pilotéieren.</p>
+    </div>
+    <button class="btn-gold" onclick="showPage('page-contacts')">Pilot diskutéieren →</button>
+  </div>
+</div>
+
+<div id="page-arch" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
+  </div>
+    <div class="page-eyebrow">L&eacute;isunge fir Mënschen</div>
+    <div style="text-align:center;margin:16px 0 8px;">
+      <img src="arch_logo.png" alt="ARCH" style="width:180px;height:auto;filter:drop-shadow(0 0 12px rgba(255,255,255,0.1));">
+    </div>
+    <h2 class="page-title">ARCH Alliance</h2>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#2fe0cc;font-weight:400;letter-spacing:0.06em;margin-bottom:6px;">KI-Resilienz a Community Hub</p>
+    <p style="display:inline-block;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;padding:5px 14px;border-radius:8px;background:rgba(47,224,204,0.1);color:#2fe0cc;border:1px solid rgba(47,224,204,0.3);margin-bottom:28px;">⚙️ In Development</p>
+
+    <div style="background:#2F518E;border:1px solid rgba(47,224,204,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:10px;">ARCH ass en Präventiouns- a Resilienz-Ökosystem entwéckelt vu KOLOSVIT ASBL. Et bréngt KI-ënnerstëtzte Wellbeing-Tools, Gemeinschaftsprogrammer a sektorspezifesch Léisunge zesummen an engem koordinéierten Approche.</p>
+      <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.8);line-height:1.52;font-style:italic;">ARCH behandelt net. ARCH detektéiert, informéiert a recommandéiert. Et ergänzt — ersetzt awer ni — Gesondheetsversuergung, Sozialdéngschter a klinescht Uerteel.</p>
+    </div>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#2F518E;border:2px solid rgba(47,224,204,0.4);padding:22px 24px;border-radius:4px;margin-bottom:24px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#2fe0cc;margin-bottom:6px;">⭐ Flaggschëff-Programm</p>
+      <p style="font-size:1.15rem;font-weight:600;color:#f0ede4;margin-bottom:10px;">ARCH Community Well-being Ecosystem</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:14px;">E modulaarte, skalierbaren Programm deen Gemengen, Sozialdéngschter, Spideeler, Universitéiten a Fondatioune hëlleft d'Liewensqualitéit ze verbesseren an d'Resilienz ze stäerken.</p>
+
+      <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#2fe0cc;margin-bottom:10px;">Haaptmoduler</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:18px;">
+        <div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.88rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🧓 Gesond Alteren</p>
+          <p style="font-size:0.82rem;color:rgba(242,244,248,0.8);line-height:1.6;">Ënnerstëtzung vun der Onofhängegkeet a soziale Participatioun vu Senioren.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.88rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">💻 Digital Inklusioun</p>
+          <p style="font-size:0.82rem;color:rgba(242,244,248,0.8);line-height:1.6;">Hëlleft Awunner digital Servicer sécher ze notzen.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.88rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🕊️ Veteranen a Vertriwwen</p>
+          <p style="font-size:0.82rem;color:rgba(242,244,248,0.8);line-height:1.6;">Resilienz-Opbau an Integratioun fir krichsbetraffe Persounen.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.88rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🤝 Inklusiv Gemeinschaft</p>
+          <p style="font-size:0.82rem;color:rgba(242,244,248,0.8);line-height:1.6;">Accessibilitéitsprogrammer fir Mënschen mat Behënnerung.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.88rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">🏛️ Gesond Gemengepersonal</p>
+          <p style="font-size:0.82rem;color:rgba(242,244,248,0.8);line-height:1.6;">Stressprevention an organisatoresch Resilienz fir Gemengeteams.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:4px;">
+          <p style="font-size:0.88rem;font-weight:500;color:#f0ede4;margin-bottom:4px;">📡 Smart Wellbeing Monitoring</p>
+          <p style="font-size:0.82rem;color:rgba(242,244,248,0.8);line-height:1.6;">Fräiwëlleg, net-medizinesch Iwwerwaachung mat zertifizéierte Wearables.</p>
+        </div>
+      </div>
+
+      <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#2fe0cc;margin-bottom:8px;">Fir Wien</p>
+      <p style="font-size:0.88rem;font-weight:500;color:#F2F4F8;line-height:1.48;margin-bottom:16px;">Gemengen &middot; Ministèren &middot; Sozialdéngschter &middot; Spideeler &middot; Seniorenariichtungen &middot; Universitéiten &middot; Fondatiounen</p>
+
+      <div style="font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,240,200,0.7);">Prevention &middot; Gesond Alteren &middot; Digital Inklusioun &middot; KI &middot; Gemeinschaftsresilienz</div>
+    </div>
+
+    <div style="background:#2F518E;border:1px solid rgba(47,224,204,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#2fe0cc;margin-bottom:6px;">Immobilie &amp; Infrastruktur</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:10px;">🏠 CareterA — Immobiliepfleeg-Ökosystem</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:10px;">Eng praktesch Léisung fir Gemengen a Proprietairen: Iwwerwaachung vu eidele Proprietéiten, Droneninspektiounen, Ënnerstëtzung bei temporärer Notzung, Solar- an Daachiwwerwaachung, präventiv Fleeg.</p>
+      <p style="font-size:0.78rem;color:rgba(255,240,200,0.6);font-style:italic;margin-bottom:14px;">Droneninspektiounen, Solariwwerwaachung a Moossendetektioun — geschwënn verfügbar.</p>
+      <p style="font-size:0.85rem;color:rgba(255,240,200,0.7);margin-bottom:14px;">Fir: Gemengen &middot; Sozialwunnengen &middot; Versécherungen &middot; Proprietairen</p>
+      <button class="btn-ghost" onclick="showPage('page-caretera')">CareterA entdecken →</button>
+    </div>
+
+    <div style="background:#2F518E;border:1px solid rgba(47,224,204,0.2);padding:20px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#2fe0cc;margin-bottom:6px;">Kultur &amp; Gemeinschaft</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:10px;">💎 Pearls of Luxembourg</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:14px;">Gemeinschaft duerch Kultur, Geschichten a Verbindunge opbauen — fir Tourismus, lokal Wirtschaft a biergerlecht Engagement ze ënnerstëtzen.</p>
+      <button class="btn-ghost" onclick="showPage('page-pearls')">Pearls entdecken →</button>
+    </div>
+
+    <div class="hdiv"></div>
+    <div class="sh-label">Entreprise Wellbeing-Léisungen</div>
+    <p style="font-size:0.85rem;font-weight:500;color:rgba(255,240,200,0.75);line-height:1.48;margin-bottom:20px;font-style:italic;">ARCH pass sech un déi spezifesch operationell a psychosozial Erausfuerderunge vun all Secteur un. Hei ënnen Beispiller vu sektorspezifesche Resilienz-Léisungen.</p>
+<div style="background:#2F518E;border:1px solid rgba(47,224,204,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#2fe0cc;margin-bottom:6px;">Pilotprogramm · Finanzsektor</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:12px;">ARCH Resilience Hub fir Finanzinstitutioune</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:14px;"><strong style='color:#f0ede4;'>D'Probleemm:</strong> Compliance-, AML-, Risiko- an Operatiounsteame schaffe ënner stänneger kognitiver Iwwerlaaschung — Reguléierungsdeadlines an héich Verantwortung erhéijen d'Burnout-Risiko.</p>
+      <p style="font-size:0.82rem;font-weight:500;color:rgba(255,240,200,0.7);line-height:1.46;font-style:italic;">Pilotbudgeten ab ca. 14.000 € pro Mount. Detailléierte Virschlag no Erstgespréich.</p>
+    </div>
+    <div style="background:#2F518E;border:1px solid rgba(47,224,204,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#2fe0cc;margin-bottom:6px;">Pilotprogramm · Logistik & Transport</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:12px;">ARCH Resilience Hub fir Transportoperateuren</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:14px;"><strong style='color:#f0ede4;'>D'Probleemm:</strong> Chaufferen, Dispatcheren a Koordinateure stinn virun chronescher Middegkeet a riskante Entscheedungen. NIS2 klassifizéiert Transport als kritesch Infrastruktur.</p>
+      <p style="font-size:0.82rem;font-weight:500;color:rgba(255,240,200,0.7);line-height:1.46;font-style:italic;">Pilotbudgeten ab ca. 10.000–12.000 € pro Mount (Basisversioun) / 15–20 Mataarbechter.</p>
+    </div>
+    <div style="background:#2F518E;border:1px solid rgba(47,224,204,0.2);padding:20px 24px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#2fe0cc;margin-bottom:6px;">Pilotprogramm · Bildung & Integratioun</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:12px;">Simulator-Training fir Jugendlecher a Flüchtlingen</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;">Mat Liftoff Droun-Simulatoren (6 Lizenzen, MoU ënnerschriwwen) entwéckelt ARCH praktesch Trainingsprogrammer fir Jugendlecher a Flüchtlingen. Mir bestëmmen de Standuert fir eis éischt Trainingsklass.</p>
+    </div>
+    <div class="hdiv"></div>
+    <div class="sh-label">Innovatioun &amp; KI</div>
+    <div style="background:#2F518E;border:1px solid rgba(47,224,204,0.2);padding:20px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:14px;">Kënschtlech Intelligenz ënnerstëtzt Programmkoordinatioun, anonym Trendanalyse a evidenzbaséiert Entscheedungen — ëmmer als ënnerstëtzend Technologie, ni als Ersatz fir klinescht Uerteel.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">
+        <div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🤖 KI-Koordinatioun</div>
+        <div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">📊 Smart Monitoring</div>
+        <div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">⌚ Zertifizéiert Wearables</div>
+        <div style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:4px;font-size:0.85rem;color:#F2F4F8;">🗂️ Community Intelligence Plattform <em style="opacity:0.6;">(an Entwécklung)</em></div>
+      </div>
+    </div>
+
+    <div style="background:rgba(47,224,204,0.07);border:1px solid rgba(47,224,204,0.2);padding:20px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#2fe0cc;margin-bottom:6px;">Gemeinschaftsinitiativ</p>
+      <p style="font-size:1.05rem;font-weight:500;color:#f0ede4;margin-bottom:10px;">🐾 Rettungsprogramm — Hënnerzucht a Shelter, Poltawa Regioun, Ukrain</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;">ARCH preparéiert e Rettungsprogramm fir eng Hënnerzuchtanlag a Shelter an der Poltawa Regioun. Mir plangen Wohltätigkeetseventer an invitéieren Mäzenen a Organisatiounen.</p>
+    </div>
+    <div class="hdiv"></div>
+    <div style="background:#2F518E;border:1px solid rgba(47,224,204,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#2fe0cc;font-weight:600;margin-bottom:12px;">Interesséiert eng vun den éischte Pilotorganisatiounen a Lëtzebuerg ze ginn?</p>
+      <p style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:10px;">Pilotprogrammer ginn un d'Gréisst vun der Organisatioun an déi ausgewielten Module ugepasst.</p>
+      <p style="font-size:0.88rem;font-weight:500;color:rgba(255,240,200,0.8);line-height:1.48;">Direktkontakt? <strong style='color:#2fe0cc;'>📧 kolosvit@proton.me</strong></p>
+    </div>
+    <div class="sh-label">Pilotgespréich ufroen</div>
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(47,224,204,0.18);padding:18px 22px;border-radius:4px;margin-bottom:20px;">
+      <p style="font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;color:#2fe0cc;margin-bottom:10px;">Wann Dir eis kontaktéiert, gitt w.e.g. un:</p>
+      <ul style="padding-left:18px;margin:0;">
+        <li style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;">Äre Numm an Är Positioun</li><li style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;">Firmennumm a Secteur</li><li style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;">Är Geschäftsemail</li><li style="font-size:0.9rem;font-weight:500;color:#F2F4F8;line-height:1.52;">Eng kuerz Noriicht — z.B.: <em style="color:rgba(255,240,200,0.8);">Ech wéilt e ARCH-Pilotprogramm fir eis Organisatioun diskutéieren.</em></li>
+      </ul>
+    </div>
+    <button class="btn-gold" onclick="showPage(\'page-contacts\')">Eis schreiwen →</button>
+  </div>
+</div>
+</div>
+
+<footer>
+  <div class="footer-copy">&#169; 2026 KOLOSVIT ASBL &middot; RCS F15616 | <a href="privacy.html#lux">Dateschutzpolitik</a></div>
+  <div class="footer-founded">Europ&#228;esch Associatioun vu ukrainescher Gr&#252;ndung</div>
+  <div id="etym" class="footer-etym">* <strong>KOLOSVIT</strong> &#8212; Wuertspill: <strong>Kolo</strong> (Krees/Unioun) + <strong>Svit</strong> (Liicht/Welt/Fridden) &#8212; e Krees vum Liicht an eng global Gemeinschaft. <strong>Kolos</strong> (&#196;hr) + <strong>Vita</strong> (griech.: Liewen) &#8212; d&#8217;Kär vum Liewen, Symbol fir Resilienz a Wuesstem.</div>
+</footer>
+</body>
+</html>
