@@ -221,6 +221,7 @@ nav{
 .c-val{font-size:0.9rem;font-weight:500;color:rgba(232,237,245,0.85);min-width:0;overflow-wrap:break-word;word-break:break-word;}
 .c-val a{color:rgba(232,237,245,0.85);text-decoration:none;transition:all 0.3s ease;}
 .c-val a:hover{color:#f2c84b;text-shadow:0 0 8px rgba(242,200,75,0.3);}
+.c-reg{font-size:0.62rem;letter-spacing:0.1em;color:rgba(242,200,75,0.35);text-transform:uppercase;margin-bottom:18px;font-weight:500;}
 /* FOOTER — світлий, читабельний */
 footer{
   text-align:center;
@@ -361,12 +362,12 @@ footer{
         <div class="ms-sub-label">&#127891; Training &amp; Capacity Building</div>
         <a href="javascript:void(0)" onclick="showPage('page-training');closeMenu();">Drone Training · Digital Skills · AI Literacy</a>
         <div class="ms-sub-label">&#127917; Solutions for Society</div>
-        <a href="javascript:void(0)" onclick="showPage('page-culture');closeMenu();">Culture, Community &amp; Integration</a>
-        <div class="ms-sub-label">Solutions for Wellbeing</div>
-        <a href="javascript:void(0)" onclick="showPage('page-lyapko');closeMenu();">Wellness — LYAPKO</a>
+        <a href="javascript:void(0)" onclick="showPage('page-culture');closeMenu();">Culture &mdash; CurArtA &amp; Pearls</a>
+        <div class="ms-sub-label">&#127807; Solutions for Wellbeing</div>
+        <a href="javascript:void(0)" onclick="showPage('page-lyapko');closeMenu();">Wellbeing &amp; Recovery &mdash; LYAPKO</a>
       </div>
     </div>
-    <a href="javascript:void(0)" onclick="showPage('page-pearls');closeMenu();">Perles d'Onyx</a>
+    <a href="javascript:void(0)" onclick="showPage('page-pearls');closeMenu();">Pearls of Luxembourg</a>
     <a href="javascript:void(0)" onclick="showPage('page-initiatives');closeMenu();">Initiatives / News</a>
     <a href="javascript:void(0)" onclick="showPage('page-contacts');closeMenu();">Contact</a>
   </div>
@@ -393,11 +394,12 @@ footer{
         <div class="th-card" style="--accent:#5b6b7a" onclick="showPage('page-arch')">
           <div class="th-card-line"><span class="th-card-ico">&#9992;&#65039;</span> <span class="th-card-title">Critical Infrastructure</span> — Air &middot; Rail &middot; FinTech</div>
         </div>
-        <div class="th-card" style="--accent:#e0a52e" onclick="showPage('page-pearls')">
-          <div class="th-card-line"><span class="th-card-ico">&#127917;</span> <span class="th-card-title">Culture</span> — Community, integration &amp; shared stories.</div>
+        <div class="th-card" style="--accent:#e0a52e" onclick="showPage('page-culture')">
+          <div class="th-card-line"><span class="th-card-ico">&#127917;</span> <span class="th-card-title">Culture</span> &mdash; Community, integration &amp; shared stories.</div>
+          <div class="th-subs"><div class="th-sub" onclick="event.stopPropagation();showPage('page-culture')">CurArtA</div><div class="th-sub" onclick="event.stopPropagation();showPage('page-pearls')">Pearls</div></div>
         </div>
         <div class="th-card" style="--accent:#d98c3f" onclick="showPage('page-lyapko')">
-          <div class="th-card-line"><img src="lyapko_logo.jpg" alt="Lyapko" style="height:15px;width:auto;vertical-align:-2px;border-radius:2px;"> <span class="th-card-title">Wellness</span> — Wellness projects and official distribution of LYAPKO products.</div>
+          <div class="th-card-line"><img src="lyapko_logo.jpg" alt="Lyapko" style="height:15px;width:auto;vertical-align:-2px;border-radius:2px;"> <span class="th-card-title">Wellbeing &amp; Recovery</span> &mdash; LYAPKO &middot; Relaxation &middot; Contact-Based Wellbeing &middot; Salt Environment &middot; Movement.</div>
         </div>
       </div>
       <p class="th-slogan">Connecting people, ideas and innovation to build stronger communities.</p>
@@ -731,19 +733,17 @@ animate();
     <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
   </div>
     <div class="page-eyebrow">Solutions for Society</div>
-    <h2 class="page-title">&#127917; Culture, Community &amp; Integration</h2>
-    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;">
-      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:12px;">We organise a variety of cultural and community programmes &mdash; gatherings and integration events that bring together musicians, poets and artists, as well as integration activities built around cooking master classes and similar shared experiences.</p>
-      <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;">We design these programmes for different community groups &mdash; for example, mutual-aid initiatives for childcare (including during shopping trips), wellness programmes, hiking and similar activities.</p>
-    </div>
-    <div class="card-grid">
-      <div class="card"><div class="card-title">&#127908; Cultural Gatherings</div><div class="card-body">Meetings and events bringing together musicians, poets and artists &mdash; creating spaces for shared creative expression and connection.</div></div>
-      <div class="card"><div class="card-title">&#127860; Integration Through Food</div><div class="card-body">Cooking master classes and shared meals that bring people together across cultures and backgrounds.</div></div>
-      <div class="card"><div class="card-title">&#128118; Mutual Aid for Families</div><div class="card-body">Community-driven support for childcare, including during shopping trips and everyday errands.</div></div>
-      <div class="card"><div class="card-title">&#127961; Wellness &amp; Outdoor Programmes</div><div class="card-body">Hiking, wellness activities and nature-based gatherings that build connection and resilience.</div></div>
-    </div>
-    <div class="hdiv"></div>
-    <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.8);line-height:1.48;margin-bottom:16px;">Interested in joining or proposing a community programme?</p>
+    <h2 class="page-title">&#127912; CurArtA &mdash; Art, Creativity &amp; Wellbeing</h2>
+    <div style="text-align:center;margin:4px 0 18px;"><img src="curarta_logo.jpg" alt="CurArtA &mdash; Creativity &middot; Wellbeing &middot; Social Inclusion" style="width:min(300px,80%);height:auto;border-radius:12px;background:#fff;padding:8px;"></div>
+    <p style="font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(242,200,75,0.85);margin-bottom:22px;">Creativity &bull; Wellbeing &bull; Social Inclusion</p>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;"><p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:12px;">CurArtA is an integrated creative and wellbeing platform initiated by KOLOSVIT ASBL, bringing together artists, craftspeople, cultural practitioners and specialists in non-clinical wellbeing and recovery activities.</p><p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;margin-bottom:12px;">Based in Luxembourg and open to the Greater Region and international partnerships, CurArtA creates opportunities for people and communities to reconnect, express themselves, develop their talents and participate in shared cultural experiences.</p><p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;margin-bottom:12px;">The platform combines artistic creation, cultural exchange, creative workshops, community activities and carefully selected wellbeing practices. It aims to make creativity and meaningful participation accessible to people of different ages, backgrounds and abilities.</p></div>
+    <div class="sh-label">Our Activities</div>
+    <ul style="padding-left:18px;margin:0 0 18px;"><li style="font-size:0.88rem;font-weight:500;color:rgba(232,237,245,0.9);line-height:1.5;margin-bottom:8px;"><strong>Creative Workshops</strong> &mdash; painting, drawing, sculpture, modelling, crafts, photography and other forms of artistic expression.</li><li style="font-size:0.88rem;font-weight:500;color:rgba(232,237,245,0.9);line-height:1.5;margin-bottom:8px;"><strong>Cultural Events &amp; Encounters</strong> &mdash; exhibitions, concerts, poetry, music, performances and intercultural gatherings.</li><li style="font-size:0.88rem;font-weight:500;color:rgba(232,237,245,0.9);line-height:1.5;margin-bottom:8px;"><strong>Creative Residencies</strong> &mdash; opportunities for artists and practitioners to develop projects, exchange experience and work together.</li><li style="font-size:0.88rem;font-weight:500;color:rgba(232,237,245,0.9);line-height:1.5;margin-bottom:8px;"><strong>Art &amp; Wellbeing</strong> &mdash; creative activities combined with relaxation, gentle movement and non-clinical self-care practices.</li><li style="font-size:0.88rem;font-weight:500;color:rgba(232,237,245,0.9);line-height:1.5;margin-bottom:8px;"><strong>Community &amp; Social Inclusion</strong> &mdash; activities connecting residents, newcomers, families and local communities.</li><li style="font-size:0.88rem;font-weight:500;color:rgba(232,237,245,0.9);line-height:1.5;margin-bottom:8px;"><strong>Children &amp; Intergenerational Activities</strong> &mdash; creative learning, shared experiences and activities bringing generations together.</li></ul>
+    <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;margin-bottom:12px;">CurArtA welcomes cooperation with cultural centres, municipalities, foundations, hotels, educational institutions, reception organisations, artists and independent professionals.</p>
+    <div class="sh-label">Our Vision</div>
+    <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;margin-bottom:12px;">To create spaces where creativity becomes a bridge between people, cultures and generations &mdash; supporting wellbeing, belonging and human potential.</p>
+    <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;margin-bottom:12px;font-style:italic;">An initiative of KOLOSVIT ASBL.</p>
+    <button class="btn-ghost" style="margin-right:10px;margin-bottom:10px;" onclick="showPage('page-pearls')">Pearls of Luxembourg &mdash; full description &rarr;</button>
     <button class="btn-gold" onclick="showPage('page-contacts')">Contact Us &rarr;</button>
   </div>
 </div>
@@ -754,17 +754,20 @@ animate();
     <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
   </div>
     <div class="page-eyebrow">Solutions for Wellbeing</div>
-    <h2 class="page-title">&#128062; Wellness Projects &amp; Official Distribution of LYAPKO Products</h2>
-
+    <h2 class="page-title">&#127807; Wellbeing, Recovery &amp; Rehabilitation Initiatives</h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#f2c84b;font-weight:400;letter-spacing:0.08em;margin-bottom:8px;">Restoring Balance. Supporting Recovery. Improving Quality of Life.</p>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;"><p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:12px;">KOLOSVIT ASBL develops and promotes integrated wellbeing and recovery initiatives combining natural approaches, non-invasive technologies, relaxation practices and healthy lifestyle activities.</p><p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;margin-bottom:12px;">Our objective is to make practical wellbeing solutions more accessible through partnerships with wellness centres, thermal resorts, rehabilitation facilities, hotels, professional practitioners and community organisations.</p><p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;margin-bottom:12px;">We explore different approaches to physical relaxation, body care, stress reduction, healthy ageing and recovery support. Depending on the project, these may include contact-based wellbeing tools, relaxation spaces, gentle movement, massage-related practices and selected non-invasive technologies.</p><p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;margin-bottom:12px;">Our activities are developed progressively, with attention to safety, professional qualifications, responsible communication and the applicable regulatory framework. Non-clinical wellness activities do not replace medical diagnosis, treatment or professional rehabilitation.</p></div>
+    <div class="sh-label">Our Main Areas</div>
+    <div class="card-grid" style="margin-bottom:24px;"><div class="card"><div class="card-title">Contact-Based Wellbeing</div><div class="card-body">applicators, massage tools and other non-invasive products for relaxation and body care.<br><span style="display:inline-block;font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:#f2c84b;border:1px solid rgba(242,200,75,0.45);border-radius:10px;padding:2px 8px;margin-top:8px;">Existing &middot; LYAPKO</span></div></div><div class="card"><div class="card-title">Physical Recovery &amp; Relaxation</div><div class="card-body">selected equipment and practices supporting comfort, relaxation and recovery-oriented environments, including magnetic mats and couches for wellness use.<br><span style="display:inline-block;font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:#f2c84b;border:1px solid rgba(242,200,75,0.45);border-radius:10px;padding:2px 8px;margin-top:8px;">Under development</span></div></div><div class="card"><div class="card-title">Salt &amp; Environmental Wellbeing</div><div class="card-body">salt-environment spaces and carefully designed relaxation settings.<br><span style="display:inline-block;font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:#f2c84b;border:1px solid rgba(242,200,75,0.45);border-radius:10px;padding:2px 8px;margin-top:8px;">Under development</span></div></div><div class="card"><div class="card-title">Movement &amp; Body Practices</div><div class="card-body">gentle exercise, stretching, yoga, qigong and other accessible movement activities.<br><span style="display:inline-block;font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:#f2c84b;border:1px solid rgba(242,200,75,0.45);border-radius:10px;padding:2px 8px;margin-top:8px;">Under development</span></div></div><div class="card"><div class="card-title">Natural &amp; Thermal Wellbeing</div><div class="card-body">exploring partnerships involving thermal facilities, natural environments and complementary relaxation experiences, including future apitherapy concepts such as beehive pavilions.<br><span style="display:inline-block;font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:#f2c84b;border:1px solid rgba(242,200,75,0.45);border-radius:10px;padding:2px 8px;margin-top:8px;">Future partnership opportunity</span></div></div><div class="card"><div class="card-title">Community Wellbeing Programmes</div><div class="card-body">accessible activities for families, older people, newcomers and other community groups.<br><span style="display:inline-block;font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:#f2c84b;border:1px solid rgba(242,200,75,0.45);border-radius:10px;padding:2px 8px;margin-top:8px;">Under development</span></div></div></div>
+    <div class="hdiv"></div>
+    <div class="sh-label">LYAPKO &mdash; Official Distribution in Luxembourg &amp; Greater Region</div>
     <div style="background:#2F518E;border:1px solid rgba(217,140,63,0.25);padding:22px 24px;border-radius:4px;margin-bottom:22px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;">
       <img src="lyapko_logo.jpg" alt="LYAPKO" style="width:84px;height:auto;border-radius:8px;background:#fff;padding:6px;flex-shrink:0;">
       <div style="flex:1;min-width:220px;">
-        <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:10px;"><strong>KOLOSVIT ASBL works on implementing wellness projects and their promising related areas,</strong> including a variety of applicators and hand massagers, modern halotherapy (salt rooms with active salt generators — halogenerators), magnetotherapy with certified equipment, apitherapy (sleeping on beehives) and more.</p>
-        <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:10px;">Since September 2026, KOLOSVIT ASBL has been the official distributor in Luxembourg, with the right to operate also in the Greater Region, for LYAPKO applicators and products.</p>
-        <p style="font-size:0.9rem;font-weight:500;color:rgba(255,230,210,0.85);line-height:1.48;">We are developing LYAPKO within our wellness, spa, thermal and recovery partnership activities, with opportunities to cooperate with professional establishments and practitioners in Luxembourg and neighbouring regions.</p>
+        <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:10px;">KOLOSVIT ASBL is an official distributor of LYAPKO applicators and products in Luxembourg, with distribution rights extending to the Greater Region.</p>
+        <p style="font-size:0.9rem;font-weight:500;color:rgba(255,230,210,0.85);line-height:1.48;">We cooperate with wellness professionals, spas, thermal centres and other organisations interested in integrating LYAPKO products into their body-care and relaxation programmes.</p>
       </div>
     </div>
-
     <div class="sh-label">30 Years of Development &amp; Production</div>
     <p style="font-size:0.88rem;font-weight:500;color:rgba(232,237,245,0.88);line-height:1.5;margin-bottom:10px;">Production began in <strong>1996</strong>, when physician and reflexologist <strong>Nickolay Lyapko</strong> created the first multi-needle applicators. According to the manufacturer, he holds more than <strong>150 patents in 20 countries</strong>; the company manufactures in Ukraine under an <strong>ISO 9001:2015</strong> quality system, and more than <strong>7 million applicators</strong> were in use worldwide as of early 2020.</p>
     <p style="font-size:0.88rem;font-weight:500;color:rgba(232,237,245,0.88);line-height:1.5;margin-bottom:24px;">LYAPKO also offers a premium range with silver needles.</p>
@@ -808,6 +811,12 @@ animate();
       <p style="font-size:0.78rem;font-weight:500;color:rgba(232,237,245,0.75);line-height:1.46;">KOLOSVIT's Luxembourg presentation focuses on wellness, relaxation, body care and recovery. Medical claims made in other countries should not be interpreted as applicable in Luxembourg or elsewhere in the EU. Where a health condition is involved, please seek advice from a qualified healthcare professional.</p>
     </div>
 
+    
+    
+    <div class="hdiv"></div>
+    <div class="sh-label">Developing New Partnerships</div>
+    <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;margin-bottom:12px;">We welcome cooperation with thermal resorts, wellness centres, rehabilitation facilities, hotels, professional practitioners and organisations interested in developing accessible wellbeing and recovery programmes.</p><p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;margin-bottom:12px;">Our approach is modular: individual activities can be introduced separately or combined into a broader wellbeing programme.</p>
+    <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;margin-bottom:12px;font-style:italic;">An initiative of KOLOSVIT ASBL.</p>
     <button class="btn-gold" onclick="showPage('page-contacts')">Contact Us &rarr;</button>
   </div>
 </div>
@@ -818,14 +827,11 @@ animate();
     
     <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo.png" alt="KOLOSVIT"></a>
   </div>
-    <div class="page-eyebrow">Solutions for Society</div>
-    <h2 class="page-title">Les Perles d'Onyx · Pearls of Luxembourg</h2>
-    <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#f2c84b;font-weight:400;letter-spacing:0.08em;margin-bottom:32px;">Stories · Skills · Connections</p>
-    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;">
-      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:12px;">Pearls of Luxembourg is an initiative of KOLOSVIT ASBL and its CEO Jan Onyx (pen name) that brings together remarkable people through inspiring stories, practical knowledge and meaningful human connections.</p>
-      <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:12px;">Luxembourg is full of people whose stories deserve to be heard beyond their own circle. Pearls creates the space where these stories are shared — and where new connections begin.</p>
-      <p style="font-size:0.92rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.52;font-style:italic;">Pearls is not just an evening series. It is a growing ecosystem — adaptable to any sector, any community, any story worth telling.</p>
-    </div>
+    <div class="page-eyebrow">Culture &middot; Media &amp; Community Platform</div>
+    <h2 class="page-title">Pearls of Luxembourg</h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#f2c84b;font-weight:400;letter-spacing:0.08em;margin-bottom:8px;">Stories &middot; People &middot; Connections</p>
+    <p style="font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(242,200,75,0.85);margin-bottom:22px;">A Media, Communication &amp; Community Platform by KOLOSVIT ASBL</p>
+    <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;"><p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.52;margin-bottom:12px;">Pearls of Luxembourg is a media and community platform created by KOLOSVIT ASBL to discover, present and connect remarkable people, talents, organisations and initiatives.</p><p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;margin-bottom:12px;">We believe that every community has valuable stories, knowledge and experience worth sharing. Pearls brings these stories to a wider audience through live events, interviews, podcasts, photography, video productions and collaborative media projects.</p><p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;margin-bottom:12px;">Beyond storytelling, Pearls creates opportunities for professional visibility, networking, knowledge exchange, cultural promotion and meaningful partnerships.</p></div>
     <div class="hdiv"></div>
     <div class="sh-label">Our Formats</div>
     <div class="card-grid">
@@ -885,7 +891,7 @@ animate();
       <div class="card"><div class="card-title">🎟️ Individual Ticket</div><div class="card-body">Entry to every Pearls evening is ticketed. Tea and coffee are included. Each evening has a recommended contribution reflecting the format and programme. Additional donations are always welcome.</div></div>
       <div class="card"><div class="card-title">🏢 Corporate Participation</div><div class="card-body">Companies may reserve places for their teams — priority registration and optional recognition as an evening partner.</div></div>
       <div class="card"><div class="card-title">🤝 Partnership in Kind</div><div class="card-body">Venues, culinary partners and media partners contribute through their space, product or expertise — recognised as a valued contribution to the Pearls ecosystem.</div></div>
-      <div class="card"><div class="card-title">🌍 Grants & Sponsorship</div><div class="card-body">Organisations and foundations may sponsor selected evenings or the programme as a whole. Once documented, Pearls will be eligible for FNR, EDF and sector innovation funding.</div></div>
+      <div class="card"><div class="card-title">🌍 Grants & Sponsorship</div><div class="card-body">Organisations and foundations may sponsor selected evenings or the programme as a whole. Pearls may apply to relevant funding programmes, subject to the eligibility conditions of each programme.</div></div>
     </div>
     <div class="hdiv"></div>
     <div style="background:#2F518E;border:1px solid rgba(242,200,75,0.22);padding:22px 24px;border-radius:4px;margin-bottom:28px;text-align:center;">
@@ -894,6 +900,10 @@ animate();
       <p style="font-size:0.95rem;font-weight:500;color:#F2F4F8;line-height:1.55;margin-bottom:10px;">Our goal is to build one of Europe's most trusted communities — rooted in Luxembourg, open to the world.</p>
       <p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#f2c84b;font-style:italic;">Because every pearl begins with something small — and grows into something lasting.</p>
     </div>
+    <div class="hdiv"></div>
+    <div class="sh-label">For Partners</div>
+    <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;margin-bottom:12px;">We invite municipalities, companies, cultural institutions, NGOs, foundations, professionals and media organisations to collaborate through events, interviews, sponsorships, content production and joint communication initiatives.</p><p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;margin-bottom:12px;">Pearls of Luxembourg is a platform for people and organisations who have something valuable to share &mdash; and for audiences ready to discover it.</p>
+    <p style="font-size:0.9rem;font-weight:500;color:rgba(255,240,200,0.82);line-height:1.48;margin-bottom:12px;font-style:italic;">An initiative of KOLOSVIT ASBL.</p>
     <button class="btn-gold" onclick="showPage('page-contacts')">Get in Touch →</button>
   </div>
 </div>
