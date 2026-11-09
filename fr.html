@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KOLOSVIT ASBL &#8212; Cercle de Lumi&#232;re</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+img{max-width:100%;height:auto;}
+html{scroll-behavior:smooth;}
+body{
+  background: radial-gradient(circle at top, #4a6fa8 0%, #3a5d96 35%, #2e4f88 70%, #243f78 100%);
+  min-height:100vh;
+  width:100%;
+  color:#e8edf5;
+  font-family:'Jost',sans-serif;
+  overflow-x:hidden;
+  word-wrap:break-word;
+  overflow-wrap:break-word;
+}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  display:flex;align-items:center;
+  padding:10px 18px;
+  background:rgba(30,52,96,0.92);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(242,200,75,0.18);
+  gap:18px;
+}
+.nav-brand{flex:1;min-width:0;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.0rem;font-weight:700;letter-spacing:0.06em;color:#f2c84b;text-transform:uppercase;line-height:1;display:block;white-space:nowrap;text-shadow:0 0 8px rgba(242,200,75,0.35);}
+.nav-tm{font-size:0.5rem;vertical-align:super;color:rgba(242,200,75,0.6);}
+.nav-star{font-size:0.55rem;vertical-align:super;color:#f2c84b;cursor:pointer;text-decoration:none;position:relative;}
+.nav-star .tip{visibility:hidden;opacity:0;position:absolute;top:-26px;left:50%;transform:translateX(-50%);background:rgba(20,40,90,0.97);color:#f2c84b;font-size:0.55rem;padding:3px 7px;border-radius:6px;white-space:nowrap;border:1px solid rgba(242,200,75,0.2);transition:opacity 0.25s;pointer-events:none;}
+.nav-star:hover .tip{visibility:visible;opacity:1;}
+.nav-asbl{font-size:0.6rem;font-weight:700;letter-spacing:0.06em;color:rgba(242,200,75,0.95);text-transform:uppercase;display:block;margin-top:3px;white-space:nowrap;}
+.nav-rcs{font-size:0.62rem;letter-spacing:0.1em;color:#f2c84b;font-weight:700;text-transform:uppercase;display:block;white-space:nowrap;}
+.lang-dropdown{position:relative;flex-shrink:0;}
+.lang-btn{
+  background:none;border:1px solid rgba(242,200,75,0.35);
+  color:rgba(242,200,75,0.85);font-family:'Jost',sans-serif;
+  font-size:0.68rem;letter-spacing:0.1em;padding:6px 10px;
+  border-radius:10px;cursor:pointer;
+  display:flex;align-items:center;gap:5px;white-space:nowrap;
+  transition:all 0.35s ease;
+}
+.lang-btn:hover,.lang-btn.open{border-color:#f2c84b;color:#f2c84b;background:rgba(242,200,75,0.08);box-shadow:0 0 10px rgba(242,200,75,0.2);}
+.lang-btn::after{content:'▾';font-size:0.6rem;transition:transform 0.3s;}
+.lang-btn.open::after{transform:rotate(180deg);}
+.lang-list{
+  display:none;position:absolute;top:calc(100% + 6px);right:0;
+  background:rgba(22,42,88,0.98);backdrop-filter:blur(20px);
+  border:1px solid rgba(242,200,75,0.18);border-radius:12px;
+  min-width:155px;z-index:500;overflow:hidden;
+}
+.lang-list.open{display:block;}
+.lang-list a{
+  display:block;padding:10px 16px;font-size:0.73rem;
+  letter-spacing:0.09em;text-transform:uppercase;
+  color:rgba(242,200,75,0.82);text-decoration:none;
+  border-bottom:1px solid rgba(242,200,75,0.07);
+  transition:all 0.25s ease;
+}
+.lang-list a:last-child{border-bottom:none;}
+.lang-list a:hover{color:#f2c84b;background:rgba(242,200,75,0.08);padding-left:22px;}
+.hamburger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:6px;flex-shrink:0;}
+.hamburger span{display:block;width:22px;height:2px;background:#f2c84b;border-radius:2px;transition:all 0.3s ease;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-menu{display:none;position:fixed;inset:0;z-index:250;background:rgba(38,72,128,0.97);backdrop-filter:blur(24px);padding:100px 32px 40px;}
+.nav-menu.open{display:flex;flex-direction:column;justify-content:flex-start;overflow-y:auto;}
+.menu-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#f2c84b;font-size:1.8rem;cursor:pointer;transition:all 0.25s ease;}
+.menu-close:hover{transform:rotate(90deg);}
+.menu-logo{display:none;}
+.menu-logo img{width:100px;height:auto;opacity:0.95;filter:drop-shadow(0 0 16px rgba(242,200,75,0.3));}
+.menu-top-links{display:flex;justify-content:center;gap:14px;margin-bottom:26px;flex-wrap:wrap;}
+.menu-top-links a{
+  font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(242,200,75,0.75);text-decoration:none;
+  border:1px solid rgba(242,200,75,0.28);padding:7px 16px;
+  border-radius:10px;transition:all 0.35s ease;
+}
+.menu-top-links a:hover{color:#f2c84b;border-color:#f2c84b;background:rgba(242,200,75,0.08);box-shadow:0 0 12px rgba(242,200,75,0.2);}
+.menu-pages a{display:block;padding:18px 0;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:rgba(242,200,75,0.85);text-decoration:none;border-bottom:1px solid rgba(242,200,75,0.1);transition:all 0.35s ease;}
+.menu-pages a:hover{color:#f2c84b;padding-left:12px;text-shadow:0 0 10px rgba(242,200,75,0.4);}
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle var(--d,3s) ease-in-out infinite;opacity:var(--o,.2);}
+@keyframes twinkle{0%,100%{opacity:var(--o,.2);transform:scale(1);}50%{opacity:calc(var(--o,.2)*2.5);transform:scale(1.4);}}
+.page{display:none;}.page.active{display:block;}
+.section-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(242,200,75,0.28),transparent);}
+/* HERO IMAGE — cinematic, no crop */
+.hero-image{width:100%;position:relative;z-index:1;padding:0 28px 0;}
+.hero-image img{
+  width:100%;height:auto;
+  display:block;
+  border-radius:18px;
+  object-fit:contain;
+  box-shadow:0 0 40px rgba(242,200,75,0.14), 0 8px 48px rgba(0,0,0,0.35);
+  animation:breathe 8s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{box-shadow:0 0 25px rgba(242,200,75,0.13),0 8px 40px rgba(0,0,0,0.3);}50%{box-shadow:0 0 45px rgba(242,200,75,0.22),0 8px 52px rgba(0,0,0,0.35);}}
+.hero-block{position:relative;z-index:1;text-align:center;padding:32px 28px 20px;}
+.hero-cta{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:20px;}
+.btn-gold{
+  background:#f2c84b;color:#0f1828;border:none;
+  padding:14px 34px;font-family:'Jost',sans-serif;
+  font-size:0.82rem;font-weight:600;letter-spacing:0.14em;
+  text-transform:uppercase;cursor:pointer;border-radius:14px;
+  transition:all 0.35s ease;
+  box-shadow:0 0 18px rgba(242,200,75,0.28);
+}
+.btn-gold:hover{background:#ffe88a;transform:translateY(-2px);box-shadow:0 0 28px rgba(242,200,75,0.45);}
+.btn-ghost{
+  background:transparent;color:#f2c84b;
+  border:1px solid rgba(242,200,75,0.38);
+  padding:14px 34px;font-family:'Jost',sans-serif;
+  font-size:0.82rem;font-weight:500;letter-spacing:0.14em;
+  text-transform:uppercase;cursor:pointer;border-radius:14px;
+  transition:all 0.35s ease;
+}
+.btn-ghost:hover{border-color:#f2c84b;background:rgba(242,200,75,0.08);transform:translateY(-2px);box-shadow:0 0 18px rgba(242,200,75,0.22);}
+.hero-survey{margin-bottom:32px;}
+.hero-survey a{font-size:0.9rem;font-weight:500;color:rgba(242,200,75,0.88);text-decoration:underline;text-underline-offset:4px;letter-spacing:0.04em;transition:all 0.3s ease;}
+.hero-survey a:hover{color:#ffe88a;text-shadow:0 0 8px rgba(242,200,75,0.4);}
+.hero-eyebrow{font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:#c8a830;margin-bottom:10px;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,11vw,3.8rem);font-weight:700;line-height:1.0;color:#e8edf5;margin-bottom:32px;}
+.hero-title .hl{color:#f2c84b;text-shadow:0 0 12px rgba(242,200,75,0.3);}
+.ring-section{position:relative;z-index:1;display:flex;justify-content:center;padding:28px 0 32px;}
+.ring-wrap{width:min(320px,80vw);height:min(320px,80vw);position:relative;flex-shrink:0;}
+.ring-glow{position:absolute;inset:-40px;border-radius:50%;background:radial-gradient(circle,rgba(242,200,75,0.1) 0%,transparent 68%);animation:glowPulse 4s ease-in-out infinite;pointer-events:none;}
+@keyframes glowPulse{0%,100%{opacity:.4;transform:scale(1);}50%{opacity:.85;transform:scale(1.08);}}
+#hexCanvas{position:absolute;inset:0;width:100%;height:100%;}
+.contact-wrap{text-align:center;padding:0 28px 56px;position:relative;z-index:1;}
+/* PAGE LOGO */
+.page-logo{display:block;text-align:center;margin:20px 0;}
+.page-logo img{width:120px;height:auto;opacity:0.94;filter:drop-shadow(0 0 14px rgba(242,200,75,0.28));}
+.inner-page{max-width:880px;width:100%;margin:0 auto;padding:24px 28px 72px;overflow-wrap:break-word;word-wrap:break-word;}
+.page-back{
+  display:inline-flex;align-items:center;gap:7px;margin-bottom:32px;
+  font-size:0.72rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(242,200,75,0.78);text-decoration:none;cursor:pointer;
+  background:none;border:1px solid rgba(242,200,75,0.28);
+  padding:8px 18px;border-radius:10px;transition:all 0.35s ease;
+}
+.page-back:hover{color:#f2c84b;border-color:#f2c84b;background:rgba(242,200,75,0.07);box-shadow:0 0 12px rgba(242,200,75,0.18);}
+.page-eyebrow{font-size:0.65rem;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#c8a830;margin-bottom:10px;}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.25rem,4.2vw,1.7rem);font-weight:700;color:#e8edf5;margin-bottom:16px;line-height:1.2;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:26px;}
+.card{
+  min-width:0;
+  background:#2F518E;
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(242,200,75,0.13);
+  border-top:3px solid var(--pg-accent,rgba(242,200,75,0.5));
+  padding:16px 18px;border-radius:12px;
+  transition:all 0.35s ease;
+}
+.card:hover{background:rgba(242,200,75,0.06);border-color:rgba(242,200,75,0.28);box-shadow:0 0 18px rgba(242,200,75,0.12);transform:translateY(-2px);}
+.card-tag{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--pg-accent-text,#c8a830);margin-bottom:6px;}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-weight:600;color:var(--pg-accent-text,#f2c84b);margin-bottom:6px;line-height:1.25;}
+.card-body{text-shadow:0 1px 2px rgba(0,0,0,.2);font-size:0.85rem;font-weight:500;color:rgba(232,237,245,0.9);line-height:1.42;margin-bottom:8px;}
+.card-date{font-size:0.66rem;color:rgba(242,200,75,0.42);margin-top:6px;}
+.badge{display:inline-block;font-size:0.56rem;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border-radius:8px;margin-bottom:8px;background:rgba(242,200,75,0.12);color:var(--pg-accent-text,#f2c84b);border:1px solid rgba(242,200,75,0.25);}
+.hdiv{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(242,200,75,0.2),transparent);margin:22px 0;}
+.sh-label{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--pg-accent-text,#c8a830);margin-bottom:5px;}
+/* ============ PER-PAGE COLOR PHILOSOPHY ============
+   Turquoise = Innovation & Wellbeing (ARCH)
+   Green = Property, Environment (CareterA)
+   Blue = Trust, Communities, Institutions (Municipal)
+   Gold = People, Culture, Values (Pearls/Culture) — default
+   Steel-grey = Technology, AI, Professionalism (Training) */
+#page-arch{--pg-accent:#2fb8ac;--pg-accent-text:#5fe0d2;}
+#page-caretera{--pg-accent:#4caf6e;--pg-accent-text:#8fe0a8;}
+#page-municipal{--pg-accent:#4d7fd6;--pg-accent-text:#8fb4f0;}
+#page-training{--pg-accent:#8a97a8;--pg-accent-text:#c3ccd8;}
+#page-lyapko{--pg-accent:#d98c3f;--pg-accent-text:#f0b36b;}
+#page-culture, #page-pearls{--pg-accent:#f2c84b;--pg-accent-text:#f2c84b;}
+#page-arch .page-eyebrow,#page-arch .btn-gold{color:#5fe0d2;}
+#page-arch .btn-gold{background:#2fb8ac;color:#06231f;}
+#page-caretera .page-eyebrow{color:#8fe0a8;}
+#page-caretera .btn-gold{background:#4caf6e;color:#0b2412;}
+#page-municipal .page-eyebrow{color:#8fb4f0;}
+#page-municipal .btn-gold{background:#4d7fd6;color:#0c1c3a;}
+#page-training .page-eyebrow{color:#c3ccd8;}
+#page-training .btn-gold{background:#8a97a8;color:#171c22;}
+.sh-title{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:400;color:#e8edf5;margin-bottom:20px;}
+.field{margin-top:8px;}
+.field input{
+  width:100%;background:rgba(255,255,255,0.06);
+  border:1px solid rgba(242,200,75,0.2);color:#e8edf5;
+  font-family:'Jost',sans-serif;font-size:0.9rem;
+  padding:10px 14px;border-radius:10px;outline:none;
+  transition:all 0.35s ease;margin-top:5px;
+  backdrop-filter:blur(4px);
+}
+.field input::placeholder{color:rgba(242,200,75,0.28);}
+.field input:focus{border-color:rgba(242,200,75,0.52);box-shadow:0 0 10px rgba(242,200,75,0.12);}
+.about-grid{display:grid;grid-template-columns:1fr;gap:32px;min-width:0;}
+.about-grid>div{min-width:0;}
+.about-logo{text-align:center;}
+.about-logo img{width:160px;height:auto;border-radius:10px;filter:drop-shadow(0 0 14px rgba(242,200,75,0.22));}
+.about-text p{font-size:0.9rem;font-weight:500;color:rgba(232,237,245,0.9);line-height:1.5;margin-bottom:12px;}
+.about-text strong{color:#e8edf5;font-weight:500;}
+.rcs-note{font-size:0.62rem;letter-spacing:0.1em;color:rgba(242,200,75,0.35);text-transform:uppercase;margin-top:16px;}
+.c-row{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(242,200,75,0.1);min-width:0;}
+.c-row:last-of-type{border-bottom:none;}
+.c-lbl{font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#c8a830;min-width:80px;padding-top:2px;}
+.c-val{font-size:0.9rem;font-weight:500;color:rgba(232,237,245,0.85);min-width:0;overflow-wrap:break-word;word-break:break-word;}
+.c-val a{color:rgba(232,237,245,0.85);text-decoration:none;transition:all 0.3s ease;}
+.c-val a:hover{color:#f2c84b;text-shadow:0 0 8px rgba(242,200,75,0.3);}
+.c-reg{font-size:0.62rem;letter-spacing:0.1em;color:rgba(242,200,75,0.35);text-transform:uppercase;margin-bottom:18px;font-weight:500;}
+/* FOOTER — світлий, читабельний */
+footer{
+  text-align:center;
+  padding:32px 28px 36px;
+  border-top:1px solid rgba(242,200,75,0.22);
+  background:rgba(25,45,85,0.92);
+  position:relative;z-index:1;opacity:0.9;
+}
+.footer-copy{
+  font-size:1.0rem;
+  letter-spacing:0.06em;
+  color:#c8d8f0;
+  margin-bottom:10px;
+  font-weight:500;
+}
+.footer-copy a{color:#f2c84b;text-decoration:underline;text-underline-offset:3px;}
+.footer-founded{
+  font-size:0.88rem;
+  letter-spacing:0.08em;
+  font-style:italic;
+  color:#a8c4e8;
+  margin-bottom:14px;
+}
+.footer-etym{
+  font-size:0.82rem;
+  line-height:1.48;
+  font-style:italic;
+  color:#b8cce0;
+  max-width:640px;
+  margin:0 auto;
+  padding-top:14px;
+  border-top:1px solid rgba(242,200,75,0.15);
+}
+.footer-etym strong{color:#f2c84b;font-weight:400;}
+/* EN link on lang pages */
+.en-link{flex-shrink:0;font-size:0.68rem;letter-spacing:0.12em;color:rgba(242,200,75,0.75);text-decoration:none;border:1px solid rgba(242,200,75,0.28);padding:5px 11px;border-radius:10px;white-space:nowrap;transition:all 0.35s ease;}
+.en-link:hover{color:#f2c84b;border-color:#f2c84b;background:rgba(242,200,75,0.07);box-shadow:0 0 10px rgba(242,200,75,0.18);}
+/* ============ NEW TOP CONCEPT SECTION ============ */
+.top-hero{
+  position:relative;z-index:1;
+  background:linear-gradient(180deg,#d8f5ef 0%,#a8e5db 55%,#78d2c2 100%);
+  padding:82px 24px 18px;
+  color:#333;
+}
+.top-hero-inner{max-width:1100px;margin:0 auto;text-align:center;}
+.th-tagline{font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#111;margin-bottom:6px;}
+.th-sub{font-size:0.78rem;font-weight:600;color:#111;max-width:560px;margin:0 auto 16px;line-height:1.4;}
+.th-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(161px,1fr));gap:10px;margin-bottom:22px;text-align:left;max-width:860px;margin-left:auto;margin-right:auto;}
+.th-chips{display:flex;gap:6px;margin-top:7px;}
+.th-chip{flex:1;text-align:center;font-size:0.72rem;font-weight:700;line-height:1.2;padding:3px 6px;border-radius:7px;background:rgba(224,165,46,0.22);color:#123a5e;cursor:pointer;transition:background .2s;}
+.th-chip:hover{background:rgba(224,165,46,0.5);}
+@media(min-width:620px){.th-cards{grid-template-columns:repeat(3,1fr);}}
+.th-card{
+  background:linear-gradient(160deg,#e3faf6 0%,#c3f0e8 100%);border-radius:11px;padding:11px 14px;cursor:pointer;
+  box-shadow:0 3px 12px rgba(20,90,80,0.14);
+  border-top:3px solid var(--accent,#1c9e8f);
+  transition:all 0.3s ease;
+}
+.th-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(20,90,80,0.22);}
+.th-card-line{font-size:0.83rem;font-weight:600;line-height:1.4;color:#1e3230;}
+.th-card-ico{font-size:0.98rem;}
+.th-card-title{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:0.98rem;letter-spacing:0.01em;color:#123a5e;}
+.th-slogan{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:clamp(0.95rem,2.4vw,1.2rem);color:#2b2b2b;max-width:600px;margin:0 auto;line-height:1.35;}
+@media(min-width:768px){
+  .top-hero{padding:130px 40px 56px;}
+}
+/* ============ Solutions dropdown ============ */
+.nav-contact-btn{
+  flex-shrink:0;background:#2fb8ac;color:#fff;border:none;
+  font-family:'Jost',sans-serif;font-size:0.7rem;font-weight:600;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:9px 16px;border-radius:10px;cursor:pointer;white-space:nowrap;
+  transition:all 0.3s ease;text-decoration:none;display:inline-block;
+}
+.nav-contact-btn:hover{background:#f2c84b;color:#1c3f7a;}
+/* Solutions dropdown in overlay menu */
+.menu-solutions{border-bottom:1px solid rgba(242,200,75,0.1);}
+.menu-solutions>.ms-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 0;cursor:pointer;
+  font-family:'Cormorant Garamond',serif;font-size:1.1rem;
+  letter-spacing:0.1em;text-transform:uppercase;color:rgba(242,200,75,0.85);
+}
+.menu-solutions>.ms-head:hover{color:#f2c84b;}
+.menu-solutions .ms-arrow{transition:transform 0.3s;font-size:1rem;}
+.menu-solutions.open .ms-arrow{transform:rotate(180deg);}
+.ms-sub{display:none;padding:0 0 14px 16px;}
+.menu-solutions.open .ms-sub{display:block;}
+.ms-sub a{
+  display:block;padding:9px 0;font-family:'Jost',sans-serif;
+  font-size:0.85rem;letter-spacing:0.04em;color:rgba(232,237,245,0.72);
+  text-decoration:none;border:none !important;transition:all 0.25s ease;
+}
+.ms-sub a:hover{color:#f2c84b;padding-left:8px;}
+.ms-sub-label{font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(242,200,75,0.5);margin:10px 0 2px;}
+@media(min-width:768px){
+  nav{padding:10px 40px;}
+  .hero-image{padding:0 40px 0;}
+  .ring-wrap{width:420px;height:420px;}
+  .about-grid{grid-template-columns:160px 1fr 1fr;gap:40px;align-items:start;}
+  .inner-page{padding:32px 48px 72px;}
+}
+
+/* ===== Home: light banner + mobile cards ===== */
+.home-light{position:relative;z-index:1;background:#F8FAFC;color:#1E293B;padding:84px 0 26px;text-shadow:none;}
+.hero-banner-container{position:relative;width:100%;max-width:1200px;margin:0 auto;border-radius:20px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,0.10);}
+.hero-banner-container>img{width:100%;height:auto;display:block;}
+.hotspot{position:absolute;display:block;border-radius:16px;cursor:pointer;transition:background .25s,box-shadow .25s;}
+.hotspot:hover,.hotspot:focus-visible{background:rgba(255,255,255,0.14);box-shadow:inset 0 0 0 3px rgba(45,212,191,0.95);outline:none;}
+.mobile-cards-grid{display:none;}
+.home-slogan{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:clamp(1rem,2.4vw,1.25rem);color:#334155;text-align:center;max-width:640px;margin:22px auto 0;padding:0 16px;line-height:1.4;}
+@media(min-width:768px){.home-light{padding:110px 16px 30px;}}
+@media(max-width:767px){
+  .home-light{padding:76px 12px 20px;}
+  .hero-banner-container{border-radius:14px;}
+  .hotspot{display:none;}
+  .mobile-cards-grid{display:flex;flex-direction:column;gap:18px;max-width:520px;margin:0 auto;padding:6px 4px 0;}
+  .group-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;color:#0F172A;margin:14px 0 0;text-align:center;font-weight:700;}
+  .module-card{background:#FFFFFF;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.07);border:1px solid #E2E8F0;display:flex;flex-direction:column;text-decoration:none;transition:transform .3s,box-shadow .3s;}
+  .module-card:active{transform:scale(0.99);}
+  .module-card img{width:100%;height:auto;display:block;}
+  .card-more{display:block;text-align:right;padding:10px 16px 12px;font-family:'Jost',sans-serif;font-size:0.9rem;font-weight:600;color:#0f766e;}
+}
+/* ===== Inner pages: new building blocks ===== */
+.pg-hero{margin:4px 0 20px;border-radius:14px;overflow:hidden;box-shadow:0 6px 28px rgba(0,0,0,0.28);}
+.pg-hero img{width:100%;height:auto;display:block;}
+.pg-img{margin:18px 0;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.25);}
+.pg-img img{width:100%;height:auto;display:block;}
+.pg-h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--pg-accent-text,#f2c84b);margin:18px 0 8px;line-height:1.2;}
+.pg-list{list-style:none;padding:0;margin:0 0 16px;}
+.pg-list li{position:relative;padding-left:22px;margin-bottom:8px;font-size:0.9rem;font-weight:500;line-height:1.5;color:rgba(232,237,245,0.92);}
+.pg-list li::before{content:"\2713";position:absolute;left:0;top:0;color:var(--pg-accent-text,#f2c84b);font-weight:700;}
+.pg-list.pg-cols{columns:2 260px;column-gap:28px;}
+.pg-list.pg-cols li{break-inside:avoid;}
+.pg-box{background:#2F518E;border:1px solid;padding:22px 24px;border-radius:6px;margin:0 0 26px;}
+.pg-flag{background:linear-gradient(160deg,rgba(47,81,142,0.95),rgba(36,63,120,0.95));border:2px solid var(--pg-accent,#f2c84b);border-radius:10px;padding:22px 24px;margin:26px 0;}
+.pg-flag-tag{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--pg-accent-text,#f2c84b);font-weight:700;margin-bottom:4px;}
+.pg-flag-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:700;color:#fff;margin-bottom:12px;line-height:1.2;}
+.pg-area{margin:0 0 26px;padding:0 0 4px;}
+.pg-stage{background:rgba(255,255,255,0.06);border-left:4px solid var(--pg-accent,#2fb8ac);border-radius:6px;padding:16px 20px;margin-bottom:16px;}
+.pg-stage-tag{font-size:0.74rem;letter-spacing:0.18em;font-weight:700;color:var(--pg-accent-text,#5fe0d2);}
+.pg-stage-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#fff;margin-bottom:8px;}
+.pg-cta{background:linear-gradient(160deg,rgba(47,81,142,0.95),rgba(30,52,96,0.95));border:2px solid var(--pg-accent,#f2c84b);border-radius:12px;padding:26px 24px;margin:32px 0 12px;text-align:left;}
+.pg-cta-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:12px;line-height:1.2;}
+.pg-disc{font-size:0.82rem;font-weight:500;color:rgba(255,240,200,0.9);line-height:1.5;border:1px dashed rgba(242,200,75,0.5);border-radius:8px;padding:12px 16px;margin:6px 0 18px;}
+.sector{background:#2F518E;border:1px solid rgba(255,255,255,0.14);border-radius:10px;margin-bottom:12px;overflow:hidden;}
+.sector>summary{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;list-style:none;}
+.sector>summary::-webkit-details-marker{display:none;}
+.sector-thumb{width:104px;height:58px;object-fit:cover;border-radius:7px;flex-shrink:0;}
+.sector-ico{width:104px;height:58px;display:flex;align-items:center;justify-content:center;font-size:1.9rem;background:rgba(255,255,255,0.1);border-radius:7px;flex-shrink:0;}
+.sector-head{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0;}
+.sector-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:#fff;line-height:1.2;}
+.sector-for{font-size:0.78rem;font-weight:500;color:rgba(232,237,245,0.8);line-height:1.35;}
+.sector-more{font-size:0.78rem;font-weight:700;color:var(--pg-accent-text,#5fe0d2);white-space:nowrap;}
+.sector-more::after{content:" \25BE";}
+.sector[open] .sector-more::after{content:" \25B4";}
+.sector-body{padding:4px 20px 18px;border-top:1px solid rgba(255,255,255,0.12);}
+.curarta-hero{margin:4px 0 20px;border-radius:14px;overflow:hidden;box-shadow:0 6px 28px rgba(0,0,0,0.28);position:relative;}
+.curarta-hero img{width:100%;height:auto;display:block;}
+@media(max-width:767px){
+  .curarta-hero{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .curarta-hero img{width:auto;height:240px;max-width:none;}
+  .sector-thumb,.sector-ico{width:72px;height:44px;}
+  .sector-more{display:none;}
+  .pg-box,.pg-flag,.pg-cta{padding:18px 16px;}
+}
+#page-culture{--pg-accent:#d4a82a;--pg-accent-text:#f2c84b;}
+.dir-big img{width:180px;}
+@media(max-width:767px){.dir-big img{width:125px;}}
+.dir-wide img{width:230px;background:transparent;box-shadow:none;border-radius:0;}
+@media(max-width:767px){.dir-wide img{width:150px;}}
+.pg-status{display:inline-block;font-size:0.74rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--pg-accent-text,#946c06);border:1px solid var(--pg-accent,#d4a82a);background:rgba(212,168,42,0.1);padding:4px 12px;border-radius:14px;margin:2px 0 16px;}
+.pg-chip{display:inline-block;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--pg-accent-text,#946c06);border:1px solid var(--pg-accent,#d4a82a);padding:2px 9px;border-radius:12px;}
+.page-head-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px;}
+.page-head-row .page-logo{margin:0;}
+.contact-page{max-width:960px;}
+.contact-banner{display:block;width:100%;margin:0 auto 18px;border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(15,23,42,0.14);}
+.contact-banner img{width:100%;height:auto;display:block;}
+.contact-body{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;}
+.contact-rows{flex:1;min-width:0;max-width:600px;}
+.contact-logo img{width:134px;height:auto;display:block;}
+@media(max-width:767px){.contact-body{flex-direction:column;align-items:flex-end;}.contact-rows{width:100%;max-width:none;}.contact-logo img{width:100px;}}
+.dl-link{display:inline-block;margin:8px 0 2px;font-size:0.78rem;font-weight:600;color:var(--pg-accent-text,#b45309);text-decoration:none;border-bottom:1px dashed currentColor;}
+.dl-link:hover{opacity:0.75;}
+.card a[title]:hover img{opacity:0.92;}
+
+.strip-row{display:flex;gap:14px;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;margin:4px 0 22px;padding-bottom:6px;}
+.strip-row a{flex:0 0 auto;scroll-snap-align:start;border-radius:14px;overflow:hidden;box-shadow:0 4px 18px rgba(15,23,42,0.12);background:#fff;}
+.strip-row img{height:210px;width:auto;max-width:none;display:block;}
+@media(max-width:767px){.strip-row img{height:170px;}}
+
+/* ===================== LIGHT THEME (whole site) ===================== */
+body{background:#F8FAFC;color:#1E293B;text-shadow:none;}
+.stars{z-index:2;}
+nav{background:rgba(255,255,255,0.96);border-bottom:1px solid #E2E8F0;box-shadow:0 2px 14px rgba(15,23,42,0.05);}
+.nav-logo{color:#0F172A;text-shadow:none;}
+.nav-tm{color:#94A3B8;} .nav-star{color:#946c06;}
+.nav-star .tip{background:#fff;color:#334155;border:1px solid #E2E8F0;box-shadow:0 4px 14px rgba(15,23,42,0.12);}
+.nav-asbl{color:#475569;} .nav-rcs{color:#64748B;}
+.lang-btn{border:1px solid #CBD5E1;color:#334155;}
+.lang-btn:hover,.lang-btn.open{border-color:#0f766e;color:#0f766e;background:#F0FDFA;box-shadow:none;}
+.lang-list{background:#fff;border:1px solid #E2E8F0;box-shadow:0 10px 30px rgba(15,23,42,0.12);}
+.lang-list a{color:#334155;border-bottom:1px solid #F1F5F9;}
+.lang-list a:hover{color:#0f766e;background:#F0FDFA;}
+.hamburger span{background:#0F172A;}
+.nav-menu{background:rgba(255,255,255,0.985);}
+.menu-close{color:#0F172A;}
+.menu-top-links a{color:#334155;border:1px solid #CBD5E1;}
+.menu-top-links a:hover{color:#0f766e;border-color:#0f766e;background:#F0FDFA;box-shadow:none;}
+.menu-pages a{color:#0F172A;border-bottom:1px solid #E2E8F0;}
+.menu-pages a:hover{color:#0f766e;text-shadow:none;}
+.menu-solutions{border-bottom:1px solid #E2E8F0;}
+.menu-solutions>.ms-head{color:#0F172A;}
+.menu-solutions>.ms-head:hover{color:#0f766e;}
+.ms-sub a{color:#475569;} .ms-sub a:hover{color:#0f766e;}
+.ms-sub-label{color:#0f766e;}
+.page-back{color:#334155;border:1px solid #CBD5E1;}
+.page-back:hover{color:#0f766e;border-color:#0f766e;background:#F0FDFA;box-shadow:none;}
+.page-logo img{width:168px;height:auto;border-radius:0;opacity:1;filter:none;box-shadow:none;}
+.dir-logo.dir-big img{width:180px;}
+.dir-logo.dir-wide img{width:230px;background:transparent;box-shadow:none;border-radius:0;}
+.dir-logo img{width:150px;border-radius:12px;box-shadow:0 4px 14px rgba(15,23,42,0.15);}
+@media(max-width:767px){.page-logo img{width:118px;}.dir-logo img{width:104px;}.dir-logo.dir-big img{width:125px;}}
+.page{--pg-accent:#d4a82a;--pg-accent-text:#946c06;}
+#page-arch{--pg-accent:#2fb8ac;--pg-accent-text:#0f766e;}
+#page-caretera{--pg-accent:#4caf6e;--pg-accent-text:#2f7d4a;}
+#page-training{--pg-accent:#5fd3c3;--pg-accent-text:#0f766e;}
+#page-lyapko{--pg-accent:#d98c3f;--pg-accent-text:#b45309;}
+#page-culture,#page-pearls{--pg-accent:#d4a82a;--pg-accent-text:#946c06;}
+.page-eyebrow,#page-arch .page-eyebrow,#page-caretera .page-eyebrow,#page-training .page-eyebrow,#page-municipal .page-eyebrow{color:var(--pg-accent-text);}
+.page-title,.sh-title{color:#0F172A;}
+.card{background:#FFFFFF;border:1px solid #E2E8F0;border-top:3px solid var(--pg-accent,#d4a82a);box-shadow:0 2px 10px rgba(15,23,42,0.06);backdrop-filter:none;}
+.card:hover{background:#FFFFFF;border-color:#CBD5E1;box-shadow:0 8px 24px rgba(15,23,42,0.12);}
+.card-tag{color:var(--pg-accent-text);}
+.card-title{color:#0F172A;}
+.card-body{color:#475569;text-shadow:none;}
+.card-date{color:#94A3B8;}
+.badge{background:#F8FAFC;color:var(--pg-accent-text);border:1px solid #CBD5E1;}
+.hdiv{background:linear-gradient(90deg,transparent,rgba(100,116,139,0.35),transparent);}
+.sh-label{color:var(--pg-accent-text);}
+.btn-gold{box-shadow:0 2px 10px rgba(15,23,42,0.15);}
+.btn-gold:hover{box-shadow:0 6px 18px rgba(15,23,42,0.2);}
+.btn-ghost{color:var(--pg-accent-text);border:1px solid var(--pg-accent,#d4a82a);}
+.btn-ghost:hover{background:rgba(212,168,42,0.1);box-shadow:none;border-color:var(--pg-accent-text);}
+.field input{background:#fff;border:1px solid #CBD5E1;color:#0F172A;backdrop-filter:none;}
+.field input::placeholder{color:#94A3B8;}
+.field input:focus{border-color:#0f766e;box-shadow:0 0 0 3px rgba(15,118,110,0.15);}
+.about-logo img{filter:none;box-shadow:0 4px 14px rgba(15,23,42,0.15);}
+.about-text p{color:#475569;} .about-text strong{color:#0F172A;}
+.rcs-note,.c-reg{color:#94A3B8;}
+.c-row{border-bottom:1px solid #E2E8F0;}
+.c-lbl{color:#b8860b;font-weight:700;} .c-val,.c-val a{color:#1d4ed8;} .c-val a:hover{color:#1e3a8a;text-shadow:none;}
+.en-link{color:#334155;border:1px solid #CBD5E1;}
+.en-link:hover{color:#0f766e;border-color:#0f766e;background:#F0FDFA;box-shadow:none;}
+/* building blocks of the new pages */
+.pg-hero,.curarta-hero,.pg-img{box-shadow:0 6px 24px rgba(15,23,42,0.14);}
+.pg-h3{color:var(--pg-accent-text);}
+.pg-list li{color:#334155;} .pg-list li::before{color:var(--pg-accent-text);}
+.pg-box{background:#FFFFFF;box-shadow:0 2px 12px rgba(15,23,42,0.06);}
+.pg-flag{background:linear-gradient(160deg,#FFFFFF,#F1F5F9);box-shadow:0 4px 18px rgba(15,23,42,0.08);}
+.pg-flag-tag{color:var(--pg-accent-text);} .pg-flag-title{color:#0F172A;}
+.pg-stage{background:#FFFFFF;border:1px solid #E2E8F0;border-left:4px solid var(--pg-accent,#2fb8ac);box-shadow:0 2px 10px rgba(15,23,42,0.05);}
+.pg-stage-tag{color:var(--pg-accent-text);} .pg-stage-title{color:#0F172A;}
+.pg-cta{background:linear-gradient(160deg,#FFFFFF,#F1F5F9);box-shadow:0 4px 18px rgba(15,23,42,0.08);}
+.pg-cta-title{color:#0F172A;}
+.pg-disc{color:#92400e;background:#FFFBEB;border:1px dashed #D97706;}
+.sector{background:#FFFFFF;border:1px solid #E2E8F0;box-shadow:0 2px 10px rgba(15,23,42,0.05);}
+.sector-title{color:#0F172A;} .sector-for{color:#64748B;}
+.sector-ico{background:#F1F5F9;}
+.sector-more{color:var(--pg-accent-text);}
+.sector-body{border-top:1px solid #E2E8F0;}
+/* dark "Circle of Light" panel + footer stay as before */
+.dark-panel{position:relative;z-index:1;background:radial-gradient(circle at top,#4a6fa8 0%,#3a5d96 35%,#2e4f88 70%,#243f78 100%);color:#e8edf5;margin-top:26px;padding-top:34px;border-radius:28px 28px 0 0;text-shadow:none;}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-brand">
+    <span class="nav-logo">Kolosvit<sup class="nav-tm">&#8482;</sup></span>
+    <span class="nav-asbl">ASBL Luxembourg</span>
+    <span class="nav-rcs">RCS F15616</span>
+  </div>
+  <a href="index.html" class="en-link">EN &#8594;</a>
+  <button class="hamburger" id="burger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-menu" id="navMenu">
+  <button class="menu-close" onclick="closeMenu()">&#10005;</button>
+  <div class="menu-pages">
+    <a href="javascript:void(0)" onclick="showPage('page-home');closeMenu();">Accueil</a>
+    <a href="javascript:void(0)" onclick="showPage('page-about');closeMenu();">&Agrave; propos</a>
+    <div class="menu-solutions" id="menuSolutions">
+      <div class="ms-head" onclick="toggleSolutions()"><span>Solutions</span><span class="ms-arrow">&#9662;</span></div>
+      <div class="ms-sub">
+        <div class="ms-sub-label">&#129504; Solutions pour les personnes</div>
+        <a href="javascript:void(0)" onclick="showPage('page-arch');closeMenu();">ARCH &mdash; Performance humaine, bien-&ecirc;tre et r&eacute;silience au stress</a>
+        <div class="ms-sub-label">&#127968; Solutions pour l'immobilier</div>
+        <a href="javascript:void(0)" onclick="showPage('page-caretera');closeMenu();">CareterA &mdash; Intelligence et activation immobili&egrave;re</a>
+        <div class="ms-sub-label">&#127891; Formation et renforcement des capacit&eacute;s</div>
+        <a href="javascript:void(0)" onclick="showPage('page-training');closeMenu();">Formation aux drones &middot; Comp&eacute;tences num&eacute;riques &middot; Culture de l'IA</a>
+        <div class="ms-sub-label">Solutions pour le bien-&ecirc;tre</div>
+        <a href="javascript:void(0)" onclick="showPage('page-culture');closeMenu();">CurArtA</a>
+        <a href="javascript:void(0)" onclick="showPage('page-lyapko');closeMenu();">Bien-être &mdash; LYAPKO</a>
+      </div>
+    </div>
+    <a href="javascript:void(0)" onclick="showPage('page-pearls');closeMenu();">Pearls of Luxembourg</a>
+    <a href="javascript:void(0)" onclick="showPage('page-initiatives');closeMenu();">Initiatives / Actualit&eacute;s</a>
+    <a href="javascript:void(0)" onclick="showPage('page-contacts');closeMenu();">Contact</a>
+  </div>
+</div>
+<div class="stars" id="stars"></div>
+<div id="page-home" class="page active">
+
+  <div class="home-light">
+    <div class="hero-banner-container">
+      <img src="main-banner.webp" alt="KOLOSVIT ASBL — Innovation, Wellbeing, Resilience" width="1672" height="941" fetchpriority="high">
+      <a href="javascript:void(0)" onclick="showPage('page-culture')" class="hotspot hs-curarta" style="left:1.5%;top:32.6%;width:32.3%;height:29.1%;" aria-label="CurArtA"></a>
+      <a href="javascript:void(0)" onclick="showPage('page-caretera')" class="hotspot hs-caretera" style="left:34.3%;top:32.6%;width:31.4%;height:29.1%;" aria-label="CareterA"></a>
+      <a href="javascript:void(0)" onclick="showPage('page-arch')" class="hotspot hs-arch" style="left:66.3%;top:32.6%;width:32.1%;height:29.1%;" aria-label="ARCH"></a>
+      <a href="javascript:void(0)" onclick="showPage('page-training')" class="hotspot hs-training" style="left:1.5%;top:70%;width:32.3%;height:26.5%;" aria-label="Training"></a>
+      <a href="javascript:void(0)" onclick="showPage('page-lyapko')" class="hotspot hs-lyapko" style="left:34.3%;top:70%;width:31.4%;height:26.5%;" aria-label="LYAPKO"></a>
+      <a href="javascript:void(0)" onclick="showPage('page-pearls')" class="hotspot hs-pearls" style="left:66.3%;top:70%;width:32.1%;height:26.5%;" aria-label="Pearls"></a>
+    </div>
+    <div class="mobile-cards-grid">
+      <div class="group-title">Innovation</div>
+      <a href="javascript:void(0)" onclick="showPage('page-culture')" class="module-card"><img src="card-curarta.webp" alt="CurArtA — récupération, bien-être, créativité" width="538" height="266" loading="lazy"><span class="card-more">En savoir plus &rarr;</span></a>
+      <a href="javascript:void(0)" onclick="showPage('page-caretera')" class="module-card"><img src="card-caretera.webp" alt="CareterA — solutions pour l'immobilier et les communes" width="538" height="266" loading="lazy"><span class="card-more">En savoir plus &rarr;</span></a>
+      <a href="javascript:void(0)" onclick="showPage('page-arch')" class="module-card"><img src="card-arch.webp" alt="ARCH — recherche sur la résilience humaine" width="538" height="266" loading="lazy"><span class="card-more">En savoir plus &rarr;</span></a>
+      <div class="group-title">Programmes et services</div>
+      <a href="javascript:void(0)" onclick="showPage('page-training')" class="module-card"><img src="card-training.webp" alt="Formation — simulation de drones et compétences numériques" width="538" height="266" loading="lazy"><span class="card-more">En savoir plus &rarr;</span></a>
+      <a href="javascript:void(0)" onclick="showPage('page-lyapko')" class="module-card"><img src="card-lyapko.webp" alt="LYAPKO — produits de bien-être" width="538" height="266" loading="lazy"><span class="card-more">En savoir plus &rarr;</span></a>
+      <a href="javascript:void(0)" onclick="showPage('page-pearls')" class="module-card"><img src="card-pearls.webp" alt="Pearls — médias et communauté" width="538" height="266" loading="lazy"><span class="card-more">En savoir plus &rarr;</span></a>
+    </div>
+    <p class="home-slogan">Relier les personnes, les idées et l'innovation pour bâtir des communautés plus fortes.</p>
+  </div>
+
+  <div class="dark-panel">
+  <div class="hero-image">
+    <img src="circle_people_full.webp" alt="Cercle de Lumière">
+  </div>
+  <div class="section-divider"></div>
+  <div class="hero-block">
+    <div class="hero-cta">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold" style="font-weight:700;">Partagez votre d&eacute;fi</button></a>
+    </div>
+    <p style="font-size:0.92rem;font-weight:700;color:#f0ede4;line-height:1.6;margin-bottom:28px;">Parlez-nous de vos besoins.<br>Chaque d&eacute;fi commence par une conversation.</p>
+    <div class="hero-eyebrow">Un Cercle de Bonnes Personnes</div>
+    <p style="font-size:0.95rem;font-weight:500;color:rgba(232,237,245,0.8);letter-spacing:0.03em;margin-bottom:14px;">Partager les connaissances. B&acirc;tir la confiance. Cr&eacute;er un impact.</p>
+    <h1 class="hero-title">Cercle <span class="hl">de Lumi&egrave;re</span></h1>
+  </div>
+  <div class="section-divider"></div>
+  <div class="ring-section"><div class="ring-wrap"><div class="ring-glow"></div><canvas id="hexCanvas"></canvas></div></div>
+    <div style="text-align:center;padding:12px 0 4px;opacity:0.5;animation:kolosBounce 2s infinite;">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f2c84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+  </div>
+  <style>@keyframes kolosBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}</style>
+  <div class="contact-wrap"><button class="btn-ghost" onclick="showPage('page-contacts')">Contact</button></div>
+</div>
+</div>
+
+<div id="page-initiatives" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo-kolosvit.webp" alt="KOLOSVIT"></a>
+  </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div>
+        <div class="page-eyebrow">2026</div>
+        <h2 class="page-title" style="margin-bottom:0;">Initiatives</h2>
+      </div>
+    </div>
+    <div class="card-grid">
+      <div class="card"><div class="card-tag">25.03.2026</div><div class="card-title">Grand Th&#233;&#226;tre &middot; Philharmonie &middot; MUDAM</div><div class="card-body">En partenariat avec la Croix-Rouge Luxembourg, nous avons organis&#233; 8 sorties culturelles &#8212; environ 10 participants par &#233;v&#233;nement &#8212; au Grand Th&#233;&#226;tre, &#224; la Philharmonie Luxembourg et au mus&#233;e d&#8217;art contemporain MUDAM. Ces sorties ont donn&#233; aux r&#233;fugi&#233;s ukrainiens l&#8217;occasion de d&#233;couvrir la vie culturelle luxembourgeoise, de trouver des moments de joie et de beaut&#233;, et de se sentir membres de la communaut&#233; europ&#233;enne.</div><div class="card-date">Mars 2026</div></div>
+      <div class="card"><div class="card-tag">26.04.2026</div><div class="card-title">Concert &middot; Serhii &amp; Hanna</div><div class="card-body">Un chaleureux concert communautaire sur le Boulevard Konrad Adenauer a r&#233;uni des Ukrainiens, des Luxembourgeois et des amis de toute l&#8217;Europe. Les artistes Serhii et Hanna ont rempli la soir&#233;e d&#8217;&#226;me, de musique et d&#8217;unit&#233;. Merci tout particuli&#232;rement &#224; Tami &amp; Sergo d&#8217;avoir rendu cette soir&#233;e possible &#8212; votre g&#233;n&#233;rosit&#233; et votre bienveillance envers notre communaut&#233; sont profond&#233;ment ressenties.</div><div class="card-date">Avril 2026</div></div>
+      <div class="card"><div class="card-tag">03.05.2026</div><div class="card-title">Enqu&#234;te communautaire</div><div class="card-body">Nous avons lanc&#233; notre premi&#232;re enqu&#234;te communautaire pour mieux comprendre les besoins r&#233;els des Ukrainiens et des nouveaux arrivants au Luxembourg. Votre voix d&#233;termine notre direction. Chaque r&#233;ponse compte et nous aide &#224; planifier des initiatives qui servent vraiment la communaut&#233;.<br><br><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank" style="color:#946c06;text-decoration:underline;">R&#233;pondre &#224; l&#8217;enqu&#234;te &#8594;</a></div><div class="card-date">Mai 2026</div></div>
+    </div>
+    <div class="hdiv"></div>
+    <div class="sh-label">Mai 2026</div>
+    <div class="sh-title">Demandes de subventions</div>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">La culture aide la solidarit&#233;</div><div class="card-body">En partenariat avec l&#8217;ONG &#171;&#160;Strings of Heart&#160;&#187;, nous avons soumis une candidature commune pour le soutien psychologique et culturel des r&#233;fugi&#233;s ukrainiens au Luxembourg, aux Pays-Bas et en Finlande. Le programme combine l&#8217;art-th&#233;rapie, des &#233;v&#233;nements communautaires et des ateliers de r&#233;silience mentale &#8212; pour r&#233;pondre aux traumatismes, &#224; l&#8217;isolement et au d&#233;fi de reconstruire sa vie dans un nouveau pays.</div></div>
+      <div class="card"><div class="card-title">LSA &#8212; Plateforme ARCH</div><div class="card-body">La plateforme ARCH (A&#233;rospatiale, R&#233;silience et Sant&#233; Cognitive) est notre projet le plus ambitieux&#160;: un environnement de simulation combinant des m&#233;thodologies de formation a&#233;rospatiale avec des outils de conscience de la charge cognitive. Con&#231;u pour les milieux professionnels &#224; haute pression, ARCH a &#233;galement une application directe dans le soutien aux r&#233;fugi&#233;s et la formation &#224; la r&#233;silience mentale.</div></div>
+        <p style="font-size:0.86rem;color:#1e40af;font-style:italic;line-height:1.46;margin-top:12px;padding-top:10px;border-top:1px solid rgba(100,116,139,0.30);"><strong style="color:#1e3a8a;">Mise à jour (juin 2026) :</strong> La proposition n'a pas été sélectionnée. KOLOSVIT ASBL apprécie l'opportunité et continue à développer l'initiative.</p>
+    </div>
+  </div>
+</div>
+
+<div id="page-join" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo-kolosvit.webp" alt="KOLOSVIT"></a>
+  </div>
+    <h2 class="page-title">Rejoindre</h2>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">Adh&#233;sion</div><div class="card-body">Ouvert &#224; tous ceux qui partagent nos valeurs&#160;: humanit&#233;, soutien, connaissance et lumi&#232;re. Rejoignez un cercle croissant de personnes qui croient en la culture, la r&#233;silience et la communaut&#233;.</div><div class="field"><input type="text" placeholder="Votre nom"></div><div class="field"><input type="email" placeholder="Email"></div><div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold">Rejoindre &#8594;</button></a></div></div>
+      <div class="card"><div class="card-title">B&#233;n&#233;volat</div><div class="card-body">Aide aux &#233;v&#233;nements, &#224; la communication, &#224; la recherche ou &#224; l&#8217;administration. Chaque heure de votre temps aide &#224; cr&#233;er des moments significatifs pour les personnes qui en ont le plus besoin.</div><div class="field"><input type="text" placeholder="Comment vous souhaitez aider"></div><div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-ghost">Rejoindre &#8594;</button></a></div></div>
+      <div class="card"><div class="card-title">Partenariat</div><div class="card-body">Ouvert aux organisations, universit&#233;s et fondations partageant nos valeurs. Nous accueillons les collaborations qui amplifient l&#8217;impact &#8212; culturel, social, scientifique ou humanitaire.</div><div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-ghost">Rejoindre &#8594;</button></a></div></div>
+      <div class="card"><div class="card-title">Enqu&#234;te</div><div class="card-body">Dites-nous vos besoins &#8212; aidez &#224; fixer les bonnes priorit&#233;s. Vos r&#233;ponses fa&#231;onnent directement les initiatives que nous con&#231;evons.</div><div style="margin-top:12px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold">R&#233;pondre &#8594;</button></a></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="page-about" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    
+    <h2 class="page-title">&#192; propos de KOLOSVIT</h2>
+    <div class="about-grid">
+      <div class="about-logo"><img src="logo-kolosvit.webp" alt="KOLOSVIT ASBL"></div>
+      <div class="about-text">
+        <p><strong>KOLOSVIT ASBL</strong> est une association innovante enregistr&#233;e au Luxembourg, o&#249; les technologies du futur servent les besoins humains r&#233;els. Nous croyons que l&#8217;&#233;ducation num&#233;rique, la r&#233;silience mentale et l&#8217;appartenance culturelle ne sont pas des luxes &#8212; ce sont les fondements d&#8217;une vie digne dans un nouveau pays.</p>
+        <p>Fond&#233;e par des Ukrainiens vivant en Europe, KOLOSVIT construit des ponts entre les communaut&#233;s, les g&#233;n&#233;rations et les disciplines. Nous travaillons &#224; l&#8217;intersection de la culture, de la science et du soin social &#8212; toujours guid&#233;s par l&#8217;humanit&#233; en premier.</p>
+        <p>Au moins <strong>90&#160;% de nos ressources</strong> vont directement &#224; notre mission&#160;: soutenir les personnes d&#233;plac&#233;es, d&#233;velopper des programmes &#233;ducatifs et favoriser des liens culturels significatifs dans toute l&#8217;Europe.</p>
+        <p><em>&#171;&#160;Nous sommes unis par des valeurs communes &#8212; l&#8217;humanit&#233;, la connaissance et la conviction que chaque talent compte. Chaque personne qui arrive en portant une perte arrive aussi en portant des dons. Notre r&#244;le est d&#8217;aider ces dons &#224; s&#8217;&#233;panouir.&#160;&#187;</em></p>
+        <p><strong>&#128421; &#201;ducation num&#233;rique</strong> &#8212; Syst&#232;mes autonomes, litt&#233;ratie IA et comp&#233;tences futures.<br>
+        <strong>&#129504; Neuro-r&#233;silience</strong> &#8212; Le programme ARCH pour la sant&#233; cognitive et la r&#233;cup&#233;ration au stress.<br>
+        <strong>&#129309; Int&#233;gration sociale</strong> &#8212; &#201;v&#233;nements culturels, bien-&#234;tre et appartenance communautaire.<br>
+        <strong>&#127807; Environnement</strong> &#8212; La responsabilit&#233; &#233;cologique comme valeur civique.</p>
+        <div class="rcs-note">Luxembourg ASBL &middot; RCS F15616 &middot; Enregistr&#233;e le 1er avril 2026</div>
+      </div>
+      <div>
+        <div class="c-row"><div class="c-lbl">Email</div><div class="c-val"><a href="mailto:kolosvit@proton.me">kolosvit@proton.me</a></div></div>
+        <div class="c-row"><div class="c-lbl">Telegram</div><div class="c-val"><a href="https://t.me/ASBLKolosvit" target="_blank">t.me/ASBLKolosvit</a></div></div>
+        <div class="c-row"><div class="c-lbl">Telegram</div><div class="c-val"><a href="https://t.me/kolosvit_lux" target="_blank">t.me/kolosvit_lux</a> <span style="font-size:0.8rem;color:#64748B;">(plateforme d'interaction pour des directions calendaires spécifiques)</span></div></div>
+        <div class="c-row"><div class="c-lbl">Instagram</div><div class="c-val"><a href="https://www.instagram.com/kolosvitasbl/" target="_blank">instagram.com/kolosvitasbl</a> <span style="font-size:0.8rem;color:#64748B;">(en développement)</span></div></div>
+        <div class="c-row"><div class="c-lbl">Facebook</div><div class="c-val"><a href="https://www.facebook.com/kolosvitasbl/" target="_blank">facebook.com/kolosvitasbl</a> <span style="font-size:0.8rem;color:#64748B;">(en développement)</span></div></div>
+        <div class="c-row"><div class="c-lbl">LinkedIn</div><div class="c-val"><a href="https://www.linkedin.com/in/kolosvitasbl/" target="_blank">linkedin.com/in/kolosvitasbl</a> <span style="font-size:0.8rem;color:#64748B;">(en développement)</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-contacts" class="page">
+  <div class="inner-page contact-page" style="padding-top:96px;">
+    <a class="contact-banner" href="javascript:void(0)" onclick="showPage('page-home')"><img src="main-banner.webp" alt="KOLOSVIT ASBL — Innovation, Wellbeing, Resilience" loading="eager"></a>
+    <h2 class="page-title">Contact</h2>
+    <div class="contact-body">
+      <div class="contact-rows">
+        <div class="c-row"><div class="c-lbl">Email</div><div class="c-val"><a href="mailto:kolosvit@proton.me">kolosvit@proton.me</a></div></div>
+        <div class="c-row"><div class="c-lbl">Telegram</div><div class="c-val"><a href="https://t.me/ASBLKolosvit" target="_blank">t.me/ASBLKolosvit</a></div></div>
+        <div class="c-row"><div class="c-lbl">Téléphone</div><div class="c-val"><a href="tel:+352661693371">+352 661 693 371</a></div></div>
+        <div class="c-row"><div class="c-lbl">Adresse</div><div class="c-val">90 Bd Konrad Adenauer, L-1115 Luxembourg</div></div>
+        <div class="c-row"><div class="c-lbl">Sondage</div><div class="c-val"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank">Dites-nous vos besoins →</a></div></div>
+      </div>
+      <a class="contact-logo" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo-kolosvit.webp" alt="KOLOSVIT ASBL Luxembourg"></a>
+    </div>
+  </div>
+</div>
+
+<script>
+let lastPage='page-home';
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));const t=document.getElementById(id);if(t){lastPage=id;t.classList.add('active');}window.scrollTo(0,0);closeMenu();}
+function goBack(){if(lastPage&&lastPage!=='page-home'){showPage('page-home');}else{window.location.href='index.html';}}
+function toggleMenu(){const m=document.getElementById('navMenu'),b=document.getElementById('burger');if(!m||!b)return;m.classList.toggle('open');b.classList.toggle('open');}
+function closeMenu(){const m=document.getElementById('navMenu'),b=document.getElementById('burger');if(m)m.classList.remove('open');if(b)b.classList.remove('open');}
+function toggleSolutions(){const el=document.getElementById('menuSolutions');if(el)el.classList.toggle('open');}
+document.addEventListener('click',function(e){const m=document.getElementById('navMenu'),bu=document.getElementById('burger');if(m&&m.classList.contains('open')&&!m.contains(e.target)&&bu&&!bu.contains(e.target))closeMenu();});
+const starsEl=document.getElementById('stars');
+for(let i=0;i<60;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';const sz=(Math.random()*2+0.4)+'px';s.style.width=sz;s.style.height=sz;s.style.setProperty('--d',(Math.random()*4+2)+'s');s.style.setProperty('--o',(Math.random()*0.28+0.07).toFixed(2));s.style.animationDelay=Math.random()*6+'s';starsEl.appendChild(s);}
+const canvas=document.getElementById('hexCanvas');const ctx=canvas.getContext('2d');let W,H,cx,cy,t=0,cells=[];const HEX_R=17,RING_MIN=118,RING_MAX=210;
+function resize(){const wrap=canvas.parentElement;W=canvas.width=wrap.offsetWidth;H=canvas.height=wrap.offsetHeight;cx=W/2;cy=H/2;buildCells();}
+function buildCells(){const sc=W/480,rMn=RING_MIN*sc,rMx=RING_MAX*sc,hr=HEX_R*sc,ww=hr*Math.sqrt(3),hh=hr*2;cells=[];const rows=Math.ceil(H/(hh*.75))+3,cols=Math.ceil(W/ww)+3;for(let r=-rows;r<rows;r++)for(let c=-cols;c<cols;c++){const x=c*ww+(r%2)*(ww/2),y=r*hh*.75,d=Math.sqrt(x*x+y*y);if(d>=rMn&&d<=rMx)cells.push({x,y,d});}}
+resize();window.addEventListener('resize',resize);
+function hexPath(x,y,r){ctx.beginPath();for(let i=0;i<6;i++){const a=(Math.PI/3)*i-Math.PI/6;i===0?ctx.moveTo(x+r*Math.cos(a),y+r*Math.sin(a)):ctx.lineTo(x+r*Math.cos(a),y+r*Math.sin(a));}ctx.closePath();}
+function animate(){requestAnimationFrame(animate);t+=0.016;ctx.clearRect(0,0,W,H);const sc=W/480,rMn=RING_MIN*sc,rMx=RING_MAX*sc,hr=HEX_R*sc-1.5;cells.forEach(cell=>{const x=cx+cell.x,y=cy+cell.y,norm=(cell.d-rMn)/(rMx-rMn),ang=Math.atan2(cell.y,cell.x);const wave=Math.sin(t*2.4-norm*Math.PI*3.2+ang*1.6)*.5+.5;const pulse=Math.sin(t*1.5+cell.d*.025)*.5+.5;const e=wave*.6+pulse*.4;const cr=Math.round(210+45*e),cg=Math.round(155+75*e),cb=Math.round(25+110*e),br=0.18+e*.72;hexPath(x,y,hr*.80);ctx.fillStyle=`rgba(${cr},${cg},${cb},${br*.30})`;ctx.fill();ctx.strokeStyle=`rgba(${cr},${cg},${cb},${br*.90})`;ctx.lineWidth=0.9;ctx.stroke();});const g=ctx.createRadialGradient(cx,cy,0,cx,cy,rMn*.85);g.addColorStop(0,'rgba(242,200,75,0.12)');g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);}
+animate();
+</script>
+
+
+
+<div id="page-platform" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div class="page-eyebrow">Archive</div>
+    <h2 class="page-title">Plateforme d'Activation Communautaire KOLOSVIT</h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#946c06;font-weight:400;letter-spacing:0.06em;margin-bottom:28px;">CAP · Un Partenaire. Des Solutions Multiples.</p>
+
+    <div style="background:#FFFFFF;border:2px solid rgba(100,116,139,0.30);padding:22px 24px;border-radius:4px;margin-bottom:24px;">
+      <p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:20px;">La Plateforme d'Activation Communautaire KOLOSVIT (CAP) est un écosystème innovant qui réunit le bien-être communautaire, l'activation des actifs municipaux, les programmes culturels et l'innovation numérique dans un partenariat coordonné. Plutôt que de proposer des projets isolés, KOLOSVIT offre aux communes, organisations et communautés une plateforme flexible — où chaque module peut être mis en œuvre indépendamment ou dans le cadre d'une collaboration globale à long terme.</p>
+      <p style="font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:#946c06;margin-bottom:12px;">Modules de la Plateforme</p>
+      <div style="display:grid;gap:10px;"><div style="background:#F1F5F9;padding:14px 16px;border-radius:4px;border-left:3px solid rgba(100,116,139,0.30);">
+          <p style="font-size:0.95rem;font-weight:600;color:#1E293B;margin-bottom:4px;">🏙️ CareterA</p>
+          <p style="font-size:0.83rem;color:#334155;line-height:1.42;margin:0;">Système d'Activation Communautaire &amp; Immobilière — gouvernance municipale assistée par IA, surveillance des biens et activation communautaire.</p> <button class="btn-ghost" style="margin-top:8px;padding:6px 12px;font-size:0.78rem;" onclick="showPage('page-caretera')">→</button>
+        </div><div style="background:#F1F5F9;padding:14px 16px;border-radius:4px;border-left:3px solid rgba(100,116,139,0.30);">
+          <p style="font-size:0.95rem;font-weight:600;color:#1E293B;margin-bottom:4px;">💚 ARCH</p>
+          <p style="font-size:0.83rem;color:#334155;line-height:1.42;margin:0;">Module de Bien-être Communautaire — prévention, résilience et programmes de bien-être assistés par IA.</p> <button class="btn-ghost" style="margin-top:8px;padding:6px 12px;font-size:0.78rem;" onclick="showPage('page-arch')">→</button>
+        </div><div style="background:#F1F5F9;padding:14px 16px;border-radius:4px;border-left:3px solid rgba(100,116,139,0.30);">
+          <p style="font-size:0.95rem;font-weight:600;color:#1E293B;margin-bottom:4px;">💎 Pearls of Luxembourg</p>
+          <p style="font-size:0.83rem;color:#334155;line-height:1.42;margin:0;">Événements Communautaires &amp; Culture — histoires inspirantes, compétences et connexions à travers des rassemblements communautaires.</p> <button class="btn-ghost" style="margin-top:8px;padding:6px 12px;font-size:0.78rem;" onclick="showPage('page-pearls')">→</button>
+        </div><div style="background:#F1F5F9;padding:14px 16px;border-radius:4px;border-left:3px solid rgba(100,116,139,0.30);">
+          <p style="font-size:0.95rem;font-weight:600;color:#1E293B;margin-bottom:4px;">🚁 Innovation Numérique</p>
+          <p style="font-size:0.83rem;color:#334155;line-height:1.42;margin:0;">Drone Academy, outils IA, compétences numériques et partenariats technologiques pour communautés et communes.</p>
+        </div><div style="background:#F1F5F9;padding:14px 16px;border-radius:4px;border-left:3px solid rgba(100,116,139,0.30);">
+          <p style="font-size:0.95rem;font-weight:600;color:#1E293B;margin-bottom:4px;">🇪🇺 Projets Européens</p>
+          <p style="font-size:0.83rem;color:#334155;line-height:1.42;margin:0;">Soutien pour accéder aux programmes Interreg, CERV, FEDER, FSE et autres financements européens.</p>
+        </div></div>
+    </div>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#FFFFFF;border:1px solid rgba(100,116,139,0.30);padding:22px 24px;border-radius:4px;margin-bottom:20px;">
+      <div class="sh-label">Rejoindre le Réseau</div>
+      <p style="font-size:0.92rem;font-weight:500;color:#0F172A;line-height:1.52;margin-bottom:12px;">L'adhésion est basée sur l'échange mutuel. Nous posons deux questions :</p>
+      <p style="font-size:1rem;color:#946c06;font-weight:500;margin-bottom:6px;">✶ Que cherchez-vous ?</p>
+      <p style="font-size:1rem;color:#946c06;font-weight:500;margin-bottom:14px;">✶ Que pouvez-vous offrir ?</p>
+      <p style="font-size:0.88rem;font-weight:500;color:#334155;line-height:1.46;margin-bottom:16px;">Ceux qui ne cherchent qu'à recevoir sans contribuer ne rejoignent pas ce réseau — le principe d'une communauté vivante où chacun donne et reçoit.</p>
+    </div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0rCmW8bfWdaRssQ0pSXc-WMsORyKjo_9vndCTeOCsHzN7yw/viewform?usp=header" target="_blank"><button class="btn-gold">Rejoindre le réseau →</button></a>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#FFFFFF;border:1px solid rgba(100,116,139,0.30);padding:22px 24px;border-radius:4px;margin-bottom:16px;">
+      <div class="sh-label">Un Réseau en Croissance</div>
+      <p style="font-size:0.92rem;font-weight:500;color:#0F172A;line-height:1.52;margin-bottom:12px;">Notre réseau de partenaires est en croissance. Il comprend aujourd'hui 53 partenaires ukrainiens potentiels — 48 entreprises et 5 organisations de la société civile — avec une expertise en fabrication, technologie, services sociaux et innovation. Nous nous développons activement en Europe et au-delà.</p>
+      <p style="font-size:0.85rem;font-weight:500;color:#64748B;line-height:1.46;padding-top:10px;border-top:1px solid rgba(100,116,139,0.30);">Sur la base de nos mémorandums, si vous êtes intéressé par des activités de fabrication en Ukraine, nous pouvons vous aider — nos entreprises partenaires bénéficient d'avantages fiscaux pour l'emploi de personnes handicapées.</p>
+    </div>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#FFFFFF;border:1px solid rgba(100,116,139,0.30);padding:22px 24px;border-radius:4px;margin-bottom:24px;">
+      <div class="sh-label">Innovation Numérique &amp; Drone Academy</div>
+      <p style="font-size:0.92rem;font-weight:500;color:#0F172A;line-height:1.52;margin-bottom:12px;">En mai 2026, nous avons lancé notre premier projet pilote — la formation sur simulateur de drones — avec 6 licences Liftoff. Nous cherchons un lieu permanent et l'équipement approprié pour ouvrir notre première salle de formation.</p>
+      <p style="font-size:0.88rem;font-weight:500;color:#334155;line-height:1.48;">Partenaires de développement : <strong style="color:#946c06;">LuGus Studios</strong> (Belgique, technologie de simulation) et <strong style="color:#946c06;">Velosidron</strong> (mémorandum pour le développement ARCH).</p>
+    </div>
+  </div>
+</div>
+
+<div id="page-training" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div class="page-head-row">
+    <a class="page-logo" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo-kolosvit.webp" alt="KOLOSVIT ASBL Luxembourg"></a>
+    <a class="page-logo dir-logo" href="arch_logo_full.jpg" target="_blank" rel="noopener" title="Open logo in full size"><img src="arch_logo_sm.webp" alt="ARCH — Resilience &amp; Community Hub"></a>
+  </div>
+    <div class="page-eyebrow">Renforcement des capacités</div>
+    <h2 class="page-title">Formation et simulation</h2>
+    <div class="pg-status">Pilote lancé en mai 2026</div>
+<div class="pg-hero"><img src="hero-training.webp" alt="Formation et simulation — simulation de drones et compétences numériques" loading="eager" fetchpriority="high"></div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--pg-accent-text,#f2c84b);font-weight:700;letter-spacing:0.04em;margin-bottom:8px;">Simulation • Apprentissage numérique • Compétences professionnelles • R&amp;D de la formation</p><div class="pg-box" style="border-color:var(--pg-accent);"><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">KOLOSVIT ASBL développe des concepts de formation innovants qui associent technologies numériques, simulation, apprentissage pratique et développement des compétences professionnelles.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Notre objectif est d'aider les établissements d'enseignement, les entreprises et les partenaires sectoriels à créer de nouvelles possibilités d'apprentissage, à répondre à l'évolution des besoins du marché du travail et à préparer les personnes à des rôles techniques et professionnels émergents.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Nous allons au-delà de la formation numérique classique. Notre approche comprend la recherche sur les activités professionnelles, la conception de parcours d'apprentissage pratiques, le développement de supports de formation spécialisés et la création d'exercices de simulation adaptés aux environnements de travail réels.</p></div><div class="sh-label">Domaines de développement</div><div class="pg-area"><div class="pg-img"><img src="img-training-simulation.webp" alt="Formation par simulation de vol de drone" loading="lazy"></div><h3 class="pg-h3">1. Simulation de drones et compétences numériques</h3><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Apprentissage basé sur la simulation pour les écoles, les jeunes, les adultes en formation et les programmes de développement professionnel.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Activités possibles :</p><ul class="pg-list pg-cols"><li>Simulation de vol de drone et conscience opérationnelle.</li><li>Principes de base du vol et planification des vols.</li><li>Navigation, observation et conscience de la situation.</li><li>Concepts de cartographie numérique et de collecte de données.</li><li>Introduction à l'inspection par drone.</li><li>Culture numérique et usage responsable de l'IA.</li></ul></div><div class="pg-area"><div class="pg-img"><img src="img-training-roofing.webp" alt="Formation aux métiers de la toiture et de l'enveloppe du bâtiment" loading="lazy"></div><h3 class="pg-h3">2. Compétences en toiture et enveloppe du bâtiment</h3><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Apprentissage pratique et appuyé par la simulation pour la toiture, la rénovation de toitures et les activités liées à l'enveloppe du bâtiment.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Thèmes de formation possibles :</p><ul class="pg-list pg-cols"><li>Structures de toiture et principes de construction.</li><li>Matériaux de couverture et méthodes de pose.</li><li>Étanchéité, isolation et systèmes d'évacuation.</li><li>Identification et documentation des défauts courants de toiture.</li><li>Sensibilisation au travail en hauteur et procédures de sécurité.</li><li>Inspection de toiture par drone et documentation visuelle.</li></ul></div><div class="pg-area"><div class="pg-img"><img src="img-training-solar.webp" alt="Formation à l'installation et à la maintenance de panneaux solaires photovoltaïques" loading="lazy"></div><h3 class="pg-h3">3. Installation et maintenance de panneaux solaires</h3><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Concepts de formation reliant compétences du bâtiment, énergies renouvelables et technologies numériques.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Thèmes possibles :</p><ul class="pg-list pg-cols"><li>Introduction aux systèmes photovoltaïques.</li><li>Évaluation de la toiture avant l'installation solaire.</li><li>Planification et positionnement des modules solaires.</li><li>Déroulement de l'installation et sensibilisation à la sécurité.</li><li>Notions de base d'inspection et de maintenance.</li><li>Inspection visuelle et thermique assistée par drone.</li></ul></div><div class="pg-area"><div class="pg-img"><img src="img-training-hvac.webp" alt="Formation aux pompes à chaleur et au CVC" loading="lazy"></div><h3 class="pg-h3">4. Pompes à chaleur, CVC et systèmes énergétiques du bâtiment</h3><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Développement de modules d'apprentissage introductifs et pratiques pour les métiers techniques liés à l'efficacité énergétique des bâtiments.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Thèmes possibles :</p><ul class="pg-list pg-cols"><li>Principes de base du chauffage, de la ventilation et de la climatisation.</li><li>Systèmes et composants de pompes à chaleur.</li><li>Déroulement de l'installation et documentation technique.</li><li>Maintenance préventive et inspection visuelle.</li><li>Sensibilisation à l'efficacité énergétique.</li><li>Procédures de sécurité et scénarios de dépannage.</li></ul></div><div class="pg-area"><h3 class="pg-h3">5. Maintenance industrielle et des installations</h3><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Concepts de simulation et d'apprentissage numérique pour les activités de maintenance technique et d'inspection.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Thèmes possibles :</p><ul class="pg-list pg-cols"><li>Inspection des équipements et maintenance préventive.</li><li>Identification des défauts visibles et des conditions anormales.</li><li>Documentation technique et listes de contrôle de maintenance.</li><li>Inspection des bâtiments et des installations.</li><li>Introduction à la surveillance assistée par capteurs.</li><li>Rapports numériques et processus de maintenance.</li></ul></div><div class="pg-area"><h3 class="pg-h3">6. Inspection et surveillance par drone</h3><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Concepts d'apprentissage pratique utilisant les drones comme outils d'inspection, de documentation et de surveillance.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Applications possibles :</p><ul class="pg-list pg-cols"><li>Inspection de toitures et de façades.</li><li>Inspection d'installations solaires.</li><li>Relevés visuels industriels et d'infrastructures.</li><li>Sensibilisation à l'imagerie thermique.</li><li>Documentation et rapports sur les actifs.</li><li>Planification des inspections et procédures de sécurité.</li></ul></div><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Pilote en cours : en mai 2026, nous avons lancé notre premier projet pilote — formation sur simulateur de drone — avec 6 licences Liftoff. Partenaires de développement : LuGus Studios (Belgique) et Velosidron.</p><div class="hdiv"></div><div class="sh-label">Services de recherche et développement en formation</div><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">KOLOSVIT ASBL explore aussi le développement de solutions de formation sur mesure pour les entreprises, établissements d'enseignement, associations professionnelles et partenaires sectoriels.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Nos services orientés R&amp;D peuvent comprendre :</p><ul class="pg-list"><li>Recherche sur les tâches professionnelles, les besoins en compétences et en formation.</li><li>Conception de programmes d'apprentissage propres à chaque métier.</li><li>Élaboration de listes de contrôle professionnelles et de procédures opérationnelles standard à des fins de formation.</li><li>Création de supports d'apprentissage numériques et de modules interactifs.</li><li>Développement de scénarios de simulation et d'exercices pratiques.</li><li>Matrices de compétences et cadres d'évaluation des compétences.</li><li>Tests de connaissances et outils d'évaluation des performances pratiques.</li><li>Adaptation de la documentation technique en ressources d'apprentissage structurées.</li></ul><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Nous visons à transformer le savoir professionnel et les exigences opérationnelles en systèmes de formation accessibles, structurés et pratiques.</p><div class="hdiv"></div><div class="sh-label">Simulation pour l'industrie et la performance organisationnelle</div><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">La simulation ne se limite pas aux opérations de drones ni aux métiers techniques. Nous explorons aussi le potentiel de l'apprentissage par scénarios dans les secteurs où l'attention, la prise de décision, la coordination et la préparation opérationnelle sont essentielles.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Applications possibles :</p><ul class="pg-list pg-cols"><li>Services financiers et opérations d'investissement.</li><li>Opérations ferroviaires et de transport.</li><li>Énergie et infrastructures critiques.</li><li>Aviation et opérations au sol.</li><li>Logistique et environnements industriels.</li><li>Intervention d'urgence et coordination d'équipes.</li></ul><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Ces activités peuvent être développées avec des spécialistes sectoriels et reliées à la méthodologie de performance humaine de notre initiative ARCH.</p><div class="pg-flag"><div class="pg-flag-tag">Secteurs réglementés</div><div class="pg-flag-title">Simulation pour les secteurs réglementés (aviation et rail)</div><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Nous ne remplaçons pas la formation réglementaire obligatoire ni les normes de licence. Nous proposons plutôt des modules avancés complémentaires axés sur les facteurs humains, la sensibilisation à la fatigue et la résilience par la simulation.</p><ul class="pg-list"><li><strong>Facteurs humains et préparation cognitive</strong> &mdash; développement d'exercices par scénarios pour aider les opérateurs à gérer la charge cognitive et la prise de décision dans des situations complexes.</li><li><strong>Sensibilisation à l'intégration des drones</strong> &mdash; alors que les drones font partie de l'espace aérien et de l'infrastructure ferroviaire (inspections, sécurité), nous développons des scénarios de simulation pour que les opérateurs comprennent les drones et interagissent avec eux en toute sécurité.</li><li><strong>Scénarios de simulation avancés</strong> &mdash; création d'environnements contrôlés pour s'entraîner à la coordination et à la communication d'urgence sous pression, en complément des listes de contrôle opérationnelles existantes.</li><li><strong>Listes de contrôle sur mesure et R&amp;D</strong> &mdash; nous pouvons concevoir des listes de contrôle opérationnelles spécifiques et non standard pour les nouvelles technologies (p. ex. protocoles drones) qui s'intègrent à vos systèmes de gestion de la sécurité existants.</li></ul></div><div class="sh-label">Notre approche de développement</div><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Nous combinons plusieurs éléments complémentaires :</p><div class="card-grid" style="margin-bottom:22px;"><div class="card"><div class="card-title">Recherche</div><div class="card-body">Comprendre les tâches professionnelles, les besoins du marché du travail et les lacunes pratiques en compétences.</div></div><div class="card"><div class="card-title">Conception</div><div class="card-body">Développer des programmes d'apprentissage, des listes de contrôle, des cadres de compétences et des supports de formation.</div></div><div class="card"><div class="card-title">Simulation</div><div class="card-body">Créer des scénarios numériques et des environnements d'apprentissage contrôlés.</div></div><div class="card"><div class="card-title">Pratique</div><div class="card-body">Relier la simulation à du matériel réel, des exercices pratiques et l'expérience du secteur.</div></div><div class="card"><div class="card-title">Évaluation</div><div class="card-body">Évaluer les connaissances, les compétences pratiques et les résultats d'apprentissage.</div></div><div class="card"><div class="card-title">Amélioration</div><div class="card-body">Mettre à jour les programmes en coopération avec les employeurs, les formateurs et les spécialistes.</div></div></div><div class="sh-label">Partenariats et programmes pilotes</div><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">KOLOSVIT ASBL souhaite coopérer avec :</p><ul class="pg-list pg-cols"><li>Les écoles professionnelles et établissements d'enseignement.</li><li>Les entreprises de construction et de toiture.</li><li>Les fournisseurs d'énergie solaire et de technologies renouvelables.</li><li>Les entreprises de maintenance industrielle et de gestion d'installations.</li><li>Les opérateurs de drones et développeurs de technologies.</li><li>Les associations professionnelles et centres de formation.</li><li>Les universités et organismes de recherche appliquée.</li><li>Les communes et organisations de soutien à l'emploi.</li></ul><div class="pg-cta"><div class="pg-cta-title">Formation et simulation — développer les compétences pour les métiers et technologies de demain</div><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Nous accueillons les partenaires intéressés par le développement de nouveaux programmes de formation, le test de méthodes d'apprentissage par simulation, la préparation des travailleurs aux métiers émergents et la réponse aux pénuries pratiques de compétences.</p><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Une initiative de KOLOSVIT ASBL, Luxembourg.</p><button class="btn-gold" onclick="showPage('page-contacts')">Contacter KOLOSVIT ASBL →</button></div>
+  </div>
+</div>
+
+<div id="page-culture" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div class="page-head-row">
+    <a class="page-logo" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo-kolosvit.webp" alt="KOLOSVIT ASBL Luxembourg"></a>
+    <a class="page-logo dir-logo dir-big" href="curarta_logo_full.jpg" target="_blank" rel="noopener" title="Open logo in full size"><img src="curarta_logo.webp" alt="CurArtA — récupération, bien-être, créativité"></a>
+  </div>
+    <div class="page-eyebrow">Solutions pour le bien-être</div>
+    <h2 class="page-title">CurArtA</h2>
+    <div class="pg-status">En développement · programmes pilotes en préparation</div>
+<div class="curarta-hero"><img src="hero-curarta.webp" alt="CurArtA — le bien-être pour un meilleur lendemain" loading="eager" fetchpriority="high"></div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--pg-accent-text,#f2c84b);font-weight:700;letter-spacing:0.04em;margin-bottom:8px;">Récupération • Bien-être • Créativité</p><div class="pg-box" style="border-color:#f2c84b;"><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">CurArtA est une plateforme intégrée dédiée à la récupération humaine, au bien-être, à la créativité et au lien social.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Basée au Luxembourg, CurArtA est une initiative de KOLOSVIT ASBL. Elle développe des programmes qui soutiennent la récupération physique, émotionnelle et sociale par l'association de pratiques réparatrices, d'approches naturelles de bien-être, d'activités créatives et de liens humains porteurs de sens.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Nos programmes s'adressent aux personnes confrontées à un stress prolongé, à l'épuisement émotionnel, au déracinement, à l'isolement social, à des transitions de vie difficiles, ou aux exigences continues des métiers du soin et de l'aide.</p></div><div class="sh-label">Nos domaines d'activité</div><div class="pg-area"><h3 class="pg-h3">1. Récupération après le stress et restauration de la personne</h3><ul class="pg-list"><li>Programmes de récupération après un stress prolongé et un épuisement émotionnel.</li><li>Repos, relaxation profonde et expériences réparatrices.</li><li>Pratiques favorisant de bonnes habitudes de sommeil et un meilleur repos.</li><li>Activités visant à retrouver un équilibre intérieur après des événements de vie difficiles.</li><li>Programmes de soutien pour les personnes touchées par le déracinement et l'isolement social.</li></ul></div><div class="pg-area"><h3 class="pg-h3">2. Récupération du corps et bien-être naturel</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Nous réunissons des pratiques naturelles de bien-être qui favorisent la relaxation et la récupération du corps.</p><ul class="pg-list"><li>Pratiques corporelles douces, mouvement, étirements et relaxation.</li><li><strong>Halothérapie</strong> &mdash; séances de relaxation réparatrice dans des environnements salins spécialisés à fine dispersion.</li><li><strong>Bien-être magnétique et applicateurs par contact</strong> &mdash; usage bien-être d'applicateurs multi-aiguilles (comme LYAPKO) et de produits magnétiques pour favoriser la relaxation et l'équilibre corporel.</li><li><strong>Applications de boue de la mer Morte</strong> &mdash; applications riches en minéraux pour les soins du corps et la relaxation.</li><li><strong>Apithérapie (maisons d'abeilles et sommeil sur les abeilles)</strong> &mdash; expériences réparatrices uniques dans des environnements de ruches contrôlés.</li><li>Autres produits de bien-être par contact et pratiques naturelles.</li></ul></div><div class="pg-area"><h3 class="pg-h3">3. Récupération pour les aidants et les professionnels</h3><ul class="pg-list"><li>Programmes de récupération pour travailleurs sociaux, bénévoles, personnel de santé et personnes exerçant des métiers du soin.</li><li>Activités soutenant la prévention de la surcharge émotionnelle.</li><li>Expériences réparatrices après de longues exigences émotionnelles et professionnelles.</li><li>Programmes de récupération et de bien-être en équipe.</li></ul></div><div class="pg-area"><h3 class="pg-h3">4. Récupération créative et émotionnelle</h3><ul class="pg-list"><li>Art, musique, chant, poésie et expression créative de soi.</li><li>Ateliers artistiques et résidences créatives.</li><li>Rencontres culturelles qui aident à renouer des liens sociaux.</li><li>Activités créatives comme occasions d'expression, de réflexion et de libération émotionnelle.</li></ul></div><div class="pg-area"><h3 class="pg-h3">5. Récupération sociale et communautaire</h3><ul class="pg-list"><li>Entraide et coopération entre familles.</li><li>Intégration des nouveaux arrivants et des habitants.</li><li>Cuisine partagée, rencontres culturelles et excursions.</li><li>Activités intergénérationnelles et initiatives qui renforcent les liens sociaux.</li></ul></div><div class="pg-area"><h3 class="pg-h3">6. Récupération par la nature</h3><ul class="pg-list"><li>Marche, randonnée et activités de plein air.</li><li>Relaxation en pleine nature et expériences réparatrices.</li><li>Programmes de récupération et rencontres en plein air.</li><li>Associer nature, mouvement, créativité et interaction sociale.</li></ul></div><div class="pg-area"><div class="pg-img"><img src="img-curarta-garden.webp" alt="Jardin communautaire et espace vert social" loading="lazy"></div><h3 class="pg-h3">7. Bien-être horticole et jardins sociaux</h3><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Nous développons des jardins communautaires et des espaces verts sociaux conçus pour soutenir le bien-être et la récupération en harmonie avec la nature.</p><ul class="pg-list"><li><strong>Air frais et activité douce</strong> &mdash; accès à l'air pur et à des environnements verts (notamment dans la vallée de la Moselle) offrant un cadre reposant, tandis que le jardinage doux propose une activité physique légère et un exercice de motricité accessibles.</li><li><strong>Bien-être et réduction du stress</strong> &mdash; contact avec la nature, jardinage et espaces tranquilles au bord de l'eau pour aider à réduire le stress quotidien et retrouver un sentiment d'équilibre intérieur.</li><li><strong>Alimentation saine et autosuffisance</strong> &mdash; possibilité de cultiver des légumes, herbes et fruits biologiques, répondant à des besoins alimentaires spécifiques et favorisant un mode de vie sain.</li><li><strong>Intégration sociale</strong> &mdash; projets écologiques partagés qui rassemblent les générations et les horizons divers, créant une atmosphère d'entraide, de confiance et d'engagement communautaire porteur de sens.</li></ul></div><div class="hdiv"></div><div class="sh-label">Programmes de récupération intégrés</div><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">CurArtA associe différentes approches pour créer des programmes thématiques adaptés aux besoins des participants et des organisations partenaires. Exemples :</p><div class="card-grid" style="margin-bottom:22px;"><div class="card"><div class="card-title">Week-end de remise à zéro du stress</div><div class="card-body">Un court programme réparateur axé sur la relaxation, la nature, le mouvement et les activités créatives.</div></div><div class="card"><div class="card-title">Récupération profonde</div><div class="card-body">Une expérience de bien-être de plusieurs jours alliant repos, routines favorisant le sommeil, mouvement doux et pratiques naturelles de bien-être.</div></div><div class="card"><div class="card-title">Récupération des aidants</div><div class="card-body">Programmes réparateurs pour les bénévoles et les professionnels travaillant dans des environnements exigeants.</div></div><div class="card"><div class="card-title">Récupération créative</div><div class="card-body">Programmes alliant art, musique, expression créative et lien social.</div></div></div><div class="sh-label">Notre approche</div><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Nous croyons que la récupération est un processus multidimensionnel. Le repos, le mouvement, la créativité, la nature, des relations de soutien et des expériences porteuses de sens contribuent tous au bien-être personnel.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">CurArtA développe des programmes non cliniques qui complètent, sans les remplacer, les soins de santé professionnels, le soutien psychologique ou la réadaptation médicale.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Nos activités sont adaptées à différents groupes et peuvent être développées avec des spécialistes qualifiés et des institutions partenaires.</p><div class="sh-label">Partenariats</div><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Nous accueillons la coopération avec les communes, organisations sociales, institutions de santé et de bien-être, hôtels, centres culturels, fondations, artistes, praticiens et partenaires internationaux.</p><p style="font-size:0.8rem;font-weight:500;color:#475569;font-style:italic;line-height:1.5;margin:6px 0 18px;">Les méthodologies détaillées et les conditions de partenariat sont disponibles sur demande sous NDA.</p><div class="pg-disc">Chez CurArtA, nous proposons des programmes non cliniques de récupération et de bien-être. Les protocoles thérapeutiques spécifiques, les spécifications d'équipement et les conditions de partenariat sont disponibles sur demande sous accord de confidentialité (NDA).</div><div class="pg-cta"><div class="pg-cta-title">Rejoignez-nous</div><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Que vous cherchiez une expérience réparatrice, souhaitiez organiser un programme pour votre communauté ou votre équipe, ou deveniez partenaire, CurArtA vous invite à collaborer.</p><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Ensemble, nous créons des occasions de récupération, de bien-être, de créativité et de lien humain.</p><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Une initiative de KOLOSVIT ASBL · www.kolosvit.eu</p><button class="btn-gold" onclick="showPage('page-contacts')">Nous contacter →</button></div>
+  </div>
+</div>
+
+<div id="page-lyapko" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    <a class="page-logo" style="display:inline-block;" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo-kolosvit.webp" alt="KOLOSVIT"></a>
+  </div>
+    <div class="page-eyebrow">Solutions pour le bien-&ecirc;tre</div>
+    <h2 class="page-title">&#127807; Bien-être — LYAPKO et produits</h2>
+    <div class="pg-status">Distributeur officiel depuis septembre 2026</div>
+    <div class="strip-row">
+      <a href="lyapko_strip1_full.jpg" target="_blank" rel="noopener"><img src="lyapko_strip1.webp" alt="LYAPKO — bands, belts, massagers" loading="eager"></a>
+      <a href="lyapko_strip2_full.jpg" target="_blank" rel="noopener"><img src="lyapko_strip2.webp" alt="LYAPKO — premium, mats, rollers" loading="eager"></a>
+    </div>
+    <div style="background:#FFFFFF;border:1px solid rgba(100,116,139,0.30);padding:22px 24px;border-radius:4px;margin-bottom:28px;"><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.52;margin-bottom:12px;">Cette page présente nos produits et partenariats : la distribution officielle de LYAPKO, une sélection d'équipements de bien-être et la coopération avec des centres de bien-être, stations thermales, hôtels et organisations.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.48;margin-bottom:12px;">Les programmes destinés aux personnes — récupération, relaxation, activités créatives et communautaires — sont décrits sur la page CurArtA.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.48;margin-bottom:12px;">Nos produits sont des produits de bien-être à usage non clinique. Ils ne remplacent ni un diagnostic médical, ni un traitement, ni une réhabilitation professionnelle.</p></div>
+    <button class="btn-ghost" style="margin-bottom:24px;" onclick="showPage('page-culture')">CurArtA — programmes pour les personnes &rarr;</button>
+    <div class="hdiv"></div>
+    <div class="sh-label">LYAPKO — distribution officielle au Luxembourg et dans la Grande Région</div>
+    <div style="background:#FFFFFF;border:1px solid rgba(100,116,139,0.30);padding:22px 24px;border-radius:4px;margin-bottom:22px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;">
+      <img src="lyapko_logo.webp" alt="LYAPKO" style="width:84px;height:auto;border-radius:8px;background:#fff;padding:6px;flex-shrink:0;">
+      <div style="flex:1;min-width:220px;">
+        <p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.52;margin-bottom:10px;">KOLOSVIT ASBL est distributeur officiel des applicateurs et produits LYAPKO au Luxembourg, avec des droits de distribution étendus à la Grande Région.</p>
+        <p style="font-size:0.9rem;font-weight:500;color:#475569;line-height:1.48;">Nous coopérons avec des professionnels du bien-être, des spas, des centres thermaux et d'autres organisations souhaitant intégrer les produits LYAPKO dans leurs programmes de soins du corps et de relaxation.</p>
+      </div>
+    </div>
+    <div class="sh-label">30 ans de d&eacute;veloppement et de production</div>
+    <p style="font-size:0.88rem;font-weight:500;color:#475569;line-height:1.5;margin-bottom:10px;">La production a d&eacute;but&eacute; en <strong>1996</strong>, lorsque le m&eacute;decin r&eacute;flexologue <strong>Nickolay Lyapko</strong> a cr&eacute;&eacute; les premiers applicateurs multi-aiguilles. Selon le fabricant, il d&eacute;tient plus de <strong>150 brevets dans 20 pays</strong>; l'entreprise fabrique en Ukraine selon un syst&egrave;me qualit&eacute; <strong>ISO 9001:2015</strong>, et plus de <strong>7 millions d'applicateurs</strong> &eacute;taient utilis&eacute;s dans le monde d&eacute;but 2020.</p>
+    <p style="font-size:0.88rem;font-weight:500;color:#475569;line-height:1.5;margin-bottom:24px;">LYAPKO propose également une gamme premium avec aiguilles en argent.</p>
+
+    <div class="sh-label">La gamme</div>
+    <div class="card-grid" style="margin-bottom:24px;">
+      <div class="card" style="padding:0;overflow:hidden;">
+        <a href="lyapko_mat_full.jpg" target="_blank" rel="noopener" style="display:block;cursor:zoom-in;"><img src="lyapko_mat.webp" alt="Tapis, nattes, ceintures, semelles et similaires" style="width:100%;height:210px;object-fit:contain;background:#fff;display:block;"></a>
+        <div style="padding:14px 16px;"><div class="card-title">Tapis, nattes, ceintures, semelles et similaires</div><div class="card-body">Application statique sur de grandes zones du corps.</div></div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <a href="lyapko_roller_full.jpg" target="_blank" rel="noopener" style="display:block;cursor:zoom-in;"><img src="lyapko_roller.webp" alt="Rouleaux" style="width:100%;height:210px;object-fit:contain;background:#fff;display:block;"></a>
+        <div style="padding:14px 16px;"><div class="card-title">Rouleaux</div><div class="card-body">Application dynamique et massage, y compris les zones difficiles d'acc&egrave;s.</div></div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <a href="lyapko_needleball_full.jpg" target="_blank" rel="noopener" style="display:block;cursor:zoom-in;"><img src="lyapko_needleball.webp" alt="Balles &agrave; aiguilles" style="width:100%;height:210px;object-fit:contain;background:#fff;display:block;"></a>
+        <div style="padding:14px 16px;"><div class="card-title">Balles &agrave; aiguilles</div><div class="card-body">Outil de massage compact pour application ponctuelle cibl&eacute;e.</div></div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <a href="lyapko_band_full.jpg" target="_blank" rel="noopener" style="display:block;cursor:zoom-in;"><img src="lyapko_band.webp" alt="Magic Band" style="width:100%;height:210px;object-fit:contain;background:#fff;display:block;"></a>
+        <div style="padding:14px 16px;"><div class="card-title">Magic Band</div><div class="card-body">Bande flexible qui &eacute;pouse les contours du corps au quotidien.</div></div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <a href="lyapko_masseur_full.jpg" target="_blank" rel="noopener" style="display:block;cursor:zoom-in;"><img src="lyapko_masseur.webp" alt="Masseur Pharaon" style="width:100%;height:210px;object-fit:contain;background:#fff;display:block;background:#fff;"></a>
+        <div style="padding:14px 16px;"><div class="card-title">Masseur Pharaon</div><div class="card-body">Masseur manuel de pr&eacute;cision &agrave; embouts multi-points.</div></div>
+      </div>
+    </div>
+
+    <p style="font-size:0.85rem;font-weight:500;color:#475569;line-height:1.5;margin-bottom:24px;">Retrouvez ici tous les produits LYAPKO, ainsi que les instructions d'utilisation et d'entretien du fabricant. <a href="https://lyapko.ua/en" target="_blank" rel="noopener" style="color:#b45309;text-decoration:underline;">lyapko.ua/en &rarr;</a></p>
+
+    <div class="sh-label">LYAPKO pour le bien-&ecirc;tre, le spa et la r&eacute;cup&eacute;ration</div>
+    <ul style="font-size:0.85rem;font-weight:500;color:#475569;line-height:1.9;margin:0 0 24px 18px;"><li>Centres spa et thermaux</li><li>&Eacute;tablissements de bien-&ecirc;tre et h&ocirc;tels avec programmes bien-&ecirc;tre</li><li>Cabinets de massage et de soins du corps</li><li>&Eacute;tablissements de r&eacute;cup&eacute;ration et de fitness</li><li>S&eacute;ances de bien-&ecirc;tre personnalis&eacute;es</li><li>Exp&eacute;riences bien-&ecirc;tre premium et VIP</li></ul>
+
+    <div class="sh-label">Partenariat professionnel avec KOLOSVIT</div>
+    <p style="font-size:0.85rem;font-weight:500;color:#475569;line-height:1.5;margin-bottom:24px;">D&eacute;monstrations de produits, pr&eacute;sentations professionnelles, aide au choix, int&eacute;gration dans les programmes de bien-&ecirc;tre, projets pilotes et coop&eacute;ration professionnelle avec les stations thermales, spas, centres de bien-&ecirc;tre et &eacute;tablissements de r&eacute;cup&eacute;ration.</p>
+
+    <div class="hdiv"></div>
+
+    <div style="background:#FFF7ED;border-left:3px solid #d98c3f;padding:14px 18px;border-radius:4px;margin-bottom:24px;">
+      <div class="sh-label" style="color:#b45309;">Utilisation responsable</div>
+      <p style="font-size:0.78rem;font-weight:500;color:#475569;line-height:1.46;">La pr&eacute;sentation luxembourgeoise de KOLOSVIT se concentre sur le bien-&ecirc;tre, la relaxation, les soins du corps et la r&eacute;cup&eacute;ration. Les all&eacute;gations m&eacute;dicales faites dans d'autres pays ne doivent pas &ecirc;tre interpr&eacute;t&eacute;es comme applicables au Luxembourg ou ailleurs dans l'UE. En cas de probl&egrave;me de sant&eacute;, veuillez consulter un professionnel de sant&eacute; qualifi&eacute;.</p>
+    </div>
+
+    
+    
+    <div class="hdiv"></div>
+    <div class="sh-label">Équipements de bien-être</div>
+    <p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.48;margin-bottom:12px;">Couvertures de bien-être magnétique avec aimants permanents et tourmaline, pour des espaces de relaxation et des programmes de bien-être. Proposées comme produits de bien-être, sans allégation thérapeutique.</p>
+    <span style="display:inline-block;font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:#946c06;border:1px solid rgba(100,116,139,0.30);border-radius:10px;padding:2px 8px;margin-top:8px;">En développement</span>
+    <div class="hdiv" style="margin-top:22px;"></div>
+    <div class="sh-label">Développer de nouveaux partenariats</div>
+    <p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.48;margin-bottom:12px;">Nous accueillons volontiers la coopération avec des stations thermales, des centres de bien-être, des établissements de réhabilitation, des hôtels, des praticiens professionnels et des organisations souhaitant développer des programmes accessibles de bien-être et de récupération.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.48;margin-bottom:12px;">Notre approche est modulaire : les activités peuvent être introduites séparément ou réunies dans un programme de bien-être plus large.</p>
+    <p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.48;margin-bottom:12px;font-style:italic;">Une initiative de KOLOSVIT ASBL.</p>
+    <button class="btn-gold" onclick="showPage('page-contacts')">Contactez-nous &rarr;</button>
+  </div>
+</div>
+
+<div id="page-pearls" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div class="page-head-row">
+    <a class="page-logo" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo-kolosvit.webp" alt="KOLOSVIT ASBL Luxembourg"></a>
+    <a class="page-logo dir-logo dir-wide" href="pearls_logo.png" target="_blank" rel="noopener" title="Open logo in full size"><img src="pearls_logo.webp" alt="Pearls of Luxembourg"></a>
+  </div>
+    <div class="page-eyebrow">Culture · plateforme média et communautaire</div>
+    <h2 class="page-title">Pearls of Luxembourg</h2>
+    <div class="pg-status">En préparation · premières soirées pilotes</div>
+<div class="pg-hero"><img src="hero-pearls.webp" alt="Pearls of Luxembourg — histoires, personnes et liens" loading="eager" fetchpriority="high"></div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--pg-accent-text,#f2c84b);font-weight:700;letter-spacing:0.04em;margin-bottom:8px;">Histoires · Personnes · Liens</p><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Une plateforme média, de communication et communautaire de KOLOSVIT ASBL</p><div class="pg-box" style="border-color:var(--pg-accent,#4caf6e);"><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Pearls of Luxembourg est une plateforme média et communautaire créée par KOLOSVIT ASBL pour découvrir, présenter et relier des personnes, talents, organisations et initiatives remarquables.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Nous croyons que chaque communauté possède des histoires, des connaissances et une expérience précieuses qui méritent d'être partagées. Pearls les porte à un public plus large grâce à des événements en direct, des interviews, des podcasts, de la photographie, des productions vidéo et des projets médias collaboratifs.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Au-delà du récit, Pearls crée des occasions de visibilité professionnelle, de réseautage, d'échange de connaissances, de promotion culturelle et de partenariats porteurs de sens.</p></div><p style="font-size:0.8rem;font-weight:500;color:#475569;font-style:italic;line-height:1.5;margin:6px 0 18px;">Pearls of Luxembourg est une nouvelle initiative. Les premières soirées pilotes sont en préparation. Les formats ci-dessous décrivent ce que nous développons et testerons pas à pas avec des partenaires et des invités.</p><div class="sh-label">1. Nos formats</div><div class="pg-flag"><div class="pg-flag-tag">Format phare</div><div class="pg-flag-title">Pearls Talks</div><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Trois invités. Trois histoires. Trois rêves pour le Luxembourg.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Une soirée intime où entrepreneurs, scientifiques, artistes et professionnels partagent leur expérience. Chaque invité raconte une histoire de son univers professionnel, quelque chose sur le Luxembourg qu'il aimerait que plus de gens connaissent, et un rêve — ce qu'il changerait, s'il le pouvait.</p><span class="pg-chip">Soirées pilotes en préparation</span></div><div class="card-grid" style="margin-bottom:22px;"><div class="card"><div class="card-title">Pearls Workshops</div><div class="card-body">Apprendre directement auprès de personnes remarquables. Chaque invité répond à une question simple : « Que puis-je enseigner aux gens en une heure ? » Les thèmes peuvent inclure le pilotage de drones, la photographie, le leadership, l'IA, la logistique, la prise de parole en public, la cuisine, la danse, le bien-être, l'entrepreneuriat, les premiers secours et la créativité.</div><div style="margin-top:10px;"><span class="pg-chip">En développement</span></div></div><div class="card"><div class="card-title">Pearls Podcast &amp; Interviews</div><div class="card-body">Des conversations qui se poursuivent au-delà de l'événement. Interviews d'invités inspirants, d'innovateurs, d'entrepreneurs et de bâtisseurs de communautés — accessibles à un public bien au-delà du Luxembourg.</div><div style="margin-top:10px;"><span class="pg-chip">En développement</span></div></div><div class="card"><div class="card-title">Pearls Media</div><div class="card-body">Chaque histoire mérite d'être conservée. Photographie professionnelle, récits vidéo et courts documentaires immortalisent chaque soirée — créant du contenu pour les partenaires médias, la marque employeur et une diffusion plus large.</div><div style="margin-top:10px;"><span class="pg-chip">En développement</span></div></div><div class="card"><div class="card-title">Pearls Together</div><div class="card-body">Des liens humains porteurs de sens. Un volet communautaire pour les personnes qui souhaitent rencontrer d'autres personnes sur la base de valeurs communes, d'amitié et de bonnes conversations. La participation est volontaire et toujours respectueuse. Pas du speed dating. Pas une application de rencontres.</div><div style="margin-top:10px;"><span class="pg-chip">Concept</span></div></div><div class="card"><div class="card-title">Pearls Charity</div><div class="card-body">Certaines soirées pourront comporter des ventes aux enchères caritatives ou des initiatives soutenant des causes culturelles, éducatives ou humanitaires. Chaque perle peut créer de nouvelles opportunités pour les autres.</div><div style="margin-top:10px;"><span class="pg-chip">Concept</span></div></div><div class="card"><div class="card-title">Pearls for Partners</div><div class="card-body">Visibilité médiatique, narration et opportunités de communication pour les organisations, entreprises et institutions.</div><div style="margin-top:10px;"><span class="pg-chip">Ouvert à la coopération</span></div></div></div><div class="hdiv"></div><div class="sh-label">2. Comment se déroule une soirée</div><div class="pg-box" style="border-color:var(--pg-accent,#4caf6e);"><h3 class="pg-h3">Le modèle du relais</h3><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Chaque soirée Pearls commence par des personnes et se termine par de nouveaux liens. Après chaque soirée, chaque invité recommande la prochaine personne remarquable — et peut-être le prochain lieu. Le réseau grandit de façon organique, une histoire à la fois.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">« Je ne cherche pas des célébrités. Je cherche des personnes qui relient les gens. »</p></div><h3 class="pg-h3">À quoi s'attendre</h3><ul class="pg-list"><li>3 invités · 3 histoires · une soirée.</li><li>Musique live · réseautage informel.</li><li>Thé et café inclus.</li><li>Photographie et vidéo professionnelles (avec consentement).</li></ul><h3 class="pg-h3">Système de badges</h3><ul class="pg-list"><li>🟡 Entrée — incluse avec chaque billet.</li><li>🤝 Pearls Together — ouvert à de nouvelles rencontres (facultatif).</li><li>🍴 Option culinaire — lors de certaines soirées.</li></ul><p style="font-size:0.8rem;font-weight:500;color:#475569;font-style:italic;line-height:1.5;margin:6px 0 18px;">L'alcool ne fait pas partie de l'expérience Pearls. La nourriture, lorsqu'elle est présente, fait toujours partie du programme — jamais un buffet standard.</p><div class="hdiv"></div><div class="sh-label">3. Partenaires et lieux</div><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Les soirées Pearls sont prévues dans des lieux remarquables du Luxembourg — centres culturels, galeries privées, espaces historiques, destinations de bien-être comme Mondorf-les-Bains, restaurants ou studios partenaires.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Nous accueillons des partenariats de lieu à long terme. Mettre un espace à disposition des soirées Pearls est une contribution en nature précieuse — et une occasion naturelle de rencontrer une communauté engagée et portée par ses valeurs.</p><div class="card-grid" style="margin-bottom:22px;"><div class="card"><div class="card-title">🤝 Partenaire lieu</div><div class="card-body">Accueillez une soirée Pearls dans votre espace.</div></div><div class="card"><div class="card-title">🍽️ Partenaire culinaire</div><div class="card-body">Présentez votre cuisine lors d'une soirée sélectionnée.</div></div><div class="card"><div class="card-title">📸 Partenaire média</div><div class="card-body">Coproduisez du contenu et du matériel documentaire.</div></div><div class="card"><div class="card-title">🎓 Partenaire ateliers</div><div class="card-body">Apportez votre expertise comme intervenant invité.</div></div><div class="card"><div class="card-title">🌍 Partenaire institutionnel</div><div class="card-body">Soutenez Pearls par du parrainage ou des subventions.</div></div></div><div class="hdiv"></div><div class="sh-label">4. Modèle économique envisagé</div><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Pearls of Luxembourg est une initiative de KOLOSVIT ASBL — une association à but non lucratif. Notre modèle envisagé est transparent et conçu pour une durabilité à long terme.</p><div class="card-grid" style="margin-bottom:22px;"><div class="card"><div class="card-title">🎟️ Billet individuel</div><div class="card-body">L'entrée aux soirées Pearls est prévue sur billet. Thé et café inclus. Chaque soirée aura une contribution recommandée reflétant le format et le programme. Les dons supplémentaires sont toujours les bienvenus.</div></div><div class="card"><div class="card-title">🏢 Participation d'entreprise</div><div class="card-body">Les entreprises peuvent réserver des places pour leurs équipes — inscription prioritaire et reconnaissance facultative comme partenaire de la soirée.</div></div><div class="card"><div class="card-title">🤝 Partenariat en nature</div><div class="card-body">Lieux, partenaires culinaires et partenaires médias contribuent par leur espace, leur produit ou leur expertise — reconnus comme une contribution précieuse à l'écosystème Pearls.</div></div><div class="card"><div class="card-title">🌍 Subventions et parrainage</div><div class="card-body">Des organisations et fondations peuvent parrainer certaines soirées ou le programme dans son ensemble. Pearls peut candidater à des programmes de financement pertinents, sous réserve des conditions d'éligibilité de chaque programme.</div></div></div><div class="pg-box" style="border-color:#d4a82a;"><h3 class="pg-h3">Notre vision</h3><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Pearls of Luxembourg est plus qu'une série de soirées. C'est une communauté durable où les personnes s'inspirent mutuellement, apprennent auprès d'experts, créent de nouveaux projets et nouent des amitiés et des liens durables.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Notre objectif est de bâtir l'une des communautés les plus fiables d'Europe — ancrée au Luxembourg, ouverte sur le monde.</p></div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--pg-accent-text,#f2c84b);font-weight:700;letter-spacing:0.04em;margin-bottom:8px;">Car chaque perle commence par quelque chose de petit — et devient quelque chose de durable.</p><div class="sh-label">Pour les partenaires</div><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Nous invitons les communes, entreprises, institutions culturelles, ONG, fondations, professionnels et organisations médias à collaborer par des événements, interviews, parrainages, production de contenu et initiatives de communication communes.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Pearls of Luxembourg est une plateforme pour les personnes et organisations qui ont quelque chose de précieux à partager — et pour les publics prêts à le découvrir.</p><div class="pg-cta"><div class="pg-cta-title">Rejoignez les premières soirées Pearls</div><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Nous préparons les premières soirées pilotes et accueillons les lieux, partenaires, invités et organisations médias qui souhaitent contribuer à façonner Pearls dès le début.</p><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Une initiative de KOLOSVIT ASBL.</p><button class="btn-gold" onclick="showPage('page-contacts')">Prendre contact →</button></div>
+  </div>
+</div>
+
+<div id="page-caretera" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div class="page-head-row">
+    <a class="page-logo" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo-kolosvit.webp" alt="KOLOSVIT ASBL Luxembourg"></a>
+    <a class="page-logo dir-logo" href="caretera_logo_full.jpg" target="_blank" rel="noopener" title="Open logo in full size"><img src="caretera_logo.webp" alt="CareterA — Property Health Care"></a>
+  </div>
+    <div class="page-eyebrow">Solutions pour l'immobilier</div>
+    <h2 class="page-title">CareterA — intelligence immobilière, soin et activation communautaire</h2>
+    <div class="pg-status">En développement · recherche de partenaires pilotes</div>
+<div class="pg-hero"><img src="hero-caretera.webp" alt="CareterA — Propriété, Gestion, Communauté, Activation" loading="eager" fetchpriority="high"></div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--pg-accent-text,#f2c84b);font-weight:700;letter-spacing:0.04em;margin-bottom:8px;">Intelligence immobilière, soin et activation communautaire</p><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Du soin des biens immobiliers à une utilisation plus intelligente des bâtiments, des terrains et des actifs communautaires.</p><div class="pg-box" style="border-color:var(--pg-accent,#4caf6e);"><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">CareterA est une initiative développée par KOLOSVIT ASBL pour aider les propriétaires, les communes et les organisations à mieux comprendre, surveiller, entretenir et activer leurs bâtiments et leurs terrains.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Nous réunissons des services immobiliers pratiques, la surveillance numérique, l'évaluation des bâtiments et de nouvelles approches pour l'usage des espaces sous-utilisés. Notre objectif n'est pas seulement de prendre soin des biens, mais d'aider à identifier leur état, leur potentiel et leur valeur possible pour l'ensemble de la communauté.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">CareterA se développe pas à pas : des services immobiliers pratiques vers la gestion du patrimoine communal et l'activation communautaire.</p></div><div class="sh-label">1. Surveillance et entretien des biens</div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--pg-accent-text,#f2c84b);font-weight:700;letter-spacing:0.04em;margin-bottom:8px;">Un soin pratique pour les bâtiments et les terrains</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Nous visons à proposer des solutions pratiques d'inspection, de surveillance et d'entretien pour les biens vacants et occupés — publics, communaux et privés.</p><div class="card-grid" style="margin-bottom:22px;"><div class="card"><div class="card-title">Détection et surveillance</div><div class="card-body">Identification de bâtiments et de terrains vacants ou sous-utilisés, puis suivi de leur état et de leur potentiel d'utilisation.</div></div><div class="card"><div class="card-title">Inspection des bâtiments</div><div class="card-body">Évaluation visuelle des toitures, combles, caves, façades et autres éléments accessibles. Documentation technique et rapports d'état pour maisons, fermes, entrepôts, bureaux et sites industriels.</div></div><div class="card"><div class="card-title">Inspection par drone</div><div class="card-body">Lorsque c'est approprié et sous réserve des exigences opérationnelles, l'imagerie aérienne peut soutenir l'inspection des toitures, façades, installations solaires et zones difficiles d'accès.</div></div><div class="card"><div class="card-title">Entretien du terrain et du territoire</div><div class="card-body">Suivi et coordination de l'entretien des terrains environnants, jardins, parcelles agricoles et espaces extérieurs.</div></div><div class="card"><div class="card-title">Gardiennage et gestion de biens</div><div class="card-body">Présence temporaire et supervision du bien dans le cadre d'accords appropriés, y compris des contrats de commodat et des services rémunérés. Le but est d'aider les propriétaires à garder un suivi de leurs biens pendant les périodes d'absence ou de non-utilisation.</div></div></div><p style="font-size:0.8rem;font-weight:500;color:#475569;font-style:italic;line-height:1.5;margin:6px 0 18px;">Certains services spécialisés d'inspection et de surveillance sont en cours de développement et pourront être fournis avec des partenaires externes qualifiés.</p><div class="pg-flag"><div class="pg-flag-tag">2. Passeport numérique du bâtiment</div><div class="pg-flag-title">Comprendre l'état et le potentiel d'un bien</div><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">CareterA développe le concept de Passeport numérique du bâtiment — un profil numérique structuré qui peut aider les propriétaires et les organisations à comprendre l'état, les caractéristiques et l'usage futur possible d'un bien.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Selon le bâtiment et les informations disponibles, l'évaluation peut comprendre :</p><ul class="pg-list"><li><strong>Relevé numérique du bâtiment</strong> &mdash; documentation visuelle et données structurées sur le bien, y compris des options de relevé 3D.</li><li><strong>Aperçu de l'état du bâtiment</strong> &mdash; identification des défauts visibles, des besoins d'entretien et des éléments nécessitant une inspection professionnelle approfondie.</li><li><strong>Potentiel de toiture et de combles</strong> &mdash; évaluation des usages possibles, y compris les installations solaires et d'autres possibilités de rénovation.</li><li><strong>Scénarios énergétiques et de rénovation</strong> &mdash; analyse préliminaire des options d'amélioration possibles.</li><li><strong>Potentiel de réutilisation adaptative</strong> &mdash; identification des possibilités de donner une nouvelle fonction à un bâtiment sous-utilisé.</li><li><strong>Aide numérique à la décision</strong> &mdash; regroupement des informations sur le bien pour appuyer la planification et les décisions d'investissement.</li></ul><p style="font-size:0.8rem;font-weight:500;color:#475569;font-style:italic;line-height:1.5;margin:6px 0 18px;">Le Passeport numérique du bâtiment est un concept en développement. Il est destiné à soutenir les propriétaires et les décideurs, et non à remplacer les inspections techniques certifiées, les expertises d'ingénierie ou les audits énergétiques réglementaires.</p></div><div class="sh-label">3. Patrimoine communal et gestion des actifs</div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--pg-accent-text,#f2c84b);font-weight:700;letter-spacing:0.04em;margin-bottom:8px;">Transformer les actifs sous-utilisés en opportunités</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Les communes gèrent souvent un portefeuille varié de bâtiments, de terrains et d'espaces publics. Certains actifs peuvent être sous-utilisés, en attente de rénovation ou sans vocation future clairement définie.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">CareterA vise à aider les communes à identifier ces actifs, à comprendre leur état et à explorer des possibilités concrètes d'utilisation.</p><h3 class="pg-h3">Domaines de coopération possibles</h3><ul class="pg-list pg-cols"><li>Inventaire et documentation numérique des bâtiments et terrains communaux.</li><li>Évaluation préliminaire de l'état des biens et des priorités d'entretien.</li><li>Identification des actifs communaux vacants et sous-utilisés.</li><li>Exploration des possibilités de rénovation, de réutilisation et d'amélioration énergétique.</li><li>Évaluation des usages sociaux, culturels, éducatifs et économiques possibles.</li><li>Identification de partenaires, d'opérateurs et d'opportunités de projet potentiels.</li></ul><h3 class="pg-h3">Actifs concernés</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Anciennes écoles et bâtiments publics · Fermes et biens agricoles · Bâtiments historiques · Équipements communautaires · Parcs et jardins · Terrains publics et espaces extérieurs · Locaux commerciaux et industriels inutilisés.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">L'objectif est d'aider les communes à passer d'informations immobilières fragmentées à une compréhension plus claire de leurs actifs et des opportunités qu'ils offrent.</p><div class="pg-img"><img src="img-caretera-cap.webp" alt="Entretien des biens, gestion temporaire, événements et activation, surveillance numérique" loading="lazy"></div><div class="pg-flag"><div class="pg-flag-tag">4. De l'activation des biens à l'activation communautaire — CAP</div><div class="pg-flag-title">Plateforme d'activation communautaire</div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--pg-accent-text,#f2c84b);font-weight:700;letter-spacing:0.04em;margin-bottom:8px;">Les bâtiments ne sont pas que des actifs. Ils peuvent devenir des lieux où les communautés grandissent.</p><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">L'activation d'un bien peut être le point de départ de quelque chose de plus large.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Un bâtiment inutilisé, une ancienne école, une ferme, un jardin ou un espace public peut devenir un lieu d'éducation, de culture, d'activités sociales, de bien-être, d'entrepreneuriat local ou de coopération communautaire.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Exemple : transformation de terrains communaux inutilisés et de parcs en jardins communautaires, espaces agricoles sociaux et lieux de bien-être horticole.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">C'est ici que CareterA rejoint le concept plus large de Plateforme d'activation communautaire (CAP) de KOLOSVIT. La CAP est un cadre en développement qui rassemble les actifs communaux, les besoins locaux, les organisations, les entreprises, les associations et les partenaires de projet.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Plutôt que de traiter chaque initiative comme un projet isolé, l'approche consiste à identifier les liens entre les espaces disponibles, les besoins de la communauté et les personnes ou organisations capables de créer des activités porteuses de sens.</p><div class="card-grid" style="margin-bottom:22px;"><div class="card"><div class="card-title">Besoins et opportunités de la communauté</div><div class="card-body">Comprendre les besoins locaux, identifier les manques et explorer les possibilités de nouvelles initiatives.</div></div><div class="card"><div class="card-title">Mise en relation espaces et projets</div><div class="card-body">Relier les bâtiments, terrains et espaces publics disponibles à des activités, organisations et opérateurs potentiels adaptés.</div></div><div class="card"><div class="card-title">Développement de partenariats</div><div class="card-body">Rassembler communes, associations, entreprises, établissements d'enseignement et autres partenaires autour de projets concrets.</div></div><div class="card"><div class="card-title">Activation de programmes</div><div class="card-body">Soutenir le développement d'initiatives culturelles, éducatives, sociales, environnementales et de bien-être dans des espaces adaptés.</div></div><div class="card"><div class="card-title">Financement et opportunités de développement</div><div class="card-body">Identifier des programmes de financement, parrainages, partenariats et autres moyens de soutenir le développement de projets.</div></div></div><p style="font-size:0.8rem;font-weight:500;color:#475569;font-style:italic;line-height:1.5;margin:6px 0 18px;">La CAP est un concept de développement plus large de KOLOSVIT. Ses composantes peuvent être explorées et mises en œuvre progressivement, selon les besoins locaux, les ressources disponibles et les partenariats.</p></div><div class="sh-label">5. Plateforme numérique et développement assisté par l'IA</div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--pg-accent-text,#f2c84b);font-weight:700;letter-spacing:0.04em;margin-bottom:8px;">Une vision à plus long terme pour une gestion plus intelligente des biens et de la communauté</p><div class="pg-img"><img src="caretera_new_banner.webp" alt="CareterA — plateforme numérique et développement assisté par l'IA" loading="lazy"></div><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">À mesure que CareterA se développe, l'expérience et les informations recueillies par la surveillance des biens, l'évaluation des bâtiments et la coopération avec les communes peuvent servir de base à des outils numériques.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">La vision à plus long terme est une plateforme assistée par l'IA qui pourrait aider les communes et les partenaires à :</p><ul class="pg-list"><li>Tenir des informations structurées sur les bâtiments, les terrains et les actifs publics.</li><li>Identifier les besoins d'entretien et les risques potentiels.</li><li>Explorer d'autres usages pour les biens sous-utilisés.</li><li>Relier les besoins locaux aux espaces et ressources disponibles.</li><li>Soutenir la coordination de projets et le développement de partenariats.</li><li>Améliorer la planification grâce à un meilleur accès à l'information pertinente.</li></ul><p style="font-size:0.8rem;font-weight:500;color:#475569;font-style:italic;line-height:1.5;margin:6px 0 18px;">Les outils numériques et l'IA sont destinés à soutenir le jugement et la décision humains — et non à remplacer la responsabilité professionnelle ni les processus démocratiques communaux.</p><div class="sh-label">Qui peut travailler avec CareterA ?</div><div class="card-grid" style="margin-bottom:22px;"><div class="card"><div class="card-title">Communes et institutions publiques</div><div class="card-body">Portefeuilles immobiliers communaux, bâtiments inutilisés, espaces publics et initiatives de développement local.</div></div><div class="card"><div class="card-title">Propriétaires et gestionnaires de biens</div><div class="card-body">Bâtiments privés, fermes, locaux commerciaux, biens résidentiels et terrains.</div></div><div class="card"><div class="card-title">Organisations du logement et de l'immobilier</div><div class="card-body">Suivi des biens, documentation et entretien préventif.</div></div><div class="card"><div class="card-title">Entreprises et investisseurs</div><div class="card-body">Évaluation du potentiel des biens, réutilisation adaptative et opportunités de coopération.</div></div><div class="card"><div class="card-title">Associations et organisations communautaires</div><div class="card-body">Accès à des espaces adaptés et développement d'initiatives locales.</div></div><div class="card"><div class="card-title">Partenaires techniques et numériques</div><div class="card-body">Inspections, relevés, expertise du bâtiment, technologies de surveillance et solutions numériques.</div></div></div><div class="pg-cta"><div class="pg-cta-title">Devenez partenaire pilote de CareterA</div><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">CareterA développe son modèle de services et recherche la coopération de communes, de propriétaires, d'organisations et de partenaires techniques.</p><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Nous accueillons volontiers des opportunités pour :</p><ul class="pg-list"><li>Tester des solutions de surveillance et d'entretien des biens.</li><li>Explorer le potentiel de bâtiments vacants ou sous-utilisés.</li><li>Développer des projets pilotes de Passeport numérique du bâtiment.</li><li>Évaluer des actifs communaux et de nouveaux usages possibles.</li><li>Explorer des initiatives d'activation communautaire dans le cadre de la CAP.</li></ul><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Vous avez un bien, un espace ou un défi local qui pourrait devenir une opportunité ? Explorons ensemble ce qui peut être développé.</p><button class="btn-gold" onclick="showPage('page-contacts')">Contacter KOLOSVIT ASBL →</button></div>
+  </div>
+</div>
+
+<div id="page-arch" class="page">
+  <div class="inner-page" style="padding-top:96px;">
+    <div class="page-head-row">
+    <a class="page-logo" href="javascript:void(0)" onclick="showPage('page-home')"><img src="logo-kolosvit.webp" alt="KOLOSVIT ASBL Luxembourg"></a>
+    <a class="page-logo dir-logo" href="arch_logo_full.jpg" target="_blank" rel="noopener" title="Open logo in full size"><img src="arch_logo_sm.webp" alt="ARCH — Resilience &amp; Community Hub"></a>
+  </div>
+    <div class="page-eyebrow">Solutions pour les personnes</div>
+    <h2 class="page-title">ARCH — performance humaine, préparation opérationnelle et résilience</h2>
+    <div class="pg-status">En développement · phase pilote</div>
+<div class="pg-hero"><img src="hero-arch.webp" alt="ARCH — Resilience &amp; Community Hub" loading="eager" fetchpriority="high"></div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--pg-accent-text,#f2c84b);font-weight:700;letter-spacing:0.04em;margin-bottom:8px;">Performance humaine, préparation opérationnelle et résilience</p><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Un écosystème porté par l'IA pour comprendre la performance humaine, renforcer la préparation opérationnelle et développer la résilience des organisations, des infrastructures critiques et des communautés.</p><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--pg-accent-text,#f2c84b);font-weight:700;letter-spacing:0.04em;margin-bottom:8px;">Comprendre les personnes. Renforcer la performance. Bâtir la résilience.</p><div class="pg-box" style="border-color:#2fe0cc;"><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">ARCH est une initiative d'innovation en évolution de KOLOSVIT ASBL, Luxembourg, conçue pour explorer et développer des approches intégrées de la performance humaine, du bien-être, de la préparation opérationnelle et de la résilience.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Elle réunit des technologies centrées sur l'humain, un suivi volontaire du bien-être, une analyse fondée sur les données, une formation par simulation, le développement de la performance cognitive et des pratiques de récupération.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH vise à aider les organisations à mieux comprendre les facteurs humains qui influencent la performance, la prise de décision, la sécurité, l'adaptabilité et le bien-être — en particulier dans les environnements où les personnes travaillent sous pression, gèrent des processus complexes ou portent de lourdes responsabilités.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Des institutions financières et opérateurs d'infrastructures critiques à l'aviation, aux réseaux ferroviaires, aux communes, aux établissements d'enseignement et aux communautés locales, ARCH est conçue comme un écosystème flexible adaptable à différents besoins opérationnels et sociaux.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Notre approche reconnaît que la résilience organisationnelle ne dépend pas uniquement de la technologie et des infrastructures. Les personnes, leurs capacités, leur état, leur aptitude à décider et leur capacité d'adaptation comptent tout autant.</p></div><div class="sh-label">1. L'approche ARCH</div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--pg-accent-text,#f2c84b);font-weight:700;letter-spacing:0.04em;margin-bottom:8px;">De la conscience de l'état humain à une résilience organisationnelle renforcée</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH repose sur la relation entre performance humaine, environnements opérationnels et résilience organisationnelle. Nous visons une approche intégrée qui combine quatre étapes complémentaires :</p><div class="pg-stage"><div class="pg-stage-tag">OBSERVER</div><div class="pg-stage-title">Comprendre l'état humain</div><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Explorer les indicateurs pertinents susceptibles d'influencer la performance humaine et le bien-être.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Selon le programme, cela peut comprendre :</p><ul class="pg-list"><li>Des données physiologiques volontaires issues d'appareils portables et de capteurs.</li><li>Le bien-être, la fatigue, le stress et la charge perçue déclarés par les personnes.</li><li>Des informations sur les conditions de travail, les horaires et le contexte opérationnel.</li><li>Les résultats d'exercices de formation et de scénarios de simulation.</li><li>Des retours individuels et d'équipe.</li></ul><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">L'objectif est d'établir une compréhension mieux informée des facteurs qui peuvent affecter la performance, sans transformer le suivi personnel en surveillance des employés.</p></div><div class="pg-stage"><div class="pg-stage-tag">COMPRENDRE</div><div class="pg-stage-title">Analyser les facteurs humains</div><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Utiliser une évaluation structurée et, le cas échéant, des outils analytiques assistés par l'IA pour identifier des schémas et tendances pertinents pour la performance humaine.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Domaines d'analyse possibles :</p><ul class="pg-list"><li>Charge cognitive et concentration.</li><li>Indicateurs liés à la fatigue et schémas de récupération.</li><li>Facteurs liés au stress et pression perçue.</li><li>Attention et conscience de la situation.</li><li>Adaptabilité et prise de décision sous pression.</li><li>Interaction et communication au sein de l'équipe.</li><li>Conditions organisationnelles pouvant contribuer à une charge excessive.</li></ul><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH cherche à traduire les informations pertinentes en enseignements compréhensibles qui peuvent soutenir les personnes, les coordinateurs de programmes et les organisations.</p></div><div class="pg-stage"><div class="pg-stage-tag">FORMER</div><div class="pg-stage-title">Développer les capacités humaines</div><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Renforcer les capacités individuelles et collectives par un apprentissage pratique et des activités par scénarios.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Formats possibles :</p><ul class="pg-list"><li>Formation par simulation.</li><li>Exercices de prise de décision.</li><li>Activités d'entraînement cognitif et attentionnel.</li><li>Techniques de gestion du stress et d'autorégulation.</li><li>Exercices de communication et de coordination en équipe.</li><li>Apprentissage par scénarios pour des environnements opérationnels complexes.</li><li>Compétences numériques, culture de l'IA et formation aux technologies.</li></ul><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH relie sa méthodologie de performance humaine à l'initiative distincte de KOLOSVIT « Formation et renforcement des capacités ».</p></div><div class="pg-stage"><div class="pg-stage-tag">RÉCUPÉRER ET S'AMÉLIORER</div><div class="pg-stage-title">Bâtir une résilience durable</div><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Soutenir la récupération, l'autorégulation et l'amélioration continue.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Selon le groupe cible et le programme, les activités peuvent comprendre :</p><ul class="pg-list"><li>Des séances de récupération structurées.</li><li>Des pratiques de relaxation et de respiration.</li><li>Une activité physique douce et du mouvement.</li><li>Des ateliers de bien-être et de résilience.</li><li>Des stratégies individuelles d'autogestion.</li><li>La réévaluation et l'analyse des résultats du programme.</li></ul><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Le but n'est pas seulement de mesurer les difficultés, mais d'aider les personnes et les organisations à développer des moyens concrets d'y répondre.</p></div><div class="hdiv"></div><div class="sh-label">2. Solutions sectorielles</div><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH est conçue comme un écosystème modulaire. Sa méthodologie peut être adaptée à différentes industries, groupes professionnels et environnements communautaires. Les domaines suivants représentent des applications potentielles pour le développement, la recherche et la coopération pilote.</p><details class="sector"><summary><img class="sector-thumb" src="img-arch-finance.webp" alt="ARCH Performance et résilience financières" loading="lazy"><span class="sector-head"><span class="sector-title">A. ARCH Performance et résilience financières</span><span class="sector-for">Pour les banques, fonds d'investissement, entreprises FinTech et institutions financières.</span></span><span class="sector-more">En savoir plus</span></summary><div class="sector-body"><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Les organisations financières évoluent dans des environnements marqués par des flux d'information complexes, des échéances strictes, des exigences réglementaires, l'incertitude des marchés et un haut niveau de responsabilité.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Les collaborateurs de l'AML/KYC, de la conformité, de la gestion des risques, du trading, de l'analyse d'investissement, des opérations financières et de la direction travaillent souvent avec de grands volumes d'information et des décisions exigeant une attention soutenue.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH explore comment des programmes de performance humaine et de résilience peuvent soutenir ces équipes.</p><h3 class="pg-h3">Principaux défis traités</h3><ul class="pg-list"><li>Surcharge cognitive et exigences de concentration prolongée.</li><li>Fatigue décisionnelle et travail sous contrainte de temps.</li><li>Stress lié aux échéances réglementaires et à la volatilité des marchés.</li><li>Tâches analytiques répétitives et attention soutenue.</li><li>Communication et coordination entre équipes multilingues.</li><li>Gestion de la charge de travail et récupération.</li><li>Bien-être des employés et résilience organisationnelle.</li></ul><h3 class="pg-h3">Solutions ARCH possibles</h3><ul class="pg-list"><li>Programmes volontaires de bien-être et de prise de conscience de la charge de travail.</li><li>Outils d'autoévaluation et questionnaires structurés de bien-être.</li><li>Études pilotes avec appareils portables, lorsque c'est approprié et volontaire.</li><li>Exercices de performance cognitive et d'attention.</li><li>Ateliers de prise de décision par scénarios.</li><li>Formation à la gestion du stress et à l'autorégulation.</li><li>Séances de récupération et de résilience.</li><li>Évaluation agrégée du programme dans le respect de la vie privée.</li></ul><h3 class="pg-h3">Valeur potentielle pour l'organisation</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH peut aider les institutions financières à explorer des moyens d'améliorer la prise de conscience des risques liés à la charge de travail, de renforcer la résilience individuelle, de soutenir des pratiques de travail plus saines et de développer une performance d'équipe plus durable.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Les résultats du programme peuvent être évalués au moyen d'indicateurs convenus, tels que la participation, le bien-être déclaré, la charge perçue, les résultats de formation et les retours de l'organisation.</p><h3 class="pg-h3">Partenaires potentiels</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Banques, fonds d'investissement, gestionnaires d'actifs, services AML/KYC, équipes conformité et risques, entreprises FinTech, assureurs et organisations de services financiers.</p></div></details><details class="sector"><summary><img class="sector-thumb" src="img-arch-energy.webp" alt="ARCH Énergie et infrastructures critiques" loading="lazy"><span class="sector-head"><span class="sector-title">B. ARCH Énergie et infrastructures critiques</span><span class="sector-for">Pour les producteurs d'énergie, gestionnaires de réseaux, services publics et organisations d'infrastructures critiques.</span></span><span class="sector-more">En savoir plus</span></summary><div class="sector-body"><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Les systèmes énergétiques reposent sur des infrastructures techniques complexes et sur des personnes qui doivent surveiller, coordonner et réagir à l'évolution des conditions opérationnelles.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Le personnel de salles de contrôle, les dispatcheurs, les équipes de maintenance, les ingénieurs de terrain et les spécialistes d'intervention d'urgence peuvent faire face à des horaires exigeants, à de lourdes responsabilités et à des situations demandant une attention soutenue.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH explore la dimension de performance humaine de la résilience opérationnelle dans ces environnements.</p><h3 class="pg-h3">Principaux défis traités</h3><ul class="pg-list"><li>Attention soutenue en salle de contrôle.</li><li>Fatigue et horaires irréguliers ou en rotation.</li><li>Charge cognitive lors de tâches opérationnelles complexes.</li><li>Conscience de la situation et traitement de l'information.</li><li>Communication lors des changements d'équipe et des passations opérationnelles.</li><li>Coordination de l'équipe lors de perturbations.</li><li>Facteurs humains dans l'intervention d'urgence et les opérations de rétablissement.</li></ul><h3 class="pg-h3">Solutions ARCH possibles</h3><ul class="pg-list"><li>Programmes volontaires de sensibilisation à la fatigue et de bien-être.</li><li>Autoévaluation de la charge de travail et de la récupération.</li><li>Scénarios opérationnels par simulation.</li><li>Exercices de prise de décision et de conscience de la situation.</li><li>Formation à la communication et à la coordination en équipe.</li><li>Ateliers sur les passations d'équipe et la communication opérationnelle.</li><li>Programmes de récupération et de résilience pour le personnel technique.</li><li>Recherche sur les facteurs humains dans des environnements opérationnels exigeants.</li></ul><h3 class="pg-h3">Valeur potentielle pour l'organisation</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH peut soutenir le développement de programmes de résilience centrés sur l'humain qui complètent les pratiques existantes de sécurité opérationnelle, de gestion du personnel et de protection des infrastructures.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">L'approche peut être adaptée à la production d'énergie conventionnelle, à la distribution d'électricité, aux énergies renouvelables, à la gestion de réseaux, aux services publics et à d'autres environnements d'infrastructures critiques.</p><h3 class="pg-h3">Partenaires potentiels</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Producteurs d'énergie, opérateurs de distribution d'électricité et de gaz, entreprises d'énergies renouvelables, centres de contrôle de réseaux, services publics, opérateurs d'infrastructures et prestataires de services techniques.</p></div></details><details class="sector"><summary><img class="sector-thumb" src="img-arch-rail.webp" alt="ARCH Rail et systèmes ferroviaires" loading="lazy"><span class="sector-head"><span class="sector-title">C. ARCH Rail et systèmes ferroviaires</span><span class="sector-for">Pour les opérateurs ferroviaires, gestionnaires d'infrastructure et organisations de transport.</span></span><span class="sector-more">En savoir plus</span></summary><div class="sector-body"><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Les opérations ferroviaires exigent une coordination entre conducteurs, régulateurs de trafic, dispatcheurs, équipes d'infrastructure, personnel de maintenance et personnel de gare.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">La fiabilité opérationnelle dépend non seulement des systèmes techniques, mais aussi de l'attention, de la communication, de la conscience de la situation et de la capacité à réagir de façon appropriée à l'évolution des circonstances.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH explore des programmes de performance humaine adaptés aux environnements de travail ferroviaires.</p><h3 class="pg-h3">Principaux défis traités</h3><ul class="pg-list"><li>Fatigue et vigilance lors de services prolongés.</li><li>Gestion de l'attention dans des tâches opérationnelles répétitives.</li><li>Charge cognitive dans la régulation du trafic et la répartition.</li><li>Communication lors des changements d'équipe.</li><li>Coordination entre conducteurs, régulateurs et équipes d'infrastructure.</li><li>Conscience de la situation lors de perturbations.</li><li>Facteurs humains dans les activités de maintenance et d'intervention d'urgence.</li></ul><h3 class="pg-h3">Solutions ARCH possibles</h3><ul class="pg-list"><li>Programmes volontaires de sensibilisation à la fatigue et au bien-être.</li><li>Outils d'autoévaluation et de prise de conscience de la récupération.</li><li>Exercices de simulation par scénarios.</li><li>Activités de prise de décision et d'entraînement à l'attention.</li><li>Ateliers de communication et de coordination.</li><li>Formation aux facteurs humains pour les équipes opérationnelles.</li><li>Séances structurées de récupération et de résilience.</li><li>Évaluation des résultats de formation et des retours des participants.</li></ul><h3 class="pg-h3">Valeur potentielle pour l'organisation</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH peut aider les organisations ferroviaires à développer une compréhension plus systématique des facteurs humains, à renforcer la résilience du personnel et à compléter les systèmes existants de sécurité et de gestion opérationnelle.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Les applications possibles comprennent le transport ferroviaire de voyageurs, le fret, l'infrastructure ferroviaire, les services de maintenance, la gestion du trafic et la coordination logistique.</p><h3 class="pg-h3">Partenaires potentiels</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Opérateurs ferroviaires, gestionnaires d'infrastructure, entreprises de fret, centres de formation ferroviaire, organisations de maintenance, autorités de transport et prestataires de services techniques.</p></div></details><details class="sector"><summary><img class="sector-thumb" src="img-arch-aviation.webp" alt="ARCH Aviation et aérospatial" loading="lazy"><span class="sector-head"><span class="sector-title">D. ARCH Aviation et aérospatial</span><span class="sector-for">Pour les opérateurs aériens, équipages, services aéroportuaires et organismes de formation aéronautique.</span></span><span class="sector-more">En savoir plus</span></summary><div class="sector-body"><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">L'aviation est l'un des exemples les plus clairs d'un environnement où performance humaine et systèmes techniques doivent fonctionner ensemble.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Pilotes, personnel de cabine, professionnels du contrôle aérien, personnel au sol, spécialistes de maintenance et coordinateurs opérationnels travaillent dans des environnements où la charge de travail, l'attention, la communication et la prise de décision peuvent être critiques.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH s'appuie sur la compréhension des facteurs humains en aviation et explore des possibilités de développer des programmes complémentaires de résilience, de formation et de bien-être.</p><h3 class="pg-h3">Principaux défis traités</h3><ul class="pg-list"><li>Gestion de la charge de travail et attention soutenue.</li><li>Sensibilisation à la fatigue et récupération.</li><li>Prise de décision sous contrainte de temps.</li><li>Conscience de la situation dans des conditions opérationnelles changeantes.</li><li>Communication et coordination de l'équipage.</li><li>Facteurs humains dans les opérations au sol et la maintenance.</li><li>Adaptabilité et réaction à des scénarios inattendus.</li><li>Résilience psychologique dans des environnements professionnels exigeants.</li></ul><h3 class="pg-h3">Solutions ARCH possibles</h3><ul class="pg-list"><li>Programmes volontaires de bien-être et de sensibilisation à la fatigue.</li><li>Outils d'autoévaluation et de prise de conscience de la charge de travail.</li><li>Exercices de prise de décision par simulation.</li><li>Formation par scénarios à la communication et à la coordination.</li><li>Activités d'apprentissage liées à la gestion des ressources de l'équipage.</li><li>Exercices d'attention et de performance cognitive.</li><li>Programmes de gestion du stress et de récupération.</li><li>Ateliers sur les facteurs humains pour le personnel aéronautique.</li></ul><h3 class="pg-h3">Valeur potentielle pour l'organisation</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH vise à compléter la formation aéronautique établie, la gestion de la sécurité et les pratiques de gestion du risque de fatigue en explorant des outils et formats d'apprentissage supplémentaires centrés sur l'humain.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Elle n'a pas vocation à remplacer la réglementation aéronautique, la formation approuvée, les procédures de sécurité opérationnelle ni les systèmes formels de gestion du risque de fatigue.</p><h3 class="pg-h3">Partenaires potentiels</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Compagnies aériennes, opérateurs aéronautiques régionaux et cargo, prestataires de services aéroportuaires, organismes de formation aéronautique, sociétés d'assistance au sol, organismes de maintenance et instituts de recherche aéronautique.</p></div></details><details class="sector"><summary><img class="sector-thumb" src="img-arch-municipal.webp" alt="ARCH Services communaux et publics" loading="lazy"><span class="sector-head"><span class="sector-title">E. ARCH Services communaux et publics</span><span class="sector-for">Pour les communes, institutions publiques et organisations de services locaux.</span></span><span class="sector-more">En savoir plus</span></summary><div class="sector-body"><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Les services publics dépendent de personnes qui travaillent directement avec les communautés, les infrastructures, les besoins sociaux et l'évolution des conditions locales.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Les agents communaux, travailleurs sociaux, équipes de services publics et coordinateurs communautaires peuvent connaître une charge de travail exigeante, une pression émotionnelle et des responsabilités complexes.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH propose des programmes adaptables qui relient le bien-être du personnel à des services publics plus solides et plus résilients.</p><h3 class="pg-h3">Principaux défis traités</h3><ul class="pg-list"><li>Stress professionnel et gestion de la charge de travail.</li><li>Bien-être des agents communaux et des services publics.</li><li>Communication et coopération au sein de l'équipe.</li><li>Adaptabilité lors des changements organisationnels.</li><li>Exigences émotionnelles du travail en contact avec le public.</li><li>Inclusion numérique et adoption des nouvelles technologies.</li><li>Résilience de la communauté et participation sociale.</li></ul><h3 class="pg-h3">Solutions ARCH possibles</h3><ul class="pg-list"><li>Programmes de bien-être du personnel communal.</li><li>Ateliers sur la résilience et la gestion du stress.</li><li>Autoévaluation volontaire du bien-être.</li><li>Exercices de cohésion d'équipe et de communication.</li><li>Activités de compétences numériques et de culture de l'IA.</li><li>Formation pour les coordinateurs communautaires.</li><li>Programmes de vieillissement en bonne santé et de participation active.</li><li>Initiatives communautaires inclusives.</li></ul><h3 class="pg-h3">Valeur potentielle pour l'organisation</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH peut aider les communes à développer des approches intégrées du bien-être du personnel, de la participation communautaire, de l'inclusion numérique et de la résilience sociale.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Les programmes peuvent être adaptés aux priorités et aux ressources de chaque commune et institution locale.</p><h3 class="pg-h3">Partenaires potentiels</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Communes, ministères, agences publiques, services sociaux, centres communautaires, services publics, associations locales et organisations de développement régional.</p></div></details><details class="sector"><summary><span class="sector-ico">🎓</span><span class="sector-head"><span class="sector-title">F. ARCH Santé, éducation et recherche</span><span class="sector-for">Pour les hôpitaux, universités, institutions de recherche et organisations éducatives.</span></span><span class="sector-more">En savoir plus</span></summary><div class="sector-body"><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Les environnements de santé, d'éducation et de recherche reposent sur une concentration soutenue, un jugement professionnel, la communication et la capacité à gérer des charges de travail complexes.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH explore des possibilités de soutenir ces environnements par la formation centrée sur l'humain, des programmes de bien-être et la recherche collaborative.</p><h3 class="pg-h3">Applications en santé</h3><ul class="pg-list"><li>Programmes de bien-être et de prise de conscience de la charge de travail pour le personnel de santé.</li><li>Ateliers de récupération et de résilience.</li><li>Exercices de communication et de coordination en équipe.</li><li>Sensibilisation aux facteurs humains dans des environnements de travail exigeants.</li><li>Études pilotes volontaires respectueuses de la vie privée.</li><li>Évaluation de la participation au programme et des retours.</li></ul><h3 class="pg-h3">Applications en éducation</h3><ul class="pg-list"><li>Exercices d'attention et de prise de décision.</li><li>Culture numérique et éducation responsable à l'IA.</li><li>Apprentissage par simulation.</li><li>Ateliers pratiques sur les technologies.</li><li>Activités de résilience et d'autogestion.</li><li>Programmes pour étudiants, enseignants et personnel de formation.</li></ul><h3 class="pg-h3">Applications en recherche</h3><ul class="pg-list"><li>Études collaboratives de la performance humaine et du bien-être.</li><li>Évaluation de méthodologies pilotes appuyées par des appareils portables.</li><li>Recherche sur la charge cognitive et la fatigue déclarée.</li><li>Recherche sur l'apprentissage par simulation.</li><li>Développement et test d'approches d'évaluation centrées sur l'humain.</li><li>Projets conjoints avec des universités et des institutions spécialisées.</li></ul><h3 class="pg-h3">Valeur potentielle pour l'organisation</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Les programmes peuvent être adaptés aux priorités de chaque institution et développés par une coopération pilote.</p><h3 class="pg-h3">Partenaires potentiels</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Hôpitaux, réseaux de santé, universités, écoles professionnelles, centres de recherche, fondations éducatives, organismes de formation professionnelle et développeurs de technologies.</p></div></details><details class="sector"><summary><span class="sector-ico">🤝</span><span class="sector-head"><span class="sector-title">G. ARCH Résilience communautaire et sociale</span><span class="sector-for">Pour les communautés, les personnes âgées, les vétérans, les personnes déplacées et les programmes sociaux inclusifs.</span></span><span class="sector-more">En savoir plus</span></summary><div class="sector-body"><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">La résilience n'est pas seulement un défi organisationnel ou industriel. C'est aussi un élément fondamental de communautés saines et durables.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH comporte une dimension communautaire visant à soutenir la participation, le bien-être, le lien social, le développement personnel et l'adaptation à des circonstances changeantes.</p><h3 class="pg-h3">Domaines prioritaires</h3><ul class="pg-list"><li>Vieillissement en bonne santé et participation active.</li><li>Soutien aux vétérans et aux personnes déplacées.</li><li>Inclusion sociale et intégration communautaire.</li><li>Développement des jeunes et acquisition de compétences.</li><li>Initiatives de bien-être pour les groupes vulnérables.</li><li>Participation communautaire et activités intergénérationnelles.</li><li>Inclusion numérique et accès aux nouvelles technologies.</li><li>Éducation à la résilience et à l'autogestion.</li></ul><h3 class="pg-h3">Solutions ARCH possibles</h3><ul class="pg-list"><li>Ateliers de bien-être communautaire.</li><li>Activités de groupe axées sur la résilience et l'autorégulation.</li><li>Compétences numériques et éducation aux technologies.</li><li>Apprentissage inclusif par simulation.</li><li>Programmes de vieillissement en bonne santé.</li><li>Activités d'entraide et de participation communautaire.</li><li>Partenariats avec des organisations sociales et culturelles.</li><li>Programmes pilotes locaux développés avec les communes et les fondations.</li></ul><h3 class="pg-h3">Valeur potentielle pour l'organisation</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH cherche à aider les communautés à accéder à des outils pratiques de développement personnel, de bien-être et de participation sociale, tout en créant des occasions de coopération entre institutions publiques, société civile et partenaires technologiques.</p><h3 class="pg-h3">Partenaires potentiels</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Communes, organisations sociales, fondations, ONG, centres communautaires, organisations de soutien aux vétérans, services d'intégration et établissements d'enseignement.</p></div></details><div class="hdiv"></div><div class="sh-label">3. Technologie et innovation</div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--pg-accent-text,#f2c84b);font-weight:700;letter-spacing:0.04em;margin-bottom:8px;">Relier les approches centrées sur l'humain aux technologies émergentes</p><div class="pg-img"><img src="img-arch-dashboard.webp" alt="ARCH — tableau de bord du bien-être et de la performance" loading="lazy"></div><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">ARCH explore comment des technologies appropriées peuvent soutenir une meilleure compréhension de la performance humaine et le développement de programmes de résilience. La technologie n'est pas un objectif en soi. C'est un outil qui doit servir des finalités humaines, organisationnelles et de recherche clairement définies.</p><div class="pg-area"><h3 class="pg-h3">Technologie portable et suivi de l'état humain</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Les appareils portables et les capteurs physiologiques peuvent fournir des informations utiles pour certains programmes pilotes.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Applications possibles :</p><ul class="pg-list"><li>Suivi de la fréquence cardiaque.</li><li>Analyse de la variabilité de la fréquence cardiaque lorsque l'appareil et le protocole de mesure le permettent.</li><li>Indicateurs d'activité et de récupération.</li><li>Évaluations volontaires déclarées du bien-être et de la fatigue.</li><li>Comparaison d'indicateurs choisis avant et après des activités de formation ou de récupération.</li></ul><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH explore l'usage de technologies portables, dont Polar H10, dans le cadre de son développement initial et de ses activités pilotes.</p><p style="font-size:0.8rem;font-weight:500;color:#475569;font-style:italic;line-height:1.5;margin:6px 0 18px;">Les mesures doivent être interprétées dans leurs limites techniques et contextuelles. Des indicateurs physiologiques isolés ne peuvent, à eux seuls, établir le niveau de stress, de fatigue, de santé ou d'aptitude opérationnelle d'une personne.</p></div><div class="pg-area"><h3 class="pg-h3">Analyses assistées par l'IA</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">ARCH vise à explorer des outils assistés par l'IA pour organiser et interpréter les informations pertinentes.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Fonctions possibles :</p><ul class="pg-list"><li>Identification de schémas et tendances dans des données fournies volontairement.</li><li>Analyse structurée des résultats d'autoévaluation.</li><li>Agrégation des retours sur le programme.</li><li>Soutien à l'évaluation des activités de formation et de récupération.</li><li>Élaboration de rapports informatifs pour les participants et les organisations.</li><li>Aide à la conception de programmes de résilience individuels et collectifs.</li></ul><p style="font-size:0.8rem;font-weight:500;color:#475569;font-style:italic;line-height:1.5;margin:6px 0 18px;">Tout usage de l'IA doit être limité à sa finalité, transparent et soumis à une supervision humaine appropriée.</p></div><div class="pg-area"><h3 class="pg-h3">Simulation et environnements numériques</h3><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">La simulation permet d'explorer les réactions humaines à des situations complexes dans des environnements d'apprentissage contrôlés.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">Applications possibles :</p><ul class="pg-list"><li>Prise de décision par scénarios.</li><li>Exercices d'attention et de coordination.</li><li>Formation à la conscience de la situation.</li><li>Exercices de communication en équipe.</li><li>Développement de compétences numériques et technologiques.</li></ul></div><div class="pg-box" style="border-color:#2fe0cc;"><h3 class="pg-h3">Usage responsable</h3><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">ARCH ne soigne pas. ARCH détecte, informe et recommande. Elle complète — sans jamais les remplacer — les soins de santé, les services sociaux et le jugement clinique.</p><p style="font-size:0.9rem;font-weight:500;color:#334155;line-height:1.52;margin-bottom:12px;">La participation au suivi est volontaire, et le suivi personnel n'a pas vocation à devenir une surveillance des employés.</p></div><div class="pg-cta"><div class="pg-cta-title">Devenez partenaire pilote d'ARCH</div><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Vous souhaitez devenir l'une des premières organisations pilotes du Luxembourg ? Les programmes pilotes sont adaptés à la taille de l'organisation et aux modules choisis.</p><p style="font-size:0.95rem;font-weight:500;color:#0F172A;line-height:1.55;margin-bottom:12px;">Une initiative de KOLOSVIT ASBL, Luxembourg.</p><button class="btn-gold" onclick="showPage('page-contacts')">Contacter KOLOSVIT ASBL →</button></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-copy">&#169; 2026 KOLOSVIT ASBL &middot; RCS F15616 | <a href="privacy.html#fr">Politique de confidentialit&#233;</a></div>
+  <div class="footer-founded">Association europ&#233;enne d&#8217;origine ukrainienne</div>
+  <div id="etym" class="footer-etym">* <strong>KOLOSVIT</strong> &#8212; jeu de mots&#160;: <strong>Kolo</strong> (Cercle/Union) + <strong>Svit</strong> (Lumi&#232;re/Monde/Paix) &#8212; un cercle de lumi&#232;re et une communaut&#233; mondiale. <strong>Kolos</strong> (&#201;pi de bl&#233;) + <strong>Vita</strong> (grec&#160;: Vie) &#8212; le grain de la vie, symbole de r&#233;silience et de croissance.</div>
+</footer>
+</body>
+</html>
